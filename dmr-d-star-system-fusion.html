@@ -4,11 +4,11 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="description" content="Tags List">
-        <meta name="keywords" content="">
+        <meta name="description" content="DMR, D-Star, System Fusion Several people asked whether QRadioLink can have support for decoding other amateur radio digital modes, which are very common these days on amateur radio bands. DMR is an ...">
+        <meta name="keywords" content="amateur radio, D-Star, DMR, YSF">
         <link rel="icon" href="/favicon.ico">
 
-        <title>Tags - QRadioLink</title>
+        <title>DMR, D-Star, System Fusion - QRadioLink</title>
 
         <!-- Stylesheets -->
         <link href="/theme/css/bootstrap.min.css" rel="stylesheet">
@@ -66,17 +66,23 @@
             <!-- /Static navbar -->
 
             <!-- Header -->
+    <!-- Header -->
     <div class="container header-wrapper">
         <div class="row">
               <div class="col-lg-12">
                   <div class="header-content">
-                      <h1 class="header-title text-uppercase">Tags</h1>
+                      <h1 class="header-title">DMR, D-Star, System Fusion</h1>
+                      <p class="header-date">By <a href="/author/adrian.html">Adrian</a>, Sat 21 October 2017, in category <a href="/category/amateur-radio.html">Amateur radio</a></p>
                       <div class="header-underline"></div>
-                      <p class="header-subtitle header-subtitle-homepage">Tags List</p>
+                      <div class="clearfix"></div>
+                      <p class="pull-right header-tags">
+                          <span class="glyphicon glyphicon-tags mr5" aria-hidden="true"></span>
+<a href="/tag/amateur-radio.html">amateur radio</a>, <a href="/tag/d-star.html">D-Star</a>, <a href="/tag/dmr.html">DMR</a>, <a href="/tag/ysf.html">YSF</a>                      </p>
                   </div>
               </div>
         </div>
     </div>
+    <!-- /Header -->
             <!-- /Header -->
 
         </div>
@@ -84,24 +90,34 @@
 
 
         <!-- Content -->
-    <div class="archive-container">
-        <div class="container content archive">
-            <h2><a href="/tags.html">Tags List</a></h2>
-            <dl class="dl-horizontal">
-            	<dt><span class="label label-default">2</span> articles tagged</dt>
-            	<dd><a href="/tag/amateur-radio.html">amateur radio</a></dd>
-            	<dt><span class="label label-default">1</span> article tagged</dt>
-            	<dd><a href="/tag/amplifiers.html">amplifiers</a></dd>
-            	<dt><span class="label label-default">1</span> article tagged</dt>
-            	<dd><a href="/tag/d-star.html">D-Star</a></dd>
-            	<dt><span class="label label-default">1</span> article tagged</dt>
-            	<dd><a href="/tag/dmr.html">DMR</a></dd>
-            	<dt><span class="label label-default">1</span> article tagged</dt>
-            	<dd><a href="/tag/hardware.html">hardware</a></dd>
-            	<dt><span class="label label-default">1</span> article tagged</dt>
-            	<dd><a href="/tag/ysf.html">YSF</a></dd>
-            </dl>
-        </div>
+    <div class="container content">
+        <h2>DMR, D-Star, System Fusion</h2>
+<p>Several people asked whether QRadioLink can have support for decoding other amateur radio digital modes,
+which are very common these days on amateur radio bands.</p>
+<p><strong>DMR</strong> is an international standard standing for Digital Mobile Radio, developed by the 
+European Telecommunications Standards Institute (ETSI) in standard TS 102 361.
+There are plenty of manufacturers using this standard, and the price of terminals can be very cheap.
+DMR uses 4FSK modulation.</p>
+<p><strong>D-Star</strong> is a dedicated standard for amateur radio digital voice, with fewer manufacturers of radios and 
+somewhat higher prices. The modulation type is GMSK.</p>
+<p><strong>System Fusion</strong> is another amateur radio standard developed by Yaesu and a relative new-comer on the market.
+The modulation used by System Fusion is C4FM, a variant of 4FSK.</p>
+<p>All these modes have several things in common: they work with an FM radio and they use a proprietary voice codec
+called AMBE. Implementing receive only support for them would be almost trivial, thanks to Clayton Smith's
+<a href="https://github.com/argilo/gr-dsd">gr-dsd</a>. I've done it before with Gqrx (see my 
+<a href="https://github.com/kantooon/gqrx_fork">fork for digital modes</a> and I could do it again.
+However I see no point in adding decode only in QRadioLink. One should be able to also transmit these modes,
+not just receive them. In addition, the fact that they use a proprietary audio codec means I can't distribute the complete
+code without entering a legal grey area which I'd rather avoid.</p>
+<p>As far as I know, the most complete implementation of these radio protocols is Jonathan Naylor's 
+<a href="https://github.com/g4klx/MMDVMHost">MMDVMHost</a>. One could possibly use it for SDR purposes with some non-trivial changes.
+However, I believe that the moment to add support for modes which use a proprietary codec has not come yet.
+People are welcome though to try and add support for DMR, D-Star and YSF, but I will probably not merge any pull requests
+at the moment.</p>
+<hr />
+
+
+        
     </div>
         <!-- /Content --> 
 
