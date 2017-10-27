@@ -105,8 +105,8 @@ The modulation used by System Fusion is C4FM, a variant of 4FSK.</p>
 <p>All these modes have several things in common: they work with an FM radio and they use a proprietary voice codec
 called AMBE. Implementing receive only support for them would be almost trivial, thanks to Clayton Smith's
 <a href="https://github.com/argilo/gr-dsd">gr-dsd</a>. I've done it before with Gqrx (see my 
-<a href="https://github.com/kantooon/gqrx_fork">fork for digital modes</a> and I could do it again.
-However I see no point in adding decode only in QRadioLink. One should be able to also transmit these modes,
+<a href="https://github.com/kantooon/gqrx_fork">fork for digital modes</a> ) and I could do it again.
+However I see no point in adding decode only support in QRadioLink. One should be able to also transmit these modes,
 not just receive them. In addition, the fact that they use a proprietary audio codec means I can't distribute the complete
 code without entering a legal grey area which I'd rather avoid.</p>
 <p>As far as I know, the most complete implementation of these radio protocols is Jonathan Naylor's 

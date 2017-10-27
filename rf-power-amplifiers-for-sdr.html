@@ -105,7 +105,7 @@ In some environments, like urban or mountainous terrain, VHF-UHF signals require
 You can calculate the link budget for your case using a radio prediction software like 
 <a href="https://github.com/QDeltaSoft/qradiopredict">QRadioPredict</a> or <a href="http://www.qsl.net/kd2bd/splat.html">Splat</a>.</p>
 <hr />
-<p>Your SDR device will most likely require an amplifier to boost the signal to a level where it can make it to the destination..
+<p>Your SDR device will most likely require an amplifier to boost the signal to a level where it can make it to the destination.
 Whether you construct your own amplifier or you buy one from the market, there are some things you need to know
 before spending time or money on this.
 An analog FM signal does not have high linearity requirements. In fact, FM can make use of non-linear class C amplifiers,
@@ -119,14 +119,14 @@ spurious emissions. This can be seen in the following images:</p>
 <hr />
 <p>Amplifiers are usually categorized by one of their main characteristics: P1dB. In simple terms, this is the output power at
 which the amplifier deviates from a linear mode and compresses the signal by 1 dB. 
-For example, a braodband linear power amplifier with P1dB of 27 dBm which can be found
+For example, a broadband linear power amplifier with P1dB of 27 dBm which can be found
 on the market cheap ($30) is usually quoted as a 0.5 W amplifier. However, you should be aware that depending on the quality,
 this amplifier will begin to distort the signal well below this quoted output power, and may be capable of only 23 dBm (0.25 W)
 before it loses its linear characteristics. As seen above, this has a large effect on digital signals.
 Most SDR devices have control over the gain of their final RF output stage. You may need to back off the power level
 into the RF power amplifier until you no longer see distorsion of the signal on the scope. Thankfully, digital voice modes
-with low bitrate codecs like Codec2 require significant less power than FM to demodulate the signal.
-This means that a 23 dBm (0.25 W) will get you the same distance as a 5 Watt analog FM radio.</p>
+with low bitrate codecs like Codec2 require significantly less power than FM to demodulate the signal.
+This means that a 23 dBm (0.25 W) digital radio will get you the same distance as a 5 Watt analog FM radio.</p>
 <hr />
 <p>In addition, before amplifying the signal, you will need to clean it up from out-of-band emissions of the SDR device.
 By not pushing it and keeping the final RF stage of the SDR device within its linear mode, 
