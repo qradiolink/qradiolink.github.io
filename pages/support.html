@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="description" content="Configuration and running Start the application using the command line and check for any errors. Please see the Setup tab first and make sure to click Save before starting TX or RX modes, otherwise ...">
+        <meta name="description" content="Configuration and running Start the application using the command line and check for any errors. Logging to a file is by default disabled. Please see the Setup tab first and make sure to click Save ...">
         <meta name="keywords" content="">
         <link rel="icon" href="/favicon.ico">
 
@@ -85,10 +85,12 @@
         <!-- Content -->
     <div class="container content">
         <h2>Configuration and running</h2>
-<p>Start the application using the command line and check for any errors.</p>
-<p>Please see the Setup tab first and make sure to click Save before starting TX or RX modes, otherwise you may get a segmentation fault</p>
+<p>Start the application using the command line and check for any errors. Logging to a file is by default disabled.</p>
+<p>Please see the Setup tab first and make sure to click Save before starting TX or RX modes,
+otherwise you may get a segmentation fault.</p>
 <p>Setup options include RX and TX frequency correction (in PPM), device access strings, 
-RX and TX antenna settings as a string and your callsign which will be sent at the start of the transmission.</p>
+RX and TX antenna settings as a string and your callsign (maximum 7 ASCII characters)
+which will be sent at the start and end of the transmission.</p>
 <ul>
 <li>The configuration file is located in $HOME/.config/qradiolink.cfg</li>
 </ul>
@@ -102,7 +104,8 @@ RX and TX antenna settings as a string and your callsign which will be sent at t
 signal with the constellation sink or the spectrum display (FFT/waterfall).</p>
 <p><img alt="Tune page" src="/images/qradiolink2_.png" title="Tune page options" /></p>
 <p>Video page will display received video stream. Right now only a limited number of cameras are 
-supported for TX, and ISO settings/ exposure of the camera might cause too low a framerate, which can't be transmitted </p>
+supported for TX, and ISO settings/ exposure of the camera might cause too low a framerate, which can't be transmitted 
+properly.</p>
 <hr />
 <h2>Issues</h2>
 <p>Please report any issues you have encountered using the <a href="https://github.com/kantooon/qradiolink/issues">Github bug tracker</a></p>
