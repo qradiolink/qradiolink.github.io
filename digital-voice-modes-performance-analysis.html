@@ -96,45 +96,47 @@
 and some technical characteristics. All digital voice modems can still be improved upon for better RF performance.
 The modems can also be used with text messages and other data with the same performance.</p>
 <ol>
-<li><strong>BPSK with Codec2 1400 bits/s</strong></li>
-</ol>
-<p>This mode is 4.8 kHz wide and performs fairly well with weak signals. It can be used as a reference to compare all the 
+<li>
+<p><strong>BPSK with Codec2 1400 bits/s</strong> 
+This mode is 4.8 kHz wide and performs fairly well with weak signals. It can be used as a reference to compare all the 
 other modes. It can successfully decode voice 10-12 dB below the level of any audible FM transmissions.
 It requires an SNR of 4 dB for 99% error free voice, and it is the most stable digital mode.</p>
-<ol>
-<li><strong>BPSK with Codec2 700 bits/s</strong></li>
-</ol>
-<p>This mode (700B in the GUI) is 2.4 kHz wide and is the best for the weakest signals. It requires 3 dB less power than
+</li>
+<li>
+<p><strong>BPSK with Codec2 700 bits/s</strong> 
+This mode (700B in the GUI) is 2.4 kHz wide and is the best for the weakest signals. It requires 3 dB less power than
 BPSK 1400 to decode. The SNR required is the same as above, but because it uses less bandwidth, it is best employed
 when the signal is hardly audible on SSB. You <strong>will</strong> get spurious decodes even when there is no signal to be received,
 so unless the transmitter is very weak, it will be more comfortable to use one of the other modes.
 Both BPSK modes use rate 1/2 FEC and Viterbi soft symbol decoding.</p>
-<ol>
-<li><strong>DQPSK with Codec2 1400 bits/s</strong></li>
-</ol>
-<p>This mode has the narrowest bandwidth, it uses only 1.6 kHz. It requires 7 dB SNR and 3 dB more power than BPSK (1.) to decode.
+</li>
+<li>
+<p><strong>DQPSK with Codec2 1400 bits/s</strong> 
+This mode has the narrowest bandwidth, it uses only 1.6 kHz. It requires 7 dB SNR and 3 dB more power than BPSK (1.) to decode.
 Best employed on crowded portions of the bands. It uses no FEC at the moment and hard decision decoding somewhat limits
 the performance. Because of the narrow bandwidth, it is a little hard to tune to.</p>
-<ol>
-<li><strong>2FSK with Codec2 1400 bits/s</strong></li>
-</ol>
-<p>This mode is 4 kHz wide and requires 5 dB more power to decode than BPSK (1.) Currently it has no FEC, and can be used
+</li>
+<li>
+<p><strong>2FSK with Codec2 1400 bits/s</strong> 
+This mode is 4 kHz wide and requires 5 dB more power to decode than BPSK (1.) Currently it has no FEC, and can be used
 with a non-linear amplifier. Most development efforts are currently concentrated on this mode.</p>
-<ol>
-<li><strong>4FSK with Codec2 1400 bits/s</strong></li>
-</ol>
-<p>A 5 kHz wide mode, it is probably the least optimized mode. Similar in performance with 2FSK (4.), can be used for
+</li>
+<li>
+<p><strong>4FSK with Codec2 1400 bits/s</strong> 
+A 5 kHz wide mode, it is probably the least optimized mode. Similar in performance with 2FSK (4.), can be used for
 experimentation. Easiest mode to improve.</p>
-<ol>
-<li><strong>DQPSK with Opus 9600 bits/</strong></li>
-</ol>
-<p>This mode is 8 kHz wide and requires a SNR of 12 dB for 99% error free decode. It is a wideband mode that has good voice 
+</li>
+<li>
+<p><strong>DQPSK with Opus 9600 bits/</strong> 
+This mode is 8 kHz wide and requires a SNR of 12 dB for 99% error free decode. It is a wideband mode that has good voice 
 quality and works at about the same power levels where you would expect a noisy FM reception. No FEC is employed.
 This mode syncs very fast and thus has low latency.</p>
-<ol>
-<li><strong>4FSK with Opus 9600 bits/s</strong></li>
+</li>
+<li>
+<p><strong>4FSK with Opus 9600 bits/s</strong> 
+Least optimised mode, it might benefit from some developer attention. 3 dB worse performance than mode (6.) </p>
+</li>
 </ol>
-<p>Least optimised mode, it might benefit from some developer attention. 3 dB worse performance than mode (6.) </p>
 
 
         
