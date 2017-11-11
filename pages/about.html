@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="description" content="QRadioLink QRadioLink is a GUI for a collection of Gnuradio modems, built for hobbyists, tinkerers and radio enthusiasts, which allows experimenting with SDR hardware using different digital and ...">
+        <meta name="description" content="About QRadioLink QRadioLink is a GUI for a collection of Gnuradio modules, built for hobbyists, tinkerers and radio enthusiasts, which allows experimenting with SDR hardware using different digital ...">
         <meta name="keywords" content="">
         <link rel="icon" href="/favicon.ico">
 
@@ -84,9 +84,9 @@
 
         <!-- Content -->
     <div class="container content">
-        <h2>QRadioLink</h2>
-<p><em>QRadioLink</em> is a GUI for a collection of Gnuradio modems, built for hobbyists, tinkerers and radio enthusiasts,
-which allows experimenting with SDR hardware using different digital and analog modes.</p>
+        <h2>About QRadioLink</h2>
+<p><em>QRadioLink</em> is a GUI for a collection of Gnuradio modules, built for hobbyists, tinkerers and radio enthusiasts,
+which allows experimenting with SDR hardware using different digital and analog modes and an easy to use user interface.</p>
 <p>It can also be used as an SDR transceiver for amateur radio.</p>
 <p>Possible applications:</p>
 <ul>
@@ -101,49 +101,31 @@ which allows experimenting with SDR hardware using different digital and analog 
 <h2>Features</h2>
 <ul>
 <li>Receives and transmits analog voice, digital voice, digital video, text messages, IP protocol.</li>
-<li>CTCSS encoder and decoder for analog FM</li>
 <li>Narrow band digital voice mode with <a href="http://rowetel.com/codec2.html">Codec2</a> or wideband digital voice mode with <a href="https://xiph.org">Opus</a>.</li>
-<li>Digital Modems:  <strong>BPSK</strong>, <strong>QPSK</strong>, <strong>2FSK</strong>, <strong>4FSK</strong></li>
+<li>Digital modulations:  <strong>BPSK</strong>, <strong>DQPSK</strong>, <strong>2FSK</strong>, <strong>4FSK</strong></li>
 <li>Analog modes: narrow FM, FM, Wide FM, AM, SSB</li>
-<li>Digital modes: Codec2 700B, Codec2 1400, Opus, JPEG low resolution video</li>
+<li>CTCSS encoder and decoder for analog FM</li>
+<li>Digital modes: Codec2 700B, Codec2 1400, Opus, low resolution video</li>
 <li>Video formats: JPEG</li>
 <li>Supported hardware: <a href="https://ettus.com"><strong>Ettus USRP</strong></a>, <a href="https://osmocom.org/projects/sdr/wiki/rtl-sdr"><strong>RTL-SDR</strong></a>, HackRF, BladeRF and in general all devices 
 supported by <a href="https://osmocom.org/projects/sdr/wiki/GrOsmoSDR"><strong>gr-osmosdr</strong></a></li>
 </ul>
 <hr />
-<h2>Typical receiver performance</h2>
-<table>
-<thead>
-<tr>
-<th>Mode</th>
-<th align="left">Condition</th>
-<th align="right">Sensitivity (dBm)</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Codec2 <strong>700B</strong></td>
-<td align="left">20 db SINAD</td>
-<td align="right">-115</td>
-</tr>
-<tr>
-<td>Codec2 <strong>1400</strong></td>
-<td align="left">20 db SINAD</td>
-<td align="right">-112</td>
-</tr>
-<tr>
-<td>Opus</td>
-<td align="left">20 db SINAD</td>
-<td align="right">-102</td>
-</tr>
-<tr>
-<td>Narrow FM</td>
-<td align="left">12 db SINAD</td>
-<td align="right">-118</td>
-</tr>
-</tbody>
-</table>
-<p><em>Measured on an RTL-SDR USB stick, R820T tuner.</em></p>
+<h2>Performance</h2>
+<p>For a more in depth analysis of digital voice modes performance and technical data, read
+<a href="/digital-voice-modes-performance-analysis.html">here</a> a description of each mode and some typical usage scenarios.</p>
+<p><strong>IMPORTANT</strong> </p>
+<p>If you want to add you own operating mode to QRadioLink, there is an easy way to do that.
+All you have to do is create a Gnuradio Companion flowgraph containing the blocks that your mode would use.
+You need not be concerned about how the data gets in and out of the flowgraph. Just create a random source and a 
+null sink and connect the as input and output. Also add a Qt GUI sink to demonstrate the characteristics of your mode.
+The sources and sinks will be automatically added in the source code with the correct values.</p>
+<p>Save the flowgraph in the <em>grc/</em> folder, create a Github account and submit a pull request to the QRadioLink repository.
+It may take some time to get the request processed and tested so the changes won't automatically get into the 
+master branch.</p>
+<p>It is recommended that you use only standard Gnuradio blocks. If you have to use Gnuradio out-of-tree modules, 
+please add a README file stating the location of the source code and why the modules is needed.</p>
+<p><em>Note: QRadioLink currently uses only the default Gnuradio blocks, but that could change in the future.</em></p>
 <hr />
     </div>
         <!-- /Content --> 

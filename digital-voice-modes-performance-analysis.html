@@ -4,11 +4,11 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="description" content="Posts by Adrian">
-        <meta name="keywords" content="">
+        <meta name="description" content="and some technical characteristics. Digital voice modes performance analysis Taking a closer look at the digital voice modes employed by QRadioLink, here is how they work, when they are best used and ...">
+        <meta name="keywords" content="Codec2, digital voice">
         <link rel="icon" href="/favicon.ico">
 
-        <title>Posts by Adrian - QRadioLink</title>
+        <title>Digital voice modes performance analysis - QRadioLink</title>
 
         <!-- Stylesheets -->
         <link href="/theme/css/bootstrap.min.css" rel="stylesheet">
@@ -66,17 +66,23 @@
             <!-- /Static navbar -->
 
             <!-- Header -->
+    <!-- Header -->
     <div class="container header-wrapper">
         <div class="row">
               <div class="col-lg-12">
                   <div class="header-content">
-                      <h1 class="header-title text-uppercase">Adrian</h1>
+                      <h1 class="header-title">Digital voice modes performance analysis</h1>
+                      <p class="header-date">By <a href="/author/adrian.html">Adrian</a>, Sun 05 November 2017, in category <a href="/category/hardware.html">Hardware</a></p>
                       <div class="header-underline"></div>
-                      <p class="header-subtitle header-subtitle-homepage">Posts archives</p>
+                      <div class="clearfix"></div>
+                      <p class="pull-right header-tags">
+                          <span class="glyphicon glyphicon-tags mr5" aria-hidden="true"></span>
+<a href="/tag/codec2.html">Codec2</a>, <a href="/tag/digital-voice.html">digital voice</a>                      </p>
                   </div>
               </div>
         </div>
     </div>
+    <!-- /Header -->
             <!-- /Header -->
 
         </div>
@@ -84,18 +90,57 @@
 
 
         <!-- Content -->
-    <div class="archive-container">
-        <div class="container content archive">
-            <h2><a href="/author/adrian.html">Posts</a></h2>
-            <dl class="dl-horizontal">
-            	<dt>Sun 05 November 2017</dt>
-            	<dd><a href="/digital-voice-modes-performance-analysis.html">Digital voice modes performance analysis</a></dd>
-            	<dt>Sun 22 October 2017</dt>
-            	<dd><a href="/rf-power-amplifiers-for-sdr.html">RF power amplifiers for SDR</a></dd>
-            	<dt>Sat 21 October 2017</dt>
-            	<dd><a href="/dmr-d-star-system-fusion.html">DMR, D-Star, System Fusion</a></dd>
-            </dl>
-        </div>
+    <div class="container content">
+        <p>and some technical characteristics.</p>
+<h2>Digital voice modes performance analysis</h2>
+<p>Taking a closer look at the digital voice modes employed by QRadioLink, here is how they work, when they are best used
+and some technical characteristics. All digital voice modems can still be improved upon for better RF performance.
+The modems can also be used with text messages and other data with the same performance.</p>
+<ol>
+<li>
+<p>BPSK with Codec2 1400 bits/s
+This mode is 4.8 kHz wide and performs fairly well with weak signals. It can be used as a reference to compare all the 
+other modes. It can successfully decode voice 10-12 dB below the level of any audible FM transmissions.
+It requires an SNR of 4 dB for 99% error free voice, and it is the most stable digital mode.</p>
+</li>
+<li>
+<p>BPSK with Codec2 700 bits/s
+This mode (700B in the GUI) is 2.4 kHz wide and is the best for the weakest signals. It requires 3 dB less power than
+BPSK 1400 to decode. The SNR required is the same as above, but because it uses less bandwidth, it is best employed
+when the signal is hardly audible on SSB. You <strong>will</strong> get spurious decodes even when there is no signal to be received,
+so unless the transmitter is very weak, it will be more comfortable to use one of the other modes.
+Both BPSK modes use rate 1/2 FEC and Viterbi soft symbol decoding.</p>
+</li>
+<li>
+<p>DQPSK with Codec2 1400 bits/s
+This mode has the narrowest bandwidth, it uses only 1.6 kHz. It requires 7 dB SNR and 3 dB more power than BPSK (1.) to decode.
+Best employed on crowded portions of the bands. It uses no FEC at the moment and hard decision decoding somewhat limits
+the performance. Because of the narrow bandwidth, it is a little hard to tune to.</p>
+</li>
+<li>
+<p>2FSK with Codec2 1400 bits/s
+This mode is 4 kHz wide and requires 5 dB more power to decode than BPSK (1.) Currently it has no FEC, and can be used
+with a non-linear amplifier. Most development efforts are currently concentrated on this mode.</p>
+</li>
+<li>
+<p>4FSK with Codec2 1400 bits/s
+A 5 kHz wide mode, it is probably the least optimized mode. Similar in performance with 2FSK (4.), can be used for
+experimentation. Easiest mode to improve.</p>
+</li>
+<li>
+<p>DQPSK with Opus 9600 bits/
+This mode is 8 kHz wide and requires a SNR of 12 dB for 99% error free decode. It is a wideband mode that has good voice 
+quality and works at about the same power levels where you would expect a noisy FM reception. No FEC is employed.
+This mode syncs very fast and thus has low latency.</p>
+</li>
+<li>
+<p>4FSK with Opus 9600 bits/s
+Least optimised mode, it might benefit from some developer attention. 3 dB worse performance than mode (6.) </p>
+</li>
+</ol>
+
+
+        
     </div>
         <!-- /Content --> 
 
