@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="description" content="About QRadioLink QRadioLink is a GUI for a collection of Gnuradio modules, built for hobbyists, tinkerers and radio enthusiasts, which allows experimenting with SDR hardware using different digital ...">
+        <meta name="description" content="About QRadioLink QRadioLink is a Linux SDR/VOIP application built on top of Gnuradio, made for hobbyists, tinkerers and radio enthusiasts, which allows experimenting with software defined radio ...">
         <meta name="keywords" content="">
         <link rel="icon" href="/favicon.ico">
 
@@ -85,46 +85,64 @@
         <!-- Content -->
     <div class="container content">
         <h2>About QRadioLink</h2>
-<p><em>QRadioLink</em> is a GUI for a collection of Gnuradio modules, built for hobbyists, tinkerers and radio enthusiasts,
-which allows experimenting with SDR hardware using different digital and analog modes and an easy to use user interface.</p>
-<p>It can also be used as an SDR transceiver for amateur radio.</p>
+<p><em>QRadioLink</em> is a Linux SDR/VOIP application built on top of <a href="https://www.gnuradio.org/">Gnuradio</a>, 
+made for hobbyists, tinkerers and radio enthusiasts,
+which allows experimenting with software defined radio hardware using different digital and analog modes and 
+an easy to use user interface.</p>
+<p>Its primary purpose is educational, but it can also be customized for low power private and public data communications
+on various frequency bands.
+Can also be used as an SDR transceiver for teaching students about radio communications.</p>
 <p>Possible applications:</p>
 <ul>
-<li>digital/analog walkie talkie</li>
-<li>baby monitor</li>
-<li>video camera streaming</li>
+<li>ISM band communications</li>
 <li>IoT devices</li>
-<li>radio LAN</li>
+<li>digital/analog walkie talkie</li>
+<li>Raspberry Pi hobby RF communications</li>
+<li>remote sensors monitoring</li>
+<li>remote audio and video monitoring</li>
 <li>robotics</li>
+<li>sattelite radio communications</li>
+<li>point to point private radio systems</li>
+<li>portable VHF-UHF SDR transceiver</li>
 </ul>
 <hr />
 <h2>Features</h2>
 <ul>
-<li>Receives and transmits analog voice, digital voice, digital video, text messages, IP protocol.</li>
-<li>Narrow band digital voice mode with <a href="http://rowetel.com/codec2.html">Codec2</a> or wideband digital voice mode with <a href="https://xiph.org">Opus</a>.</li>
-<li>Digital modulations:  <strong>BPSK</strong>, <strong>DQPSK</strong>, <strong>2FSK</strong>, <strong>4FSK</strong></li>
-<li>Analog modes: narrow FM, FM, Wide FM, AM, SSB</li>
+<li>VOIP connection between two or more stations operating in simplex or semi-duplex mode</li>
+<li>Direct VOIP talk-around</li>
+<li>Radio forwarding over VOIP</li>
+<li>TLS session encryption</li>
+<li>Transmit and receive analog voice, digital voice, text messages, digital video, IP protocol.</li>
+<li>Digital voice codecs: Codec2 700 bit/s, Codec2 1400 bit/s, Opus 9600 bit/s</li>
+<li>Narrow band digital voice mode with <a href="http://rowetel.com/codec2.html">Codec2</a> audio codec</li>
+<li>Wideband digital voice mode with <a href="https://xiph.org">Opus</a> audio codec</li>
+<li>Digital modulation:  <strong>BPSK</strong>, <strong>DQPSK</strong>, <strong>2FSK</strong>, <strong>4FSK</strong></li>
+<li>Analog modulation: narrow FM (5 kHz), FM (10 kHz), Wide FM (broadcast, receive-only), AM, SSB</li>
 <li>CTCSS encoder and decoder for analog FM</li>
-<li>Digital modes: Codec2 700B, Codec2 1400, Opus, low resolution video</li>
 <li>Video formats: JPEG</li>
-<li>Supported hardware: <a href="https://ettus.com"><strong>Ettus USRP</strong></a>, <a href="https://osmocom.org/projects/sdr/wiki/rtl-sdr"><strong>RTL-SDR</strong></a>, HackRF, BladeRF and in general all devices 
+<li>Touch screen friendly interface</li>
+<li>Supported hardware: <a href="https://ettus.com"><strong>Ettus USRP</strong></a>, <a href="https://osmocom.org/projects/sdr/wiki/rtl-sdr"><strong>RTL-SDR</strong></a>, HackRF, BladeRF, other devices 
 supported by <a href="https://osmocom.org/projects/sdr/wiki/GrOsmoSDR"><strong>gr-osmosdr</strong></a></li>
 </ul>
 <hr />
-<h2>Performance</h2>
+<h2>Digital mode performance</h2>
 <p>For a more in depth analysis of digital voice modes performance and technical data, read
 <a href="/digital-voice-modes-performance-analysis.html">here</a> a description of each mode and some typical usage scenarios.</p>
-<p><strong>IMPORTANT</strong> </p>
-<p>If you want to add you own operating mode to QRadioLink, there is an easy way to do that.
-All you have to do is create a Gnuradio Companion flowgraph containing the blocks that your mode would use.
+<h2>Design your own radio mode to suit your own needs</h2>
+<p>Since the software is open source, it can be easily understood and modified.
+If you want to add your own operating mode to QRadioLink, there is an easy way to do that.
+All you have to do is create a <a href="https://wiki.gnuradio.org/index.php/HowToUse#Graphical_signal_processing_development:_The_GNU_Radio_Companion_.28GRC.29">GRC</a>
+logical flowgraph containing the blocks that your mode would use.
 You need not be concerned about how the data gets in and out of the flowgraph. Just create a random source and a 
-null sink and connect the as input and output. Also add a Qt GUI sink to demonstrate the characteristics of your mode.
+null sink and connect the as input and output. Also add a Qt GUI sink to verify the characteristics of your mode.
 The sources and sinks will be automatically added in the source code with the correct values.</p>
 <p>Save the flowgraph in the <em>grc/</em> folder, create a Github account and submit a pull request to the QRadioLink repository.
 It may take some time to get the request processed and tested so the changes won't automatically get into the 
 master branch.</p>
 <p>It is recommended that you use only standard Gnuradio blocks. If you have to use Gnuradio out-of-tree modules, 
-please add a README file stating the location of the source code and why the modules is needed.</p>
+please add a README file stating the location of the source code and why the module is needed.</p>
+<p>Or, if you do not wish to do it yourself, use the <a href="https://sourceforge.net/projects/qradiolink/lists/qradiolink-devel">mailing list</a>
+to contact authors and describe the mode's functionality.</p>
 <p><em>Note: QRadioLink currently uses only the default Gnuradio blocks, but that could change in the future.</em></p>
 <hr />
     </div>
@@ -143,21 +161,19 @@ please add a README file stating the location of the source code and why the mod
                         <div class="footer-title"></div>
                         <ul class="list-unstyled">
                             <li><a href="http://freedv.org/" target="_blank">FreeDV</a></li>
-                            <li><a href="http://www.rowetel.com" target="_blank">David Rowe's blog</a></li>
                         </ul>
                     </div>
                     <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
                         <div class="footer-title">Links</div>
                         <ul class="list-unstyled">
-                            <li><a href="https://github.com/kantooon/qradiolink" target="_blank">Github</a></li>
-                            <li><a href="https://github.com/kantooon/qradiolink/issues" target="_blank">Bugs</a></li>
-                            <li><a href="https://www.youtube.com/playlist?list=PLkj72KdHHamix2D4U5mAHFD4iBjIpeNNV" target="_blank">Youtube</a></li>
+                            <li><a href="https://github.com/kantooon/qradiolink" target="_blank">Code</a></li>
+                            <li><a href="https://github.com/kantooon/qradiolink/issues" target="_blank">Issues</a></li>
                         </ul>
                     </div> 
                     <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
                         <p class="pull-right text-right">
                             <small><em>Theme and code by <a href="https://github.com/molivier" target="_blank">molivier</a></em></small><br/>
-                            <small>&copy; Adrian Musceac 2017</small>
+                            <small>&copy; Adrian Musceac 2017<br>Content on this site is licensed under a Creative Commons Attribution 4.0 International license. They are not for commercial use and must be shared under same conditions.</small>
                         </p>
                     </div>
                 </div>
