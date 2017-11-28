@@ -119,12 +119,11 @@ the performance. Because of the narrow bandwidth, it is a little hard to tune to
 <li>
 <p><strong>2FSK with Codec2 1400 bits/s</strong> 
 This mode is 8 kHz wide and requires 3 dB more power to decode than BPSK (1.) It uses a rate 1/2 FEC, and can be used
-with a non-linear amplifier. Most development efforts are currently concentrated on this mode.</p>
+with a non-linear amplifier. The modem does not use FM demodulation, yielding slightly better performance. Most development efforts are currently concentrated on this mode.</p>
 </li>
 <li>
 <p><strong>4FSK with Codec2 1400 bits/s</strong> 
-A 5 kHz wide mode, it is probably the least optimized mode. Similar in performance with 2FSK (4.), can be used for
-experimentation. Easiest mode to improve.</p>
+A 4 kHz wide mode, this four level FSK modem is similar to the one used by FreeDV 2400A. It performs roughly 3 dB worse than BPSK (1.) and requires about the same SNR as the 2FSK modem. The modem does not use FM demodulation anymore. This mode has potential for improvement.</p>
 </li>
 <li>
 <p><strong>DQPSK with Opus 9600 bits/</strong> 
@@ -134,7 +133,11 @@ This mode syncs very fast and thus has low latency.</p>
 </li>
 <li>
 <p><strong>4FSK with Opus 9600 bits/s</strong> 
-Least optimised mode, it might benefit from some developer attention. 3 dB worse performance than mode (6.) </p>
+Least optimised mode, it needs a lot of improvement. It is 20 kHz wide and has 3 dB worse performance than mode DQPSK(6.)</p>
+</li>
+<li>
+<p><strong>GMSK with Codec2 1400 bits/s</strong>
+To be documented. </p>
 </li>
 </ol>
 
