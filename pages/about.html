@@ -85,11 +85,11 @@
         <!-- Content -->
     <div class="container content">
         <h2>About QRadioLink</h2>
-<p><em>QRadioLink</em> is a Linux SDR transceiver application with VOIP support built on top of <a href="https://www.gnuradio.org/">Gnuradio</a>, 
+<p><em>QRadioLink</em> is a Linux SDR transceiver application using VOIP built on top of <a href="https://www.gnuradio.org/">GNU radio</a>, 
 made for hobbyists, tinkerers and radio enthusiasts,
 which allows experimenting with software defined radio hardware using different digital and analog modes and 
-an easy to use user interface.</p>
-<p>Its primary purpose is educational, but it can also be customized for low power private and public data communications
+a friendly user interface.</p>
+<p>Its primary purpose is educational, but it can also be customized for low power data communications
 on various frequency bands.
 Can also be used as an amateur radio SDR transceiver for teaching students about radio communications.</p>
 <p>Possible applications:</p>
@@ -109,12 +109,12 @@ Can also be used as an amateur radio SDR transceiver for teaching students about
 <hr />
 <h2>Features</h2>
 <ul>
-<li>Transmit and receive analog radio voice, digital radio voice, text messages, digital video, IP protocol.</li>
-<li>Analog and digital mode repeater - full duplex mode, no mixed mode repeater.</li>
 <li>VOIP connection between two or more stations operating in simplex or semi-duplex mode</li>
 <li>Direct VOIP talk-around</li>
 <li>Radio forwarding over VOIP - forward analog or digital radio to VOIP connection and viceversa</li>
 <li>TLS session encryption</li>
+<li>Transmit and receive analog radio voice, digital radio voice, text messages, digital video, IP protocol.</li>
+<li>Analog and digital mode repeater - full duplex mode, no mixed mode repeater.</li>
 <li>Mixed mode operation (receive one mode and transmit another)</li>
 <li>Digital voice codecs: Codec2 700 bit/s, Codec2 1400 bit/s, Opus 9600 bit/s</li>
 <li>Narrow band digital voice mode with <a href="http://rowetel.com/codec2.html">Codec2</a> audio codec</li>
@@ -123,14 +123,10 @@ Can also be used as an amateur radio SDR transceiver for teaching students about
 <li>Analog modulation: narrow FM (5 kHz), FM (10 kHz), Wide FM (broadcast, receive-only), AM, SSB</li>
 <li>CTCSS encoder and decoder for analog FM</li>
 <li>Video formats: JPEG</li>
-<li>Touch screen friendly interface</li>
-<li>Supported hardware: <a href="https://ettus.com"><strong>Ettus USRP</strong></a>, <a href="https://osmocom.org/projects/sdr/wiki/rtl-sdr"><strong>RTL-SDR</strong></a>, HackRF, BladeRF, other devices 
+<li>Supported hardware: <a href="https://ettus.com"><strong>Ettus USRP</strong></a>, <a href="https://osmocom.org/projects/sdr/wiki/rtl-sdr"><strong>RTL-SDR</strong></a>, LimeSDR, BladeRF, other devices 
 supported by <a href="https://osmocom.org/projects/sdr/wiki/GrOsmoSDR"><strong>gr-osmosdr</strong></a></li>
 </ul>
 <hr />
-<h2>Digital mode performance</h2>
-<p>For a more in depth analysis of digital voice modes performance and technical data, read
-<a href="/digital-voice-modes-performance-analysis.html">here</a> a description of each mode and some typical usage scenarios.</p>
 <h2>Design your own radio mode to suit your own needs</h2>
 <p>Since the software is open source, it can be easily understood and modified.
 If you want to add your own operating mode to QRadioLink, there is an easy way to do that.
