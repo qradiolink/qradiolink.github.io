@@ -128,23 +128,81 @@ Can also be used as an amateur radio SDR transceiver for teaching students about
 <li>Supported hardware: <a href="https://ettus.com"><strong>Ettus USRP</strong></a>, <a href="https://osmocom.org/projects/sdr/wiki/rtl-sdr"><strong>RTL-SDR</strong></a>, LimeSDR, BladeRF, other devices 
 supported by <a href="https://osmocom.org/projects/sdr/wiki/GrOsmoSDR"><strong>gr-osmosdr</strong></a></li>
 </ul>
-<hr />
-<h2>Design your own radio mode to suit your own needs</h2>
-<p>Since the software is open source, it can be easily understood and modified.
-If you want to add your own operating mode to QRadioLink, there is an easy way to do that.
-All you have to do is create a <a href="https://wiki.gnuradio.org/index.php/HowToUse#Graphical_signal_processing_development:_The_GNU_Radio_Companion_.28GRC.29">GRC</a>
-logical flowgraph containing the blocks that your mode would use.
-You need not be concerned about how the data gets in and out of the flowgraph. Just create a random source and a 
-null sink and connect the as input and output. Also add a Qt GUI sink to verify the characteristics of your mode.
-The sources and sinks will be automatically added in the source code with the correct values.</p>
-<p>Save the flowgraph in the <em>grc/</em> folder, create a Github account and submit a pull request to the QRadioLink repository.
-It may take some time to get the request processed and tested so the changes won't automatically get into the 
-master branch.</p>
-<p>It is recommended that you use only standard Gnuradio blocks. If you have to use Gnuradio out-of-tree modules, 
-please add a README file stating the location of the source code and why the module is needed.</p>
-<p>Or, if you do not wish to do it yourself, use the <a href="https://sourceforge.net/projects/qradiolink/lists/qradiolink-devel">mailing list</a>
-to contact authors and describe the mode's functionality.</p>
 <p><em>Note: QRadioLink currently uses only the default Gnuradio blocks, but that could change in the future.</em></p>
+<hr />
+<h2>FAQ</h2>
+<p><strong>Why does QRadioLink use a fixed sample rate?</strong><br/>
+QRadioLink is meant to be a simple two way SDR communication tool for experimenting. The current operating modes are all narrow band 
+(they fit within 1 MHz) so a fixed sample rate that is compatible with listed devices and gives the best performance 
+was chosen. In the future, if wide band communication modes are implemented, a choice to pick between various sample 
+rates may be added. If you are looking for a more featureful dedicated receiver and spectrum analyser, 
+take a look at <a href="http://gqrx.dk/">Gqrx</a>.
+</p>
+<p><strong>I can see a signal at the extreme left of the spectrum display, but when I try to tune to it, it seems to 
+disappear</strong><br/>
+In order to be able to use the default GNU radio Qt widgets,a design choice was made to shift the signal of choice to 
+the center of the FFT/waterfall, but this has the side effect of also shifting a signal which would normally appear 
+at the extreme right to the left side. The solution is not very elegant and with some effort this could be fixed. The user 
+interface from Gqrx is better suited if you need to visually inspect a wide radio spectrum.
+</p>
+<p><strong>Why does the user interface appear different from the screenshots on my computer></strong><br/>
+The screenshots are taken under KDE, a native Qt desktop environment. With GTK based desktops, the Qt theme can 
+behave differently. I have not mastered yet these subtle differences. Your help is welcome.
+</p>
+<p><strong>I am trying to use the official Mumble server package, but it does not seem to work with QRadioLink
+</strong><br/>
+The best response I can come up with is that the official Mumble protocol reference possibly ommits some steps required 
+to connect to the latest version of the official server. My Mumble client is written according to this document, but 
+it uses the umurmur server package for this reason. Your help in resolving this issue is also welcome.
+</p>
+<p><strong>Why is there no Android APK for QRadioLink?</strong><br/>
+Because QRadioLink is not a native Android application and needs a GNU/Linux Android container and userspace. For this reason 
+the user interface is rather clunky for a mobile device and needs a rewrite. You can expect that to happen once KDE Plasma 
+mobile becomes stable. While the application is not native, the performance is similar to a native application, but 
+there is some overhead from the visualisation layers, especially if you use a VNC display instead of an X server. 
+For most modes, expect at least 50% CPU usage on 3-4 cores running at 1.2 GHz.
+</p>
+<p><strong>I see a performance drop when switching to the spectrum display tab</strong><br/>
+The FFT and waterfall widgets are not active when you don't have the tab open. No FFT is performed on the data by GNU radio and 
+no UI painting is happening. When you switch to the spectrum display tab, that code becomes active and the application 
+takes a small performance hit. You can try to run <strong>volk_profile</strong> before running the application and see 
+whether it helps, but it's not required.
+</p>
+<p><strong>I have issues forwarding the VoIP digital audio to the radio and viceversa</strong><br/>
+There are two specific scenarios: if the SDR is connected to a Mumble server and more than one VoIP client speaks 
+at the same time, the code will not handle that correctly and you may hear garbled audio over radio. This will be fixed in a future release. 
+If your SDR receives an FM or other analog signal there is no transcoding involved and the voice packets encoded with Opus are sent 
+directly to connected clients. If your SDR receives a digital voice signal like Codec2, the audio is transcoded first 
+before being sent to the VoIP network. Audio artefacts and delays may be present in this case.
+</p>
+<p><strong>I want to configure a radio base station / repeater with VoIP linking, but I can only choose analog or digital, but not both 
+at the same time</strong><br/>
+This part of the software is not ready yet and it would be useless to include it in public releases. 
+Indeed, the main goal is for a base station to be able to serve both analog and digital channels at the same time, provide a broadcast 
+channel with VoIP room and client information and the ability of the remote radio to choose which VoIP room is 
+linked to a specific physical channel. Unfortunately that is no small amount of work, and while VoIP channel list broadcast is 
+partly implemented, the rest of the code is not. In any case, a SDR base station servicing up to 6 physical channels 
+either digital or analog will require more CPU power than a simple QRadioLink client, so expect a Raspberry Pi to be a stretch 
+for this purpose.
+</p>
+<p><strong>The performance of the Codec2 digital modes does not seem that great, when compared with FreeDV</strong><br/>
+FreeDV is a very mature software, being developed by experts in this field for a number of years. Comparatively, QRadioLink does 
+not have the same resources available. For example, current FreeDV uses LDPC to achieve a very low bit error rate at small signal levels.
+The complexity of modern FEC algorithms makes them more difficult to implement and also makes them more CPU hungry.
+A design decision was made to limit the complexity by choosing simple convolutional encoding and decoding instead of 
+something more advanced. The BER curves for the GNU radio rate 1/2 convolutional encoders are publicly available so they can 
+be easily consulted and compared to the LDPC encoding used by FreeDV. Hopefully the situation will improve in the future.
+</p>
+<p><strong>Can QRadioLink be used headless on the Raspberry Pi?</strong><br/>
+It's not possible yet, but it's the TODO list, especially for the repeater and base station modes.
+</p>
+<p><strong>Can I encrypt / obfuscate the radio signal to avoid eavesdropping?</strong><br/>
+QRadioLink does not encrypt the radio signal, because it's mostly aimed at hobbyist users and amateur radio where encryption of radio signals 
+is generally prohibited. If you need to securely transfer sensitive data over the radio, you should probably use something else.
+However, audio transiting the VoIP network is encrypted using TLS.
+You should take care that uMurmur SSL certificates are properly generated and stored if you need to transit an insecure network.
+</p>
+
 <hr />
     </div>
         <!-- /Content --> 
