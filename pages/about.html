@@ -185,14 +185,6 @@ partly implemented, the rest of the code is not. In any case, a SDR base station
 either digital or analog will require more CPU power than a simple QRadioLink client, so expect a Raspberry Pi to be a stretch 
 for this purpose.
 </p>
-<p><strong>The performance of the Codec2 digital modes does not seem that great, when compared with FreeDV</strong><br/>
-FreeDV is a very mature software, being developed by experts in this field for a number of years. Comparatively, QRadioLink does 
-not have the same resources available. For example, current FreeDV uses LDPC to achieve a very low bit error rate at small signal levels.
-The complexity of modern FEC algorithms makes them more difficult to implement and also makes them more CPU hungry.
-A design decision was made to limit the complexity by choosing simple convolutional encoding and decoding instead of 
-something more advanced. The BER curves for the GNU radio rate 1/2 convolutional encoders are publicly available so they can 
-be easily consulted and compared to the LDPC encoding used by FreeDV. Hopefully the situation will improve in the future.
-</p>
 <p><strong>Can QRadioLink be used headless on the Raspberry Pi?</strong><br/>
 It's not possible yet, but it's the TODO list, especially for the repeater and base station modes.
 </p>
