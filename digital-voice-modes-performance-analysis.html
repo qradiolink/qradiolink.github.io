@@ -116,32 +116,40 @@ Both BPSK modes use rate 1/2 FEC and Viterbi soft symbol decoding.</p>
 </li>
 <li>
 <p><strong>DQPSK with Codec2 1400 bits/s</strong> 
-This mode has the narrowest bandwidth, it uses only 1.6 kHz. It requires 7 dB SNR and 3 dB more power than BPSK (1.) to decode.
-Best employed on crowded portions of the bands. It uses no FEC at the moment and hard decision decoding somewhat limits
-the performance. Because of the narrow bandwidth, it is a little hard to tune to.</p>
+This mode has the narrowest bandwidth, it uses only 3.2 kHz. It requires 5 dB SNR and 2 dB more power than BPSK (1.) to decode.
+Best employed on crowded portions of the bands. It now uses convolutional encoding and Viterbi soft symbol decoding, improving the performance. Because of the narrow bandwidth, it is a little hard to tune to.</p>
 </li>
 <li>
 <p><strong>2FSK with Codec2 1400 bits/s</strong> 
-This mode is 8 kHz wide and requires 3 dB more power to decode than BPSK (1.) It uses a rate 1/2 FEC, and can be used
+A FSK mode designed for cheap non-linear amplifiers.
+This mode is 8 kHz wide and requires 3 dB more power to decode than BPSK (1.) It uses a rate 1/2 FEC (convolutional encoding with Viterbi soft symbol decoding), and can be used
 with a non-linear amplifier. The modem does not use FM demodulation, yielding slightly better performance. Most development efforts are currently concentrated on this mode.</p>
 </li>
 <li>
 <p><strong>4FSK with Codec2 1400 bits/s</strong> 
-A 4 kHz wide mode, this four level FSK modem is similar to the one used by FreeDV 2400A. It performs roughly 3 dB worse than BPSK (1.) and requires about the same SNR as the 2FSK modem. The modem does not use FM demodulation anymore. This mode has potential for improvement.</p>
+Another FSK mode, but a little different from C4FM and DMR.
+An 8 kHz wide mode, this four level FSK modem is similar to the one used by FreeDV 2400A. It performs roughly 2 dB worse than BPSK (1.) and requires about the same SNR as the 2FSK modem. The modem does not use FM demodulation anymore. It now uses convolutional encoding and Viterbi soft symbol decoding, improving the performance.</p>
 </li>
 <li>
 <p><strong>DQPSK with Opus 9600 bits/</strong> 
-This mode is 8 kHz wide and requires a SNR of 12 dB for 99% error free decode. It is a wideband mode that has good voice 
-quality and works at about the same power levels where you would expect a noisy FM reception. No FEC is employed.
+This mode is 16 kHz wide and requires a SNR of 9 dB for 99% error free decode. It is a wideband mode that has good voice 
+quality and works at about the same power levels where you would expect a noisy FM reception. It now uses convolutional encoding and Viterbi soft symbol decoding, improving the performance..
 This mode syncs very fast and thus has low latency.
 Audio sample:
 <audio controls>
         <source src="/images/opus_sample.wav" type="audio/wav"
-</audio></p>
+</audio>
+<br/>
+Compare below with narrow FM (10 kHz) transmitted at the same power level and demodulated with Gqrx:
+<audio controls>
+        <source src="/images/gqrx_20180725_181609_437299000.wav" type="audio/wav"
+</audio>
+</p>
+
 </li>
 <li>
 <p><strong>4FSK with Opus 9600 bits/s</strong> 
-Least optimised mode, it needs a lot of improvement. It is 20 kHz wide and has 3 dB worse performance than mode DQPSK(6.)</p>
+It is 40 kHz wide and has roughly the same performance ad mode DQPSK(6.). It now uses convolutional encoding and Viterbi soft symbol decoding, improving the performance. This is a very wide mode not suitable for crowded bands.</p>
 </li>
 <li>
 <p><strong>GMSK with Codec2 1400 bits/s</strong>
