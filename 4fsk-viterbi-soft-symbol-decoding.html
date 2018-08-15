@@ -133,8 +133,11 @@ When the signal becomes weaker, noise bursts introduce inter-symbol interference
 <img src="/images/qradiolink41.png"/><br/><br/>
 Despite this, the convolutional encoded FEC manages to recover almost all of the information that was transmitted, and the Viterbi soft-symbol 
 decoder plays a large part. All blocks are present by default in GNU radio, except for the 4FSK level slicer which was hand made. This makes it 
-easy to implement and test. It is probably not the most efficient way of doing things, but it is fun to abuse the 4FSK -> QPSK transition.
-</p>
+easy to implement and test. It is probably not the most efficient way of doing things, but it is fun to abuse the 4FSK -> QPSK transition.<br/>
+The main drawback of this method though is that the four level slicer is <strong>hard</strong> slicer. A long-ish noise burst taking most of the 
+symbol period will cause the symbol to be mapped as one of the other points, having a larger Euclidean distance than the actual value. The 
+low-pass filter will somewhat take care of shorter noise bursts as it can be seen in the image above, but the performance will still be affected. 
+There is after all a trade-off when you want to write as little code as possible.</p>
 
 <p>All code used for the GNU radio 4FSK modulator can be found <a href="https://github.com/kantooon/qradiolink/blob/next/gr/gr_mod_4fsk_sdr.cpp">here</a><br/>
 The code for the 4FSK demodulator upon which this article is based can be found <a href="https://github.com/kantooon/qradiolink/blob/next/gr/gr_demod_4fsk_sdr.cpp">here</a>.<br/>
