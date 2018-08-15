@@ -135,7 +135,7 @@ Despite this, the convolutional encoded FEC manages to recover almost all of the
 decoder plays a large part. All blocks are present by default in GNU radio, except for the 4FSK level slicer which was hand made. This makes it 
 easy to implement and test. It is probably not the most efficient way of doing things, but it is fun to abuse the 4FSK -> QPSK transition.<br/>
 The main drawback of this method though is that the four level slicer is a <strong>hard</strong> slicer. A long-ish noise burst taking most of the 
-symbol period will cause the symbol to be mapped as one of the other points, having a larger Euclidean distance than the actual value. The 
+symbol period will cause the symbol to be mapped as one of the other points, having a larger Euclidean distance to the actual value. The 
 low-pass filter will somewhat take care of shorter noise bursts as it can be seen in the image above, but the performance will still be affected. 
 There is after all a trade-off when you want to write as little code as possible.</p>
 
