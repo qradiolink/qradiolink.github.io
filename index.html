@@ -126,20 +126,6 @@ supported by <a href="https://osmocom.org/projects/sdr/wiki/GrOsmoSDR"><strong>g
 <p><em>Note: QRadioLink currently uses only the default Gnuradio blocks, but that could change in the future.</em></p>
 <hr />
 <h2>FAQ</h2>
-<p><strong>Why does QRadioLink use a fixed sample rate?</strong><br/>
-QRadioLink is meant to be a simple two way SDR communication tool for experimenting. The current operating modes are all narrow band 
-(they fit within 1 MHz) so a fixed sample rate that is compatible with listed devices and gives the best performance 
-was chosen. In the future, if wide band communication modes are implemented, a choice to pick between various sample 
-rates may be added. If you are looking for a more featureful dedicated receiver and spectrum analyser, 
-take a look at <a href="http://gqrx.dk/">Gqrx</a>.
-</p>
-<p><strong>I can see a signal at the extreme right of the spectrum display, but when I try to tune to it, it seems to 
-disappear</strong><br/>
-In order to be able to use the default GNU radio Qt widgets,a design choice was made to shift the signal of choice to 
-the center of the FFT/waterfall, but this has the side effect of also shifting a signal which would normally appear 
-at the extreme left to the right side. The solution is not very elegant and with some effort this could be fixed. The user 
-interface from Gqrx is better suited if you need to visually inspect a wide radio spectrum.
-</p>
 <p><strong>Why does the user interface appear different from the screenshots on my computer?</strong><br/>
 The screenshots are taken under KDE, a native Qt desktop environment. With GTK based desktops, the Qt theme can 
 behave differently. I have not mastered yet these subtle differences. Your help is welcome.
@@ -157,11 +143,11 @@ mobile becomes stable. While the application is not native, the performance is s
 there is some overhead from the visualisation layers, especially if you use a VNC display instead of an X server. 
 For most modes, expect at least 50% CPU usage on 3-4 cores running at 1.2 GHz.
 </p>
-<p><strong>I see a performance drop when switching to the spectrum display tab</strong><br/>
-The FFT and waterfall widgets are not active when you don't have the tab open. No FFT is performed on the data by GNU radio and 
-no UI painting is happening. When you switch to the spectrum display tab, that code becomes active and the application 
-takes a small performance hit. You can try to run <strong>volk_profile</strong> before running the application and see 
-whether it helps, but it's not required.
+<p><strong>I am running QRadioLink on a very limited CPU power platform, what can I do?</strong><br/>
+The FFT and waterfall widgets are not active if you disable the FFT checkbox. No FFT is performed on the data by GNU radio and 
+no UI painting is happening. When you switch FFT on, that code becomes active and the application 
+takes a performance hit which is proportional to the sample rate, FFT size and the FPS. Reduce them to the minimum for lowest CPU demand. You can also try to run <strong>volk_profile</strong> before running the application and see 
+whether it helps.
 </p>
 <p><strong>I have issues forwarding the VoIP digital audio to the radio and viceversa</strong><br/>
 There are two specific scenarios: if the SDR is connected to a Mumble server and more than one VoIP client speaks 
