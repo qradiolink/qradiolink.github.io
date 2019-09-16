@@ -97,9 +97,9 @@ libasound2 (>= 1.0.16), libboost-program-options1.62.0, libboost-system1.62.0, l
 <p>Please make sure you have the development packages installed before building QRadioLink</p>
 </li>
 <li>
-<p><strong>QT &gt;= 4.8</strong>; <em>QT 5</em> does not work on Debian 8, it may work on other distributions)</p>
+<p><strong>QT &gt;= 5.2</strong>; <em>QT 4</em> is supported but not recommended anymore</p>
 </li>
-<li>qmake (used as qmake-qt4)</li>
+<li>qmake (used as qmake-qt5)</li>
 <li><strong>Pulseaudio</strong> (native Alsa support is not fully implemented) </li>
 <li><strong>Gnuradio &gt;= 3.7.10</strong> built with OsmoSDR and UHD support (On Debian 8 you can find it in jessie-backports)</li>
 <li><strong>Boost</strong> </li>
@@ -124,7 +124,7 @@ protoc --cpp_out<span class="o">=</span>. Mumble.proto
 protoc --cpp_out<span class="o">=</span>. QRadioLink.proto
 <span class="nb">cd</span> ..
 <span class="nb">cd </span>build/
-qmake-qt4 ..
+qmake ..
 make
 ./qradiolink
 </pre></div>
