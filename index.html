@@ -74,13 +74,10 @@
         <!-- Content -->
     <div class="container content">
         <h2>About QRadioLink</h2>
-<p><em>QRadioLink</em> is a Linux SDR transceiver application using VOIP, built on top of <a href="https://www.gnuradio.org/">GNU radio</a>, 
-made for hobbyists, tinkerers and radio enthusiasts,
-which allows experimenting with software defined radio hardware using different digital and analog modes and 
-a friendly user interface.</p>
-<p>Its primary purpose is educational, but it can also be customized for low power data communications
-on various frequency bands.
-Can also be used as an amateur radio SDR transceiver for teaching students about radio communications.</p>
+<p><em>QRadioLink</em> is a GNU/Linux software defined radio VOIP (radio over IP) transceiver application using Internet for communication, built on top of <a href="https://www.gnuradio.org/">GNU radio</a>, 
+which allows experimenting with software defined radio hardware using different digital and analog radio signals and a Qt5 user interface.</p>
+<p>Its primary purpose is educational, but it can also be customized for low power data communications on various ISM frequency bands.
+It can also be used as a low power amateur radio SDR transceiver for demonstrating radio communications to children at schools.</p>
 
 <p><font color="red">New: QRadioLink gets a redesign of the user interface</font>
 </p>
@@ -92,7 +89,6 @@ Can also be used as an amateur radio SDR transceiver for teaching students about
 <li>Radio over IP</li>
 <li>digital/analog walkie talkie</li>
 <li>Raspberry Pi hobby RF communications</li>
-<li>remote audio and video monitoring</li>
 <li>sattelite amateur radio communications</li>
 <li>point to point radio network systems</li>
 <li>amateur radio low power repeater</li>
@@ -100,25 +96,25 @@ Can also be used as an amateur radio SDR transceiver for teaching students about
 <hr />
 <h2>Features</h2>
 <ul>
-<li>VOIP connection between two or more stations operating in simplex or semi-duplex mode</li>
-<li>Direct VOIP talk-around</li>
+<li>VOIP (Radio-over-IP) connection between two or more stations operating in simplex or semi-duplex mode</li>
+<li>Direct VOIP talk-around (only requires connection to a VOIP server and no radio)</li>
 <li>VOX mode</li>
 <li>Radio forwarding over VOIP - forward analog or digital radio to VOIP connection and viceversa</li>
-<li>Transmit and receive analog radio voice, digital radio voice, text messages, digital video, IP protocol.</li>
-<li>Full duplex 250 kbit/s IP data modem with configurable TX/RX offsets</li>
+<li>Transmit and receive analog FM, SSB, AM, digital voice, text messages, digital video, IP protocol.</li>
+<li>Full duplex 250 kbit/s IP radio modem with configurable TX/RX offsets</li>
 <li>Analog and digital mode repeater - full duplex mode, no mixed mode repeater.</li>
-<li>TLS session encryption</li>
+<li>Full duplex operation</li>
+<li>Split operation (transmit on other frequency than the receive frequency with no shift limitation, used mostly for repeater operation)</li>
 <li>Mixed mode operation (receive one mode and transmit another)</li>
-<li>Audio codecs: Codec2 700 bit/s, Codec2 1400 bit/s, Opus 9600 bit/s</li>
-<li>Narrow band digital voice mode with <a href="http://rowetel.com/codec2.html">Codec2</a> audio codec</li>
-<li>Wideband digital voice mode with <a href="https://xiph.org">Opus</a> audio codec</li>
-<li>FreeDV modulator and demodulator</li>
-<li>Digital modulation:  <strong>BPSK</strong>, <strong>DQPSK</strong>, <strong>2FSK</strong>, <strong>4FSK</strong>, <strong>FreeDV 1600</strong></li>
+<li>Digital voice codecs: Codec2 700 bit/s, Codec2 1400 bit/s, Opus 9600 bit/s</li>
+<li>FreeDV digital voice modulator and demodulator (currently supports only 1600 and 700C modes)</li>
+<li>Wideband digital voice streaming over the Internet with <a href="https://xiph.org">Opus</a> audio codec</li>
+<li>Digital modulation:  <strong>BPSK</strong>, <strong>DQPSK</strong>, <strong>2FSK</strong>, <strong>4FSK</strong>, <strong>FreeDV 1600</strong>, <strong>FreeDV 700C</strong></li>
 <li>Automatic carrier tracking and Doppler effect correction. The system can track Doppler shifts of up to 5-10 kHz, depending on mode. It requires a CNR of at least 10-12 dB, more for FSK modes than for PSK modes.</li>
-<li>Analog modulation: narrow FM (5 kHz), FM (10 kHz), Wide FM (broadcast, receive-only), AM, SSB</li>
+<li>Analog modulations: FM (10 kHz), narrow FM (5 kHz), SSB, AM, Wide FM (broadcast, receive-only)</li>
 <li>CTCSS encoder and decoder for analog FM</li>
 <li>Video formats: JPEG</li>
-<li>Supported hardware: <a href="https://ettus.com"><strong>Ettus USRP</strong></a>, <a href="https://osmocom.org/projects/sdr/wiki/rtl-sdr"><strong>RTL-SDR</strong></a>, LimeSDR, PlutoSDR, BladeRF, other devices 
+<li>Supported hardware: <a href="https://ettus.com"><strong>Ettus USRP bus devices</strong></a>, <a href="https://osmocom.org/projects/sdr/wiki/rtl-sdr"><strong>RTL-SDR</strong></a>, <a href="https://www.analog.com/en/design-center/evaluation-hardware-and-software/evaluation-boards-kits/adalm-pluto.html"><strong>ADALM-Pluto (PlutoSDR)</strong></a>, LimeSDR-mini, BladeRF, other devices 
 supported by <a href="https://osmocom.org/projects/sdr/wiki/GrOsmoSDR"><strong>gr-osmosdr</strong></a></li>
 </ul>
 <p><em>Note: QRadioLink currently uses only the default Gnuradio blocks, but that could change in the future.</em></p>
@@ -154,27 +150,9 @@ If your SDR receives an FM or other analog signal there is no transcoding involv
 directly to connected clients. If your SDR receives a digital voice signal like Codec2, the audio is transcoded first 
 before being sent to the VoIP network. Audio artefacts and delays may be present in this case.
 </p>
-<p><strong>I want to configure a radio base station / repeater with VoIP linking, but I can only choose analog or digital, but not both 
-at the same time</strong><br/>
-This part of the software is not ready yet and it would be useless to include it in public releases. 
-Indeed, the main goal is for a base station to be able to serve both analog and digital channels at the same time, provide a broadcast 
-channel with VoIP room and client information and the ability of the remote radio to choose which VoIP room is 
-linked to a specific physical channel. Unfortunately that is no small amount of work, and while VoIP channel list broadcast is 
-partly implemented, the rest of the code is not. In any case, a SDR base station servicing up to 6 physical channels 
-either digital or analog will require more CPU power than a simple QRadioLink client, so expect a Raspberry Pi to be a stretch 
-for this purpose.
-</p>
 <p><strong>Can QRadioLink be used headless on the Raspberry Pi?</strong><br/>
 It's not possible yet, but it's on the TODO list, especially for the repeater and base station modes.
 </p>
-<p><strong>Can I encrypt / obfuscate the radio signal to avoid eavesdropping?</strong><br/>
-QRadioLink does not encrypt the radio signal, because it's mostly aimed at hobbyist users and amateur radio where encryption of radio signals 
-is generally prohibited. If you need to securely transfer sensitive data over the radio, you should probably use something else.
-However, audio transiting the VoIP network is encrypted using TLS.
-You should take care that uMurmur SSL certificates are properly generated and stored if you need to transit an insecure network.
-</p>
-
-
 
 <hr />
     </div>
