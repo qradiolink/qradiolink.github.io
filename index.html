@@ -87,35 +87,33 @@ It can also be used as a low power amateur radio SDR transceiver for demonstrati
 <ul>
 <li>ISM band communications</li>
 <li>Radio over IP</li>
-<li>digital/analog walkie talkie</li>
 <li>Raspberry Pi hobby RF communications</li>
-<li>sattelite amateur radio communications</li>
 <li>point to point radio network systems</li>
 <li>amateur radio low power repeater</li>
+<li>sattelite amateur radio communications</li>
 </ul>
 <hr />
 <h2>Features</h2>
 <ul>
 <li>VOIP (Radio-over-IP) connection between two or more stations operating in simplex or semi-duplex mode</li>
 <li>Direct VOIP talk-around (only requires connection to a VOIP server and no radio)</li>
-<li>VOX mode</li>
-<li>Radio forwarding over VOIP - forward analog or digital radio to VOIP connection and viceversa</li>
+<li>Radio forwarding over VOIP - forward analog or digital radio voice to VOIP connection and viceversa</li>
 <li>Transmit and receive analog FM, SSB, AM, digital voice, text messages, digital video, IP protocol.</li>
 <li>Full duplex 250 kbit/s IP radio modem with configurable TX/RX offsets</li>
 <li>Analog and digital mode repeater - full duplex mode, no mixed mode repeater.</li>
-<li>Full duplex operation</li>
+<li>Full duplex and simplex operation</li>
 <li>Split operation (transmit on other frequency than the receive frequency with no shift limitation, used mostly for repeater operation)</li>
 <li>Mixed mode operation (receive one mode and transmit another)</li>
 <li>Digital voice codecs: Codec2 700 bit/s, Codec2 1400 bit/s, Opus 9600 bit/s</li>
-<li>FreeDV digital voice modulator and demodulator (currently supports only 1600 and 700C modes)</li>
+<li>FreeDV digital voice modulator and demodulator (currently supports only 1600, 700C and 800XA modes)</li>
 <li>Wideband digital voice streaming over the Internet with <a href="https://xiph.org">Opus</a> audio codec</li>
-<li>Digital modulation:  <strong>BPSK</strong>, <strong>DQPSK</strong>, <strong>2FSK</strong>, <strong>4FSK</strong>, <strong>FreeDV 1600</strong>, <strong>FreeDV 700C</strong></li>
-<li>Automatic carrier tracking and Doppler effect correction. The system can track Doppler shifts of up to 5-10 kHz, depending on mode. It requires a CNR of at least 10-12 dB, more for FSK modes than for PSK modes.</li>
+<li>Digital modulation:  <strong>FreeDV 1600</strong>, <strong>FreeDV 700C</strong>, <strong>FreeDV 800XA</strong>, <strong>BPSK</strong>, <strong>DQPSK</strong>, <strong>2FSK</strong>, <strong>4FSK</strong></li>
 <li>Analog modulations: FM (10 kHz), narrow FM (5 kHz), SSB, AM, Wide FM (broadcast, receive-only)</li>
 <li>CTCSS encoder and decoder for analog FM</li>
-<li>Video formats: JPEG</li>
-<li>Supported hardware: <a href="https://ettus.com"><strong>Ettus USRP bus devices</strong></a>, <a href="https://osmocom.org/projects/sdr/wiki/rtl-sdr"><strong>RTL-SDR</strong></a>, <a href="https://www.analog.com/en/design-center/evaluation-hardware-and-software/evaluation-boards-kits/adalm-pluto.html"><strong>ADALM-Pluto (PlutoSDR)</strong></a>, LimeSDR-mini, BladeRF, other devices 
-supported by <a href="https://osmocom.org/projects/sdr/wiki/GrOsmoSDR"><strong>gr-osmosdr</strong></a></li>
+<li>VOX mode</li>
+<li>Automatic carrier tracking and Doppler effect correction. The system can track Doppler shifts of up to 5-10 kHz, depending on mode. It requires a CNR of at least 10-12 dB, more for FSK modes than for PSK modes.</li>
+<li>Supported hardware: <a href="https://ettus.com"><strong>Ettus USRP bus devices</strong></a>, <a href="https://osmocom.org/projects/sdr/wiki/rtl-sdr"><strong>RTL-SDR</strong></a>, <a href="https://www.analog.com/en/design-center/evaluation-hardware-and-software/evaluation-boards-kits/adalm-pluto.html"><strong>ADALM-Pluto (PlutoSDR)</strong></a>, <a href ="https://www.crowdsupply.com/lime-micro/limesdr-mini"><strong>LimeSDR-mini</strong></a>, BladeRF, other devices 
+supported by <a href="https://osmocom.org/projects/sdr/wiki/GrOsmoSDR"><strong>gr-osmosdr</strong></a> (HackRF, RedPitaya, others)</li>
 </ul>
 <p><em>Note: QRadioLink currently uses only the default Gnuradio blocks, but that could change in the future.</em></p>
 <hr />

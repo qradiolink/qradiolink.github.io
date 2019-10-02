@@ -75,8 +75,7 @@
     <div class="container content">
         <h2>Configuration and running</h2>
 <p>Start the application using the command line and check for any errors. Logging to a file is by default disabled.</p>
-<p>Please see the Setup tab first and make sure to click Save before starting TX or RX modes,
-otherwise you may get a segmentation fault.</p>
+<p>Please see the Setup tab first and make sure to click Save before starting TX or RX modes</p>
 <p>Setup options include RX and TX frequency correction (in PPM), device access strings, 
 RX and TX antenna settings as a string and your callsign (maximum 7 ASCII characters)
 which will be sent at the start and end of the transmission.</p>
@@ -84,25 +83,20 @@ which will be sent at the start and end of the transmission.</p>
 <li>The configuration file is located in $HOME/.config/qradiolink.cfg</li>
 </ul>
 <p>By default the device will operate in the 433 MHz ISM band.</p>
-<p>Adjust TX gain in dB and RX sensitivity from the TX tab. If you are driving an external amplifier check the waveform for distorsion.</p>
-<p>The select input in the lower right corner toggles between different operating modes.</p>
 <p>Enable the TX and/or RX buttons depending on whether you want only RX, only TX or both.</p>
 <p>Adjust the frequency from the TX tab either by using the dial widget or by entering it in the text box. </p>
 <p>The transmitting power, receive sensitivity, main RX frequency and squelch values will be saved to the configuration
 file when you close the application and restored at startup.</p>
-<p>The <em>Tune</em> page allows fine tuning 5-5000 KHz around the frequency with the slider, and monitoring the 
-signal with the constellation display and the RSSI display.</p>
-<p>The <em>Spectrum</em> page allows visualisation of the received signal. The maximum RX bandwidth depends on the operating mode selection. To zoom in, click and draw a rectangle on the graphic. To zoom out one step, right click. To tune the radio to a frequency, double click on the graphic. To zoom in or out, use the mouse scroll wheel. There are also options for FFT number of points, averaging and min/max display.</p>
-<p><em>VOIP</em> QRadioLink uses murmurd as a reflector with the Opus voice codec. VOIP is currently undergoing development.</p>
-<p><em>Video</em> page will display received video stream. Right now only a limited number of cameras are 
-supported for TX, and ISO settings/ exposure of the camera might cause too low a framerate, which can't be transmitted 
+<p>The <em>Spectrum</em> page allows visualisation of the received signal. The maximum RX bandwidth depends on the sample rate selection. There are also options for FFT number of points, averaging and min/max display.</p>
+<p><em>VOIP</em> QRadioLink uses murmurd as a reflector with the Opus voice codec.</p>
+<p><em>Video:</em> ISO settings/ exposure of the camera might cause too low a framerate, which can't be transmitted 
 properly.</p>
 <hr />
 <h2>Issues</h2>
 <p>Please report any issues you have encountered using the <a href="https://github.com/kantooon/qradiolink/issues">Github bug tracker</a></p>
 <h2>Contact</h2>
 <p>The project has a dedicated mailing list at <a href="https://sourceforge.net/projects/qradiolink/lists/qradiolink-devel">Sourceforge</a>
- which can be used to discuss issues, request features and contact developers. Send email to qradiolink-devel@lists.sourceforge.net</p>
+ which can be used to discuss issues, request features and contact developers.</p>
 <hr />
     </div>
         <!-- /Content --> 

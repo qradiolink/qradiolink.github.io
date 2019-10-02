@@ -90,7 +90,7 @@
 <li>
 <p>Build dependencies (Debian Buster): 
 <pre>
-$ sudo apt-get install gnuradio-dev protobuf-compiler gr-osmosdr gnuradio libvolk1-dev libvolk1-bin libgsm1 libgsm1-dev libprotobuf17 libprotobuf-dev libopus0 libopus-dev libspeexdsp1 libspeexdsp-dev libpulse0 libpulse-dev libcodec2-0.8.1 libcodec2-dev libasound2 libasound2-dev libjpeg62-turbo libjpeg62-turbo-dev libconfig++9v5 libconfig++-dev qt5-qmake qt5-default qtbase5-dev libqt5core5a libqt5gui5 libqt5network5 libqt5sql5
+$ sudo apt-get install gnuradio-dev protobuf-compiler gr-osmosdr gnuradio libvolk1-dev libvolk1-bin libprotobuf17 libprotobuf-dev libopus0 libopus-dev libspeexdsp1 libspeexdsp-dev libpulse0 libpulse-dev libcodec2-0.8.1 libcodec2-dev libasound2 libasound2-dev libjpeg62-turbo libjpeg62-turbo-dev libconfig++9v5 libconfig++-dev qt5-qmake qt5-default qtbase5-dev libqt5core5a libqt5gui5 libqt5network5 libqt5sql5 qtmultimedia5-dev libqt5multimediawidgets5 libqt5multimedia5-plugins libqt5multimedia5 libftdi1-dev libftdi1
 </pre></p>
 </li>
 <li>
@@ -101,10 +101,10 @@ $ sudo apt-get install gnuradio-dev protobuf-compiler gr-osmosdr gnuradio libvol
 </li>
 <li>qmake</li>
 <li><strong>Pulseaudio</strong> (native Alsa support is not fully implemented) </li>
-<li><strong>Gnuradio &gt;= 3.7.10</strong> built with OsmoSDR and UHD support</li>
+<li><strong>Gnuradio &gt;= 3.7.13</strong> built with OsmoSDR and UHD support</li>
 <li><strong>Boost</strong> </li>
 <li><strong>libgnuradio-osmosdr</strong> built with UHD, HackRF, BladeRF or SoapySDR support</li>
-<li>libgsm, libprotobuf, libopus, libspeexdsp, libpulse-simple, libpulse, libasound, libcodec2, libsqlite3, libjpeg, libconfig++, libvolk</li>
+<li>libgsm, libprotobuf, libopus, libspeexdsp, libpulse-simple, libpulse, libasound, libcodec2, libsqlite3, libjpeg, libconfig++, libvolk, qtmultimedia5-dev, libqt5multimediawidgets5, libqt5multimedia5, libqt5multimedia5</li>
 <li>optional protoc compiler for development work only (libprotoc 2.6.1)</li>
 </ul>
 <hr />
@@ -112,6 +112,19 @@ $ sudo apt-get install gnuradio-dev protobuf-compiler gr-osmosdr gnuradio libvol
 <p>The guide assumes you are using Debian Buster, but the commands should work on most Linux distributions.</p>
 <ul>
 <li>Clone the <a href="https://github.com/kantooon/qradiolink">Github repository</a> into a directory of your choice</li>
+<li>Check out a release tag (or the master branch)</li>
+<li>Install software dependencies listed above</li>
+<li>Change directory to where you have cloned or unzipped the code</li>
+<li>Change directory to where you have cloned or unzipped the code</li>
+<li>Execute build_debian.sh</li>
+</ul>
+<div class="highlight"><pre>
+$ sh ./build_debian.sh
+</pre></div>
+<p>Or alternatively: </p>
+<ul>
+<li>Clone the <a href="https://github.com/kantooon/qradiolink">Github repository</a> into a directory of your choice</li>
+<li>Check out a release tag (or the master branch)</li>
 <li>Install software dependencies listed above</li>
 <li>Compile the protocol buffer sources for your system</li>
 <li>Run qmake to generate the Makefile</li>
