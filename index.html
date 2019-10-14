@@ -74,7 +74,7 @@
         <!-- Content -->
     <div class="container content">
         <h2>About QRadioLink</h2>
-<p><em>QRadioLink</em> is a GNU/Linux software defined radio VOIP (radio over IP) transceiver application using Internet for communication, built on top of <a href="https://www.gnuradio.org/">GNU radio</a>, 
+<p><em>QRadioLink</em> is a VOIP (radio over IP) GNU/Linux software defined radio transceiver application using Internet for communication, built on top of <a href="https://www.gnuradio.org/">GNU radio</a>, 
 which allows experimenting with software defined radio hardware using different digital and analog radio signals and a Qt5 user interface.</p>
 <p>Its primary purpose is educational, but it can also be customized for low power data communications on various ISM frequency bands.
 It can also be used as a low power amateur radio SDR transceiver for demonstrating radio communications to children at schools.</p>
@@ -101,12 +101,15 @@ It can also be used as a low power amateur radio SDR transceiver for demonstrati
 <li>Analog and digital mode repeater - full duplex mode, no mixed mode repeater.</li>
 <li>Full duplex and simplex operation</li>
 <li>Split operation (transmit on other frequency than the receive frequency with no shift limitation, used mostly for repeater operation)</li>
+<li>Memory channels (store frequency, name, TX shift, operating mode, squelch value, volume, TX power, RX gain, TX and RX CTCSS) and memory channel scan</li>
 <li>Mixed mode operation (receive one mode and transmit another)</li>
 <li>Digital voice codecs: Codec2 700 bit/s, Codec2 1400 bit/s, Opus 9600 bit/s</li>
+<li>Digital voice modem bitrates over the air from 1 kbit/s to 10 kbit/s</li>
 <li>FreeDV digital voice modulator and demodulator (currently supports only 1600, 700C and 800XA modes)</li>
 <li>Wideband digital voice streaming over the Internet with <a href="https://xiph.org">Opus</a> audio codec</li>
 <li>Digital modulation:  <strong>FreeDV 1600</strong>, <strong>FreeDV 700C</strong>, <strong>FreeDV 800XA</strong>, <strong>BPSK</strong>, <strong>DQPSK</strong>, <strong>2FSK</strong>, <strong>4FSK</strong></li>
-<li>Analog modulations: FM (10 kHz), narrow FM (5 kHz), SSB, AM, Wide FM (broadcast, receive-only)</li>
+<li>Analog modulations: FM (12.5 kHz), narrow FM (6.25 kHz), SSB, AM, Wide FM (broadcast, receive-only)</li>
+<li>Configurable filter widths for analog modes</li>
 <li>CTCSS encoder and decoder for analog FM</li>
 <li>VOX mode</li>
 <li>USB FTDI relay support</li>
