@@ -76,11 +76,10 @@
         <h2>TODO</h2>
 <p>Features which are in development or require developer attention:</p>
 <ul>
-<li>Remote command and control via radio and TCP/IP</li>
+<li>Remote control via radio</li>
 <li>Multi-channel receiver</li>
 <li>Repeater VOIP channel selection</li>
 <li>Paging</li>
-<li>Mixed mode repeater (analog/digital)</li>
 <li>DTMF encoder and decoder</li>
 <li>High definition video</li>
 <li>Mobile interface integration</li>
@@ -115,10 +114,12 @@ $ sudo apt-get install gnuradio-dev protobuf-compiler gr-osmosdr gnuradio libvol
 <li>Check out a release tag (or the master branch)</li>
 <li>Install software dependencies listed above</li>
 <li>Change directory to where you have cloned or unzipped the code</li>
-<li>Change directory to where you have cloned or unzipped the code</li>
 <li>Execute build_debian.sh</li>
 </ul>
 <div class="highlight"><pre>
+$ git clone https://github.com/kantooon/qradiolink
+$ cd qradiolink/
+$ git checkout master
 $ sh ./build_debian.sh
 </pre></div>
 <p>Or alternatively: </p>

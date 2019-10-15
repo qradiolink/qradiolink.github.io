@@ -84,7 +84,7 @@ It can also be used as a low power amateur radio SDR transceiver for demonstrati
 <ul>
 <li>ISM band communications</li>
 <li>Radio over IP</li>
-<li>Raspberry Pi hobby RF communications</li>
+<li>Raspberry Pi remote radio</li>
 <li>point to point radio network systems</li>
 <li>amateur radio low power repeater</li>
 <li>sattelite amateur radio communications</li>
@@ -96,9 +96,13 @@ It can also be used as a low power amateur radio SDR transceiver for demonstrati
 <li>Direct VOIP talk-around (only requires connection to a VOIP server and no radio)</li>
 <li>Radio forwarding over VOIP - forward analog or digital radio voice to VOIP connection and viceversa</li>
 <li>Compatible with the Mumble client application</li>
+<li>Remote control via network (requires a telnet client or similar program, can be scripted)</li>
+<li>Remote control via Mumble private text messages</li>
+<li>Run headless (no graphical user interface) for terminal usage on embedded platforms like the Raspberry Pi or similar boards without any screen</li>
 <li>Transmit and receive analog FM, SSB, AM, digital voice, text messages, digital video, IP protocol.</li>
 <li>Full duplex 250 kbit/s IP radio modem with configurable TX/RX offsets</li>
-<li>Analog and digital mode repeater - full duplex mode, no mixed mode repeater.</li>
+<li>Analog and digital mode repeater - in full duplex mode only, same mode or mixed mode repeater (e.g. FM to Codec2 and viceversa, or FM to Opus and viceversa)</li>
+<li>Repeater linking via VOIP and Mumble - a group of repeaters can be linked by sharing the same Mumble channel. This feature is still experimental and WIP.</li>
 <li>Full duplex and simplex operation</li>
 <li>Split operation (transmit on other frequency than the receive frequency with no shift limitation, used mostly for repeater operation)</li>
 <li>Memory channels (store frequency, name, TX shift, operating mode, squelch value, volume, TX power, RX gain, TX and RX CTCSS) and memory channel scan</li>
@@ -106,13 +110,13 @@ It can also be used as a low power amateur radio SDR transceiver for demonstrati
 <li>Digital voice codecs: Codec2 700 bit/s, Codec2 1400 bit/s, Opus 9600 bit/s</li>
 <li>Digital voice modem bitrates over the air from 1 kbit/s to 10 kbit/s</li>
 <li>FreeDV digital voice modulator and demodulator (currently supports only 1600, 700C and 800XA modes)</li>
-<li>Wideband digital voice streaming over the Internet with <a href="https://xiph.org">Opus</a> audio codec</li>
+<li>Wideband digital voice streaming over the Internet with the <a href="https://xiph.org">Opus</a> audio codec</li>
 <li>Digital modulation:  <strong>FreeDV 1600</strong>, <strong>FreeDV 700C</strong>, <strong>FreeDV 800XA</strong>, <strong>BPSK</strong>, <strong>DQPSK</strong>, <strong>2FSK</strong>, <strong>4FSK</strong></li>
 <li>Analog modulations: FM (12.5 kHz), narrow FM (6.25 kHz), SSB, AM, Wide FM (broadcast, receive-only)</li>
 <li>Configurable filter widths for analog modes</li>
 <li>CTCSS encoder and decoder for analog FM</li>
 <li>VOX mode</li>
-<li>USB FTDI relay support</li>
+<li>USB FTDI relay control support</li>
 <li>Automatic carrier tracking and Doppler effect correction. The system can track Doppler shifts of up to 5-10 kHz, depending on mode. It requires a CNR of at least 10-12 dB, more for FSK modes than for PSK modes.</li>
 <li>Supported hardware: <a href="https://ettus.com"><strong>Ettus USRP bus devices</strong></a>, <a href="https://osmocom.org/projects/sdr/wiki/rtl-sdr"><strong>RTL-SDR</strong></a>, <a href="https://www.analog.com/en/design-center/evaluation-hardware-and-software/evaluation-boards-kits/adalm-pluto.html"><strong>ADALM-Pluto (PlutoSDR)</strong></a>, <a href ="https://www.crowdsupply.com/lime-micro/limesdr-mini"><strong>LimeSDR-mini</strong></a>, BladeRF, other devices 
 supported by <a href="https://osmocom.org/projects/sdr/wiki/GrOsmoSDR"><strong>gr-osmosdr</strong></a> (HackRF, RedPitaya, others)</li>
@@ -150,8 +154,11 @@ If your SDR receives an FM or other analog signal there is no transcoding involv
 directly to connected clients. If your SDR receives a digital voice signal like Codec2, the audio is transcoded first 
 before being sent to the VoIP network. Audio artefacts and delays may be present in this case.
 </p>
-<p><strong>Can QRadioLink be used headless on the Raspberry Pi?</strong><br/>
-It's not possible yet, but it's on the TODO list, especially for the repeater and base station modes.
+<p><strong>Can QRadioLink be used headless (with no graphical user interface on the Raspberry Pi?</strong><br/>
+Yes, starting with version <strong>0.8.2</strong>, QRadioLink can be used as a terminal application (possibly daemonized) without X11 or any screens.
+Remote operation in this case is possible either via commands sent through Mumble as private messages, or via the embedded telnet server, for which you will need
+a telnet client or similar application to connect with. No authentication or security features are implemented at the moment, so you should not expose the configured 
+remote port to the Internet and instead use SSH to connect to the system and telnet from there. If you are not using local audio, you will need to also enable VOIP forwarding.
 </p>
 
 <hr />

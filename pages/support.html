@@ -82,9 +82,15 @@
 <li>High sample rates, high FPS rates and high FFT sizes all affect the CPU performance adversely. On embedded platforms with low resources, you can disable the spectrum display completely using the FFT checkbox. The FPS value also sets the rate at which the S-meter and constellation display are updated, so reduce it to minimum usable values. If the controls menu is not visible, the S-meter display will not consume CPU resources. Similar for the Constellation display.</li>
 <li>You can only transmit when you have selected a sample rate of 1 Msps (1000000). Other sample rates are for receiving only (except if you are using two different devices for receive and transmit). This is a hardware limitation on most devices because the transmit sample rate is fixed at 1 Msps to save CPU resources and most hardware cannot cope with two sample rates simultaneously.</li>
 <li>Filter widths for reception and transmission of the analog modes (FM, SSB, AM) are configurable. To increase or decrease them, drag the margins of the filter box on the spectrum display.</li>
-<li>VOIP uses <a href="https://github.com/umurmur/umurmur">umurmur</a> as a server. A version known to work with qradiolink is mirrored at <a href="https://github.com/qradiolink/umurmur">qradiolink</a>. You can use QRadioLink as a pure VOIP client without using the radio by selecting <strong>Use PTT for VOIP</strong>. For radio over IP operation, you need to toggle <strong>Forward radio</strong> to send the digital or analog radio voice to the VOIP server and viceversa. Any voice packets coming from the server will be transmitted directly after transcoding in this case. Currently full duplex audio from more than one VOIP client at the same time is not supported. The <strong>Mumble</strong> application is now compatible and can now receive and talk to QRadioLink normally. You should enable <strong>Push To Talk</strong> in Mumble and maximize the network robustness settings. Text messages from Mumble are displayed inside the application, but no action is taken on them (yet).
+<li>VOIP uses <a href="https://github.com/umurmur/umurmur">umurmur</a> as a server. A version known to work with qradiolink is mirrored at <a href="https://github.com/qradiolink/umurmur">qradiolink</a>.<br/> You can use QRadioLink as a pure VOIP client without using the radio by selecting <strong>Use PTT for VOIP</strong>. For radio over IP operation, you need to toggle <strong>Forward radio</strong> to send the digital or analog radio voice to the VOIP server and viceversa. Any voice packets coming from the server will be transmitted directly after transcoding in this case. Currently full duplex audio from more than one VOIP client at the same time is not supported. The <strong>Mumble</strong> application is now compatible and can now receive and talk to QRadioLink normally. You should enable <strong>Push To Talk</strong> in Mumble and maximize the network robustness settings. Text messages from Mumble are displayed inside the application, but no action is taken for channel-wide messages. Text messages can also be sent to the current Mumble channel. If remote control is enabled, private Mumble text messages will control the radio.<br/>
 The Mumble VOIP connection uses the Opus codec at a higher bitrate, so ensure the server can handle bitrates up to 50 kbit/s per client.</li>
 <li>The VOIP username will be your callsign, plus a number of 4 random characters allowing you to use multiple clients on the same server. VOIP password is not yet supported.</li>
+<li>Remote control via Mumble private text messages requires enabling remote control in settings, and using the Mumble client to send text messages to the QRadioLink username. Text messages sent to the channel will be ignored by the application. Authentication of the user is not yet implemented.</li>
+<li>- Running headless (no graphical user interface) for usage on embedded platforms like the Raspberry Pi or similar boards requires starting QRadioLink from the command line with the <strong>--headless</strong> option:
+<pre>
+$ qradiolink --headless
+</pre>
+Init scripts for SysV / Systemd will be provided at some point to be able to run QRadioLink as a system service. When running headless from CLI, the network command server is started by default listening on the port configured in the settings file (or 4939 if not configured). Headless and remote operation will usually require you to enable VOIP forwarding either in the configuration file or via a command, unless you want to use audio from the machine where QRadioLink is running.</li>
 <li>The configuration file is located in <strong>$HOME/.config/qradiolink/qradiolink.cfg</strong></li>
 <li>The memory channels storage file is located in <strong>$HOME/.config/qradiolink/qradiolink_mem.cfg</strong></li>
 <li>After adding a memory channel, you can edit its values by double clicking on a table cell. This may cause the radio to switch to that channel. The settings are not updated instantly, so if you make a change, after you press Enter, switch to another channel and back to get the updates. A button allows you to save channels before the window is closed.  Saving sorted channels is not possible yet. Otherwise, the channels, like the settings, will be stored on exit (if no application crash meanwhile).</li>
@@ -102,13 +108,15 @@ Bus 002 Device 003: ID 0403:6001 Future Technology Devices International, Ltd FT
 </pre>
 Do note that the identifier digits are the most important: <strong>0403:6001</strong></p>
 </li>
-<li>QRadioLink can control a maximum of 8 relays, however only 2 are used at the moment. This is work in progress. Other types of relays may be supported in the future.</li>
+<li>QRadioLink can control a maximum of 8 relays, however only 2 are used at the moment. This is work in progress. Other types of relays may be supported in the future.<br/>
+The order in which relays are activated and deactivated during a transmission cycle is as follows: activation starting with relay 1 to relay 8, deactivation in reverse order (relay 8 to relay 1). A Python script ( <strong>ext/ftdi.py</strong> ) is included to help you determine the order of relays on the board.</li>
 <li>Video will be displayed in the upper right corner. If your camera does not work, see the V4L2 guide in the docs/ directory for troubleshooting camera settings.</li>
 <li>IP over radio operation mode requires net administration priviledges to be granted to the application. See the instructions in the docs/ directory. An error message will be output at startup if these priviledges are not present. You can safely ignore this message if you don't need to use the IP modem facility.</li>
 <li>VOX mode requires careful setup of system microphone gain to avoid getting stuck on transmit. The voice activation system is not very robust right now and may be improved in the future.</li>
+<li>Repeater mode requires the radio to operate in <strong>Duplex</strong> mode. Prior to enabling repeater mode, make sure to configure the TX shift (positive or negative). Mixed mode repeat is now supported, so you can operate the receiver on a different mode to the transmitter (FM to Codec2/Opus/FreeDV or viceversa). If radio forwarding is enabled, audio from the repeater will be broadcast to the VOIP network as well. Due to this being a work in progress, the repeater cannot yet handle mixing of audio incoming from the VOIP network and coming from the radio. A simultaneous radio transmission and VOIP transmission received will result in garbled audio.</li>
 <li>Setting application internal microphone gain above the middle of the scale might cause clipping and distortion of audio, as the system volume also affects what goes to the radio.</li>
 <li>The S-meter calibration feature is not complete yet, however you can enter in the Setup tab the level (integer value expressed in dBm) of a known signal (e.g. sent by a generator) to correct the reading. Do NOT apply signals with levels above -30 to 0 dBm to the receiver input as this might damage your receiver, depending on hardware. Please note that the RSSI and S-meter values displayed are relative to the current operating mode filter bandwidth, so the FM reading will be different to a SSB reading! Calibration tables support for different bands may be provided in the future.</li>
-<li>The network control feature (for headless mode) is not complete yet. For testing purposes, the control port is 4939 (apologies if I stepped onto some IANA assignment). To test and use this feature, you can simply use telnet from the same computer:
+<li>The network remote control feature (for headless mode) is work in progress. The network server will listen on all network interfaces and the default control port is 4939. There is no provision for authentication of the user, if you need security you can filter the remote control port in the firewall, use SSH to log in to the remote system and telnet from there to localhost port 4939. To use the network remote control feature, you can simply use the telnet program or you can create simple Python or shell scripts to automate the commands. The help command will list all the available commands as well as parameters:
 <pre>
 $ telnet localhost 4939
 Trying ::1...
@@ -127,7 +135,7 @@ txvolume (0 parameters): Get TX volume value
 squelch (0 parameters): Get squelch value
 rxgain (0 parameters): Get RX gain value
 txgain (0 parameters): Get TX gain value
-rssi (0 parameters): Not implemented
+rssi (0 parameters): Get current RSSI value
 voipstatus (0 parameters): Get VOIP status
 forwardingstatus (0 parameters): Get radio forwarding status
 voxstatus (0 parameters): Get VOX status
@@ -157,21 +165,27 @@ setcompressor (1 parameters): Enable audio compressor, 1 enabled, 0 disabled
 setrelays (1 parameters): Enable relay control, 1 enabled, 0 disabled
 setrssicalibration (1 parameters): Set RSSI calibration, integer value in dBm
 setrxsamprate (1 parameters): Set RX sample rate, integer value in Msps
-setautosq (0 parameters): Set autosquelch
+autosquelch (0 parameters): Set autosquelch
 setfilterwidth (1 parameters): Set filter width (analog only), integer value in Hz
-ptton (0 parameters): Transmit
-pttoff (0 parameters): Stop transmitting
+ptt_on (0 parameters): Transmit
+ptt_off (0 parameters): Stop transmitting
 connectserver (2 parameters): Connect to Mumble server, string value hostname, integer value port
 disconnectserver (0 parameters): Disconnect from Mumble server
 changechannel (1 parameters): Change channel to channel number (integer value)
 mumblemsg (1 parameters): Send Mumble message, string value text
 mutemumble (1 parameters): Mute Mumble connection, 1 enabled, 0 disabled
+start_trx (0 parameters): Convenience function, requires everything to be preconfigured
+stop_trx (0 parameters): Convenience function, requires everything to be preconfigured
+help
+?
+exit
+quit
 
 qradiolink> rxstatus
 RX status is inactive.
 
 qradiolink> setrx 1
-Turning on transmitter
+Turning on receiver
 
 qradiolink> rxstatus
 RX status is active.
