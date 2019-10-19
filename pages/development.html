@@ -77,14 +77,12 @@
 <p>Features which are in development or require developer attention:</p>
 <ul>
 <li>Remote control via radio</li>
-<li>Multi-channel receiver</li>
 <li>Repeater VOIP channel selection</li>
 <li>Paging</li>
-<li>DTMF encoder and decoder</li>
 <li>High definition video</li>
-<li>Mobile interface integration</li>
 </ul>
 <h2>Requirements</h2>
+<p><strong>Important: starting with GNU radio version 3.8 QRadioLink will not work anymore due to the dependency on the gr-osmosdr package which is removed from most Linux distributions</strong></p>
 <ul>
 <li>
 <p>Build dependencies (Debian Buster): 
@@ -100,7 +98,7 @@ $ sudo apt-get install gnuradio-dev protobuf-compiler gr-osmosdr gnuradio libvol
 </li>
 <li>qmake</li>
 <li><strong>Pulseaudio or Alsa or Jack</strong></li>
-<li><strong>Gnuradio &gt;= 3.7.13</strong> built with UHD, SoapySDR support and FreeDV/Codec2 support. Gnuradio 3.8 is not supported yet.</li>
+<li><strong>Gnuradio &gt;= 3.7.13</strong> built with UHD, SoapySDR support and FreeDV/Codec2 support. Gnuradio 3.8 is not supported.</li>
 <li><strong>Boost</strong> </li>
 <li><strong>libgnuradio-osmosdr</strong> built with UHD, HackRF, BladeRF or SoapySDR support</li>
 <li>libprotobuf, libopus, libspeexdsp, libpulse-simple, libpulse, libasound, libcodec2, libsqlite3, libjpeg, libconfig++, libvolk, libftdi1, qtmultimedia5-dev, libqt5multimediawidgets5, libqt5multimedia5, libqt5multimedia5</li>
@@ -110,21 +108,21 @@ $ sudo apt-get install gnuradio-dev protobuf-compiler gr-osmosdr gnuradio libvol
 <h2>Building the software</h2>
 <p>The guide assumes you are using Debian Buster, but the commands should work on most Linux distributions.</p>
 <ul>
-<li>Clone the <a href="https://github.com/kantooon/qradiolink">Github repository</a> into a directory of your choice</li>
+<li>Clone the <a href="https://github.com/qradiolink/qradiolink">Github repository</a> into a directory of your choice</li>
 <li>Check out a release tag (or the master branch)</li>
 <li>Install software dependencies listed above</li>
 <li>Change directory to where you have cloned or unzipped the code</li>
 <li>Execute build_debian.sh</li>
 </ul>
 <div class="highlight"><pre>
-$ git clone https://github.com/kantooon/qradiolink
+$ git clone https://github.com/qradiolink/qradiolink
 $ cd qradiolink/
 $ git checkout master
 $ sh ./build_debian.sh
 </pre></div>
 <p>Or alternatively: </p>
 <ul>
-<li>Clone the <a href="https://github.com/kantooon/qradiolink">Github repository</a> into a directory of your choice</li>
+<li>Clone the <a href="https://github.com/qradiolink/qradiolink">Github repository</a> into a directory of your choice</li>
 <li>Check out a release tag (or the master branch)</li>
 <li>Install software dependencies listed above</li>
 <li>Compile the protocol buffer sources for your system</li>
@@ -166,8 +164,8 @@ make
                     <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
                         <div class="footer-title">Links</div>
                         <ul class="list-unstyled">
-                            <li><a href="https://github.com/kantooon/qradiolink" target="_blank">Code</a></li>
-                            <li><a href="https://github.com/kantooon/qradiolink/issues" target="_blank">Issues</a></li>
+                            <li><a href="https://github.com/qradiolink/qradiolink" target="_blank">Code</a></li>
+                            <li><a href="https://github.com/qradiolink/qradiolink/issues" target="_blank">Issues</a></li>
                         </ul>
                     </div> 
                     <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">

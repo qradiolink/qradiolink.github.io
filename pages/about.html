@@ -89,6 +89,9 @@ It can also be used as a low power amateur radio SDR transceiver for demonstrati
 <li>amateur radio low power repeater</li>
 <li>sattelite amateur radio communications</li>
 </ul>
+
+<p><strong>Important: starting with GNU radio version 3.8 QRadioLink will not work anymore due to the dependency on the gr-osmosdr package which is removed from most Linux distributions</strong></p>
+
 <hr />
 <h2>Features</h2>
 <ul>
@@ -148,8 +151,6 @@ takes a performance hit which is proportional to the sample rate, FFT size and t
 whether it helps.
 </p>
 <p><strong>I have issues forwarding the VoIP digital audio to the radio and viceversa</strong><br/>
-There are two specific scenarios: if the SDR is connected to a Mumble server and more than one VoIP client speaks 
-at the same time, the code will not handle that correctly and you may hear garbled audio over radio. This will be fixed in a future release. 
 If your SDR receives an FM or other analog signal there is no transcoding involved and the voice packets encoded with Opus are sent 
 directly to connected clients. If your SDR receives a digital voice signal like Codec2, the audio is transcoded first 
 before being sent to the VoIP network. Audio artefacts and delays may be present in this case.
@@ -183,8 +184,8 @@ remote port to the Internet and instead use SSH to connect to the system and tel
                     <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
                         <div class="footer-title">Links</div>
                         <ul class="list-unstyled">
-                            <li><a href="https://github.com/kantooon/qradiolink" target="_blank">Code</a></li>
-                            <li><a href="https://github.com/kantooon/qradiolink/issues" target="_blank">Issues</a></li>
+                            <li><a href="https://github.com/qradiolink/qradiolink" target="_blank">Code</a></li>
+                            <li><a href="https://github.com/qradiolink/qradiolink/issues" target="_blank">Issues</a></li>
                         </ul>
                     </div> 
                     <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
