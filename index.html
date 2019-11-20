@@ -115,6 +115,9 @@ It can also be used as a low power amateur radio SDR transceiver for demonstrati
 <li>VOIP (Radio-over-IP) connection between two or more stations operating in simplex or semi-duplex mode</li>
 <li>Direct VOIP talk-around (only requires connection to a VOIP server and no radio)</li>
 <li>Radio forwarding over VOIP - forward analog or digital radio voice to VOIP connection and viceversa</li>
+<li>Wideband audio streaming over the Internet with the <strong>Opus</strong> audio codec</li>
+<li>Configurable VOIP bitrate</li>
+<li>Audio recording for local audio output in FLAC (free lossless audio compression) format</li>
 <li>Compatible with the Mumble client application</li>
 <li>Remote control via network (requires a telnet client or similar program, can be scripted)</li>
 <li>Remote control via Mumble private text messages</li>
@@ -124,6 +127,7 @@ It can also be used as a low power amateur radio SDR transceiver for demonstrati
 <li>Analog and digital mode repeater - in full duplex mode only, same mode or mixed mode repeater (e.g. FM to Codec2 and viceversa, or FM to Opus and viceversa)</li>
 <li>Repeater linking via VOIP and Mumble - a group of repeaters can be linked by sharing the same Mumble channel. This feature is still experimental and WIP.</li>
 <li>Full duplex and simplex operation</li>
+<li>Fast tune reverse repeater shift using dedicated button</li>
 <li>Split operation (transmit on other frequency than the receive frequency with no shift limitation, used mostly for repeater operation)</li>
 <li>Memory channels (store frequency, name, TX shift, operating mode, squelch value, volume, TX power, RX gain, TX and RX CTCSS) and memory channel scan</li>
 <li>Mixed mode operation (receive one mode and transmit another)</li>
@@ -135,10 +139,10 @@ It can also be used as a low power amateur radio SDR transceiver for demonstrati
 <li>Analog modulations: FM (12.5 kHz), narrow FM (6.25 kHz), SSB, AM, Wide FM (broadcast, receive-only)</li>
 <li>Configurable filter widths for analog modes</li>
 <li>CTCSS encoder and decoder for analog FM</li>
-<li>VOX mode</li>
+<li>VOX mode with configurable VOX level</li>
 <li>USB FTDI (FT232) relay control support (for RF switches, power amplifier and filter control)</li>
 <li>Automatic carrier tracking and Doppler effect correction. The system can track Doppler shifts of up to 5-10 kHz, depending on mode. It requires a CNR of at least 10-12 dB, more for FSK modes than for PSK modes.</li>
-<li>Supported hardware: <a href="https://ettus.com"><strong>Ettus USRP bus devices</strong></a>, <a href="https://osmocom.org/projects/sdr/wiki/rtl-sdr"><strong>RTL-SDR</strong></a>, <a href="https://www.analog.com/en/design-center/evaluation-hardware-and-software/evaluation-boards-kits/adalm-pluto.html"><strong>ADALM-Pluto (PlutoSDR)</strong></a>, <a href ="https://www.crowdsupply.com/lime-micro/limesdr-mini"><strong>LimeSDR-mini</strong></a>, BladeRF, other devices 
+<li>Supported hardware: <a href="https://ettus.com"><strong>Ettus USRP bus devices</strong></a>, <a href="https://osmocom.org/projects/sdr/wiki/rtl-sdr"><strong>RTL-SDR</strong></a>, <a href="https://www.analog.com/en/design-center/evaluation-hardware-and-software/evaluation-boards-kits/adalm-pluto.html"><strong>ADALM-Pluto (PlutoSDR)</strong></a>, <a href ="https://www.crowdsupply.com/lime-micro/limesdr-mini"><strong>LimeSDR-mini</strong></a>, <a href="https://www.nuand.com/"><strong>BladeRF</strong></a>, other devices 
 supported by <a href="https://osmocom.org/projects/sdr/wiki/GrOsmoSDR"><strong>gr-osmosdr</strong></a> (HackRF, RedPitaya, others)</li>
 </ul>
 <p><em>Note: QRadioLink currently uses only the default Gnuradio blocks, but that could change in the future.</em></p>
