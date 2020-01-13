@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="FT8 with the PlutoSDR on the 2 meters band ...">
+        <meta name="keywords" content="FT8, digital mode, amateur radio">
+        <link rel="icon" href="/favicon.ico">
+
+        <title>FT8 with the PlutoSDR on the 2 meters band</title>
+
+        <!-- Stylesheets -->
+        <link href="/theme/css/bootstrap.min.css" rel="stylesheet">
+        <link href="/theme/css/fonts.css" rel="stylesheet">
+        <link href="/theme/css/nest.css" rel="stylesheet">
+        <link href="/theme/css/pygment.css" rel="stylesheet">
+        <!-- /Stylesheets -->
+
+        <!-- RSS Feeds -->
+        <!-- /RSS Feeds -->
+
+        <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+          <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+          <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+
+
+    </head>
+
+    <body>
+
+        <!-- Header -->
+    <div class="header-container" style="background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url('/images/header_red.png'); background-position: center; background-size: cover;">
+
+            <!-- Static navbar -->
+            <div class="container">
+                <div class="header-nav">
+                    <div class="header-logo">
+                        <a class="pull-left" href="/"><img class="mr20" src="/images/logo.png" alt="logo">QRadioLink</a>
+                    </div>
+                    <div class="nav pull-right">
+                                <a href="/articles_index.html">Articles</a>
+                            <a  href="/pages/about.html">About</a>
+                            <a  href="/pages/development.html">Development</a>
+                            <a  href="/pages/credits.html">Credits</a>
+                            <a  href="/pages/downloads.html">Downloads</a>
+                            <a  href="/pages/screenshots.html">Screenshots</a>
+                            <a  href="/pages/support.html">Support</a>
+                    </div>
+                </div>
+            </div>
+            <!-- /Static navbar -->
+
+            <!-- Header -->
+    <!-- Header -->
+    <div class="container header-wrapper">
+        <div class="row">
+              <div class="col-lg-12">
+                  <div class="header-content">
+                      <h1 class="header-title">FT8 with the PlutoSDR on the 2 meters band</h1>
+                      <p class="header-date">By <a href="/author/adrian.html">Adrian</a>, Sun 12 August 2018, in category <a href="/category/amateur-radio.html">Amateur radio</a></p>
+                      <div class="header-underline"></div>
+                      <div class="clearfix"></div>
+                      <p class="pull-right header-tags">
+                          <span class="glyphicon glyphicon-tags mr5" aria-hidden="true"></span>
+<a href="/tag/FT8.html">FT8</a>, <a href="/tag/digital-modes.html">digital modes</a>                      </p>
+                  </div>
+              </div>
+        </div>
+    </div>
+    <!-- /Header -->
+            <!-- /Header -->
+
+        </div>
+        <!-- /Header -->
+
+
+        <!-- Content -->
+    <div class="container content">
+        <h2>FT8 with the PlutoSDR on the 2 meters band</h2>
+<p>During and before the Christmas holiday I could enjoy some free time and was able to work a little on my hardware setup instead of just software. I had previously tested the linear amplifiers (with included low pass filters) for the 2 meter and 70 cm band and found that the 144 MHz one could be driven with less input level than the 430 MHz one.<br/>
+After installing again the 4/5 element dual-band Yagi antenna, I was ready to listen on the low bands, 2 meters and 70 cm. Unfortunately, I found out that I could only mount the antenna in one position, pointing straight North. I had some height (25 meters above ground), but I was limited to a single direction. My city is surrounded by mountains in all directions except for two narrow openings towards E and SE. My antenna was not pointing at any of these openings, but was instead aimed at the largest hill which is less than 1 km away, at a 5-7 degree elevation angle. I was hoping to use the hill reflections to extend my range. The antenna was mounted on vertical polarization at first, since most of the stations in range would also be using vertical.<br/>
+My normal range for FreeDV (and other digital voice modes) would be around 100 km to the East and South-East, or so I hoped, but to my disappointment, in the week before Christmas in which I took the time to listen on the bands, I could hear no signals except for the usual FM repeaters on the mountain tops and a few local stations also on FM mode.
+</p>
+
+<p>
+The PlutoSDR (or ADALM-Pluto by its official name) is a cheap and cheerful but capable SDR transceiver that can work on ham bands from 70 MHz to 6 GHz with up to around 4-5 milliwatts of output power. Its main advantage is having a Zynq embedded Linux inside, being very simple to use and the USB OTG port that allows various peripherals. When operating an experimental setup with all kinds of temporary connections, I definitely didn't want to accidentally transmit 50 W into an expensive SDR so the Pluto was chosen as the core component. The USB relays board was bought from Ebay for 5 EUR a couple of years ago and managed everything from the activation of amplifiers to the RF switches. The board eventually succombed to my haste when I accidentally applied 12 Volts directly into the FTDI chip and has since been replaced by a larger alternative with 8 relays.<br/>
+Since the PlutoSDR is a full duplex transceiver, I played a little before this setting it up as a repeater, both same band and cross-band on two separate antennas. However, for distance work I'd be using it semi-duplex on the same antenna. Its noise figure is reasonably high, I did not bother to measure it but is seems higher than the LimeSDR-mini and the USRPs, probably around 6 dB? Without band filters, the Pluto can't handle noise very well on 2 meters (it's already outside factory specs), with everything from nearby WFM and DVB-T transmitters to LTE overloading it. Receiving low level signals with the Pluto is simply impossible in the center of a city in these conditions. So I added small RX band pass filters of the type used in VHF FM commercial transceivers. They would not be as good as a dedicated amateur band filter, but the reception improved a lot with them on.<br/>
+For weak signal work I was planning to use a radio-astronomy LNA with a noise figure of 0.1 dB. Unfortunately I could not get one in time so I settled for a slightly worse LNA with a noise figure of 1 dB and a gain of 40 dB. The LNA is powered by a 5 Volt battery. As I found out, it did not matter much, since the noise level of the city on 2 meters is too high to make the 0.9 dB count anyway. Everything from electronic equipment to alternative current motors in the direction of the antenna would make my reception worse. The 70 cm band is much more quiet, with the exception of a 434 MHz OOK transmitter in my direction that would overload my LNA every minute or so. Since the gain of the LNA was very high, I turned the attenuator in the PlutoSDR to maximum as its internal gain was not needed anymore. The PlutoSDR was found to be quite stable on frequency here, after being allowed to warm up for 2-3 minutes.
+</p>
+
+<p><img src="/images/plutosdr.png" alt="The PlutoSDR setup"><br/>
+Pictured here is my PlutoSDR temporary setup before adding the big linears and the rest of the gear for 2.4 GHz, 5 GHz and Es'hail 2 sat (QO100). Since then I have also added a LNA, several filters and more relays to activate stuff. All this will be placed eventually inside a mini-ITX box.
+</p>
+
+<p>After about a week of listening around without much success, I decided to fire up the linears in FM mode where the output power goes towards 60 Watts. Sure enough I was able to  open repeaters 100 km away with the Yagi antenna pointed sideways, using just hill reflections. Encouraged by the success, I was listening on 144.300 MHz SSB on the evening of 20th of December, hoping to work FreeDV digital voice modes eventually. All my experiments showed that FreeDV on 2 meters and 70 cm is just as good as on HF, unfortunately not a lot of people are very willing to give it a try. I especially like and recommend 4FSK - 800XA and 2 FSK modes since they can work on cheap and efficient FM power amplifiers with good results.<br/>
+While visually inspecting the 1 MHz spectrum of the low 2 meter band, I saw a cyclic narrow signal appearing and disappearing. I am normally used to all kinds of computer interference so I did not pay too much attention, however I took a look at the local beacon 40 km away and it was coming in strong, about 12 dB above the noise floor although my antenna was on the wrong polarization (vertical). Having the ability to visually scan for signals is what kept me coming to SDR, and this time it looked as if something was indeed going on low down at the edge of the band. I tuned to the frequency, which to my surprise was 144.174 MHz and heard the unmistakeable tone of FT8. Now, I should say that I was never happy with the GNU radio SSB transmitter I put together. I could never get it to work well, either my signal was clipping and distorted or the output level was too low to work. I simply have no idea how to implement the ALC in GNU radio. Even with this limitation, I decided to give the FT8 signals a try, mindful of accidentally driving my linear too high and destroying it.<br/>
+Using Pulseaudio volume control to pipe audio between QRadioLink and WSJTX I could decode signals from Ukrainean and Russian stations from 350 km away up to a little more than 1000 km away, which meant great tropo conditions, so I tried first with 5 W and then with 15-20 W to respond to their CQs. TX activation was done using the VOX mode of QRadioLink which worked without a hitch. The GNU radio flowgraph has a noticeable delay when compared to a real transceiver open on the same frequency, so I wasn't sure if this would work, since both TX and RX would be delayed by about half a second and the FT8 timeslots are not very long (but twice as long as FT4).<br/>
+There were so many signals that it got confusing most of the time, especially sice I only used WSJTX very ocasionally. I'm pretty sure I bungled up a couple of responses to the calls, and I never managed to work RC6AL, the farthest station south of Rostov on Don, even though he was coming in with a -10 dB signal at times. All the contacts were towards East and South East, about 90 degrees from where my antenna was pointing, so they were all hill reflections not direct signals. The maximum power used was 20 W and I'm not sure how many of the people I heard were on the other polarization but I was using vertical all the time. Longest distance completed QSO was 880 km to Donetsk area<br/>
+Log of people I managed a complete exchange with (there were others but without complete exchanges, or just heard):
+<pre>
+2019-12-20,18:03:00,2019-12-20,18:04:00,UT7EW,KN78,144.174930,FT8,-10,-22,20 W
+2019-12-20,18:13:45,2019-12-20,18:15:30,UT3HG,KN79,144.175282,FT8,-09,-05,20 W
+2019-12-20,18:25:06,2019-12-20,18:30:00,US4IEK,KN87,144.174926,FT8,-09,-08,20 W
+2019-12-20,18:41:30,2019-12-20,18:42:30,UT7EW,KN78,144.174924,FT8,-04,-16,20 W
+2019-12-20,18:43:30,2019-12-20,18:45:30,UY5YA,KN77,144.174924,FT8,-13,-13,20 W
+2019-12-20,19:47:15,2019-12-20,19:49:45,UR5ESC,KN88,144.175562,FT8,-14,-22,20 W
+</pre>
+</p>
+
+<p><img src="/images/ft8.png" alt="FT8 distant stations on 2 meters"><br/>
+The unusually warm weather for that December week, pushed away by a cold atmospheric front, created very good tropo conditions on the 2 meters band towards East. RC6AL was 1020 km away betwen Rostov on Don and Krasnodar but was coming in at -10 dB.
+</p>
+
+<p>After most of these stations ceased to work FT8, I took a break for about an hour and then returned to look for local contacts on the 145.500 Mhz calling frequency. There were no locals but I could hear Ukrainean FM stations with signal levels of up to S2 (keeping in mind this was the indication of the QRadioLink s-meter which may or may not be accurate). I could not understand a word, except for the name of the city, Donetsk, which put them about 800 km away. I don't know what sort of power they were running but it must have been high. Since they were talking among them, I did not attempt to call, quite sure of the fact that I would not be heard so far with only 20 Watts. Very unusual conditions for December, that's for sure. In fact, just a week later the distance record for VHF and UHF would be broken by Scotland to Cape Verde FT8 QSOs.<br/>
+I've since discovered that with just hill reflections I can hear 2 meter FT8 stations at 250-350 km distance on good weather conditions (no special tropo going on), but only if the other station is a big gun pointing his antenna in my direction. If I could also rotate my antenna, that would increase my success rate, but at the moment that is not possible. Transmitting will have to wait until I can improve the SSB flowgraph since I don't feel comfortable risking to overdrive the linear amplifier in SSB mode.
+</p>
+
+<p>So what's next? After a disappointing foray into QO100, where I could not mount the big dish at the correct angle and was forced to use a 35 cm indoor antenna, unable to hear my own signals and coming very faint even on the WebSDR only when using FreeDV 800XA mode, I think I will repurpose the big dish for local 2.4 and 5 Ghz work. I figure that with the 80 cm antenna and a couple of Watts I may be able to hear and be heard 50-100 km away by making use of reflections off of structures on hill tops. That might be a good trial ground for Codec 2 digital voice on 2.4 and 5 Ghz if the other guys have a similar setup. I could also try FT8 and other digi modes on 70 cm, but there are very few stations on this band in my area. The upside is I have some experience constructing 8-10 element beams for 430 MHz with fair results.<br/>
+I guess the conclusion is you can work distant stations on 2 meters with very modest equipment, antennas and software if the weather conditions are right. The total cost for this VHF setup was around 600 Euro, not counting the power supply and the laptop. The most expensive thing was the linear amplifier at around 350 Euro, which I got for the OFDM waveform of FreeDV. Since FT8 is FSK, I'm pretty sure any cheap 50 W FM amplifier might also have done the work. Genuine Mitsubishi and Motorola high power modules are 5-15 Euro, so there is no need for an expensive linear amplifier if not using PSK, QAM, SSB or OFDM with the SDR transceiver.</p>
+
+<p><img src="/images/qradiolink59.png" alt="QO100"><br/>
+Quite disappointing results on QO100 with the indoor dish. Glass and wood really attenuate signals at 10 GHz.
+</p>
+
+
+
+
+
+        
+    </div>
+        <!-- /Content --> 
+
+        <!-- Footer -->
+        <div class="footer gradient-2">
+            <div class="container footer-container ">
+                <div class="row">
+                    <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
+                        <div class="footer-title"></div>
+                        <ul class="list-unstyled">
+                        </ul>
+                    </div>
+                    <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
+                        <div class="footer-title"></div>
+                        <ul class="list-unstyled">
+                            <li><a href="https://freedv.org/" target="_blank">FreeDV</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
+                        <div class="footer-title">Links</div>
+                        <ul class="list-unstyled">
+                            <li><a href="https://github.com/qradiolink/qradiolink" target="_blank">Code</a></li>
+                            <li><a href="https://github.com/qradiolink/qradiolink/issues" target="_blank">Issues</a></li>
+                        </ul>
+                    </div> 
+                    <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
+                        <p class="pull-right text-right">
+                            <small><em>Theme and code by <a href="https://github.com/molivier" target="_blank">molivier</a></em></small><br/>
+                            <small>&copy; Adrian Musceac 2017<br>Content on this site is licensed under a Creative Commons Attribution 4.0 International license. They are not for commercial use and must be shared under same conditions.</small>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /Footer -->
+    </body>
+</html>
