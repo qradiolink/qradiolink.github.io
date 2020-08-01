@@ -108,7 +108,6 @@ It can also be used as a low power amateur radio SDR transceiver for demonstrati
 </ul>
 </p>
 
-<p><strong>Important: starting with GNU radio version 3.8 QRadioLink will not work anymore due to the dependency on the gr-osmosdr package which is removed from most Linux distributions</strong></p>
 
 <hr />
 <h2>Features</h2>
@@ -124,7 +123,7 @@ It can also be used as a low power amateur radio SDR transceiver for demonstrati
 <li>Remote control via Mumble private text messages</li>
 <li>Run headless (no graphical user interface) for terminal usage on embedded platforms like the Raspberry Pi or similar boards without any screen</li>
 <li>Transmit and receive analog FM, SSB, AM, digital voice, text messages, digital video, IP protocol.</li>
-<li>Full duplex 250 kbit/s IP radio modem with configurable TX/RX offsets</li>
+<li>Full duplex DQPSK 250 kbit/s and 4FSK 96 kbit/s IP radio modems with configurable TX/RX offsets</li>
 <li>Analog and digital mode repeater - in full duplex mode only, same mode or mixed mode repeater (e.g. FM to Codec2 and viceversa, or FM to Opus and viceversa)</li>
 <li>Repeater linking via VOIP and Mumble - a group of repeaters can be linked by sharing the same Mumble channel. This feature is still experimental and WIP.</li>
 <li>Full duplex and simplex operation</li>
@@ -143,7 +142,7 @@ It can also be used as a low power amateur radio SDR transceiver for demonstrati
 <li>VOX mode with configurable VOX level</li>
 <li>USB FTDI (FT232) relay control support (for RF switches, power amplifier and filter control)</li>
 <li>Automatic carrier tracking and Doppler effect correction. The system can track Doppler shifts of up to 5-10 kHz, depending on mode. It requires a CNR of at least 10-12 dB, more for FSK modes than for PSK modes.</li>
-<li>Supported hardware: <a href="https://ettus.com"><strong>Ettus USRP bus devices</strong></a>, <a href="https://osmocom.org/projects/sdr/wiki/rtl-sdr"><strong>RTL-SDR</strong></a>, <a href="https://www.analog.com/en/design-center/evaluation-hardware-and-software/evaluation-boards-kits/adalm-pluto.html"><strong>ADALM-Pluto (PlutoSDR)</strong></a>, <a href ="https://www.crowdsupply.com/lime-micro/limesdr-mini"><strong>LimeSDR-mini</strong></a>, <a href="https://www.nuand.com/"><strong>BladeRF</strong></a>, other devices 
+<li>Supported hardware: <a href="https://ettus.com"><strong>Ettus USRP bus devices</strong></a>, <a href="https://osmocom.org/projects/sdr/wiki/rtl-sdr"><strong>RTL-SDR</strong></a>, <a href="https://www.analog.com/en/design-center/evaluation-hardware-and-software/evaluation-boards-kits/adalm-pluto.html"><strong>ADALM-Pluto (PlutoSDR)</strong></a>, <a href ="https://www.crowdsupply.com/lime-micro/limesdr-mini"><strong>LimeSDR-mini</strong></a>, <a href="https://wiki.myriadrf.org/LimeNET_Micro"><strong>LimeNET-Micro</strong></a>, <a href="https://www.nuand.com/"><strong>BladeRF</strong></a>, other devices 
 supported by <a href="https://osmocom.org/projects/sdr/wiki/GrOsmoSDR"><strong>gr-osmosdr</strong></a> (HackRF, RedPitaya, others)</li>
 </ul>
 <p><em>Note: QRadioLink currently uses only the default Gnuradio blocks, but that could change in the future.</em></p>
