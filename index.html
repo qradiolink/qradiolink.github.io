@@ -74,21 +74,22 @@
         <!-- Content -->
     <div class="container content">
         <h2>About QRadioLink</h2>
-<p><em>QRadioLink</em> is a VOIP (radio over IP) GNU/Linux SDR (software defined radio) transceiver application using Internet for communication, built on top of <a href="https://www.gnuradio.org/">GNU radio</a>, 
+<p><em>QRadioLink</em> is a GNU/Linux multimode SDR (software defined radio) transceiver application using the Internet for VOIP communication (radio over IP), built on top of <a href="https://www.gnuradio.org/">GNU radio</a>, 
 which allows experimenting with software defined radio hardware using different digital and analog radio signals and a Qt5 user interface.</p>
-<p>Its primary purpose is educational, but it can also be customized for low power data communications on various ISM frequency bands.
-It can also be used as a low power amateur radio SDR transceiver for demonstrating radio communications to children at schools.</p>
+<p>Its primary purpose is educational (demonstrating radio communications to children at schools), but it can also be customized for low power data communications on various ISM frequency bands.
+It can also be used as an amateur radio SDR transceiver for experimentation.</p>
 
 <p><img alt="Night mode" src="/images/qradiolink62.png" title="Main page" /></p>
 
 <p>Possible applications:</p>
 <ul>
 <li>ISM band communications</li>
-<li>Radio over IP</li>
 <li>Raspberry Pi hobby RF communications</li>
-<li>point to point radio network systems</li>
-<li>amateur radio low power repeater</li>
+<li>Radio over IP, Internet linking of semi-duplex or full duplex remote radio nodes</li>
+<li>point to point IP radio network links</li>
+<li>amateur radio field configurable repeater with remote management</li>
 <li>sattelite amateur radio communications</li>
+<li>homebrew radio hotspot for digital voice modes in amateur radio bands</li>
 </ul>
 
 <h2>Alternatives to QRadioLink</h2>
@@ -115,7 +116,7 @@ It can also be used as a low power amateur radio SDR transceiver for demonstrati
 <li>VOIP (Radio-over-IP) connection between two or more stations operating in simplex or semi-duplex mode</li>
 <li>Direct VOIP talk-around (only requires connection to a VOIP server and no radio)</li>
 <li>Radio forwarding over VOIP - forward analog or digital radio voice to VOIP connection and viceversa</li>
-<li>Wideband audio streaming over the Internet with the <strong>Opus</strong> audio codec</li>
+<li>Wideband audio streaming over the Internet using the <strong>Opus</strong> audio codec</li>
 <li>Configurable VOIP bitrate</li>
 <li>Audio recording for local audio output in FLAC (free lossless audio compression) format</li>
 <li>Compatible with the Mumble client application</li>
@@ -123,7 +124,7 @@ It can also be used as a low power amateur radio SDR transceiver for demonstrati
 <li>Remote control via Mumble private text messages</li>
 <li>Run headless (no graphical user interface) for terminal usage on embedded platforms like the Raspberry Pi or similar boards without any screen</li>
 <li>Transmit and receive analog FM, SSB, AM, digital voice, text messages, digital video, IP protocol.</li>
-<li>Full duplex DQPSK 250 kbit/s and 4FSK 96 kbit/s IP radio modems with configurable TX/RX offsets</li>
+<li>Full duplex DQPSK 250 kbit/s and 4FSK 100 kbit/s IP radio modems with configurable TX/RX offsets</li>
 <li>Analog and digital mode repeater - in full duplex mode only, same mode or mixed mode repeater (e.g. FM to Codec2 and viceversa, or FM to Opus and viceversa)</li>
 <li>Repeater linking via VOIP and Mumble - a group of repeaters can be linked by sharing the same Mumble channel. This feature is still experimental and WIP.</li>
 <li>Full duplex and simplex operation</li>
@@ -137,6 +138,7 @@ It can also be used as a low power amateur radio SDR transceiver for demonstrati
 <li>Wideband digital voice streaming over the Internet with the <a href="https://xiph.org">Opus</a> audio codec</li>
 <li>Digital modulation:  <strong>FreeDV 1600</strong>, <strong>FreeDV 700C</strong>, <strong>FreeDV 800XA</strong>, <strong>BPSK</strong>, <strong>DQPSK</strong>, <strong>2FSK</strong>, <strong>4FSK</strong></li>
 <li>Analog modulations: FM (12.5 kHz), narrow FM (6.25 kHz), SSB, AM, Wide FM (broadcast, receive-only)</li>
+<li>Sinple, low resolution video mode (JPEG encoded) operating at 10 frames per second in 300 kHz bandwidth</li>
 <li>Configurable filter widths for analog modes</li>
 <li>CTCSS encoder and decoder for analog FM</li>
 <li>VOX mode with configurable VOX level</li>
@@ -148,6 +150,12 @@ supported by <a href="https://osmocom.org/projects/sdr/wiki/GrOsmoSDR"><strong>g
 <p><em>Note: QRadioLink currently uses only the default Gnuradio blocks, but that could change in the future.</em></p>
 <hr />
 <h2>FAQ</h2>
+<p><strong>Is the packet radio system within QRadioLink compatible with other existing amateur packet radio modes and / or FM radios?</strong><br/>
+No, the packet radio modem is not compatible with FM radios and 1200 / 9600 baud amateur radio packet.<br/>
+The receiver needs to be able to demodulate in a bandwidth of at least 1 MHz to receive this radio packet mode.<br/>
+Furthermore, the Internet packet modes in QRadioLink do not even use the same data link layer. Instead of AX.25 frames, QRadioLink sends Ethernet frames over the air. 
+This means that you do not need AX.25 Linux kernel support to create an IP link with QRadioLink. Also, both the 4FSK and DQPSK packet radio modes require a full duplex transceiver, or at least two devices (a semi-duplex transceiver and an RTL-SDR receiver for example).
+</p>
 <p><strong>Why does the user interface appear different from the screenshots on my computer?</strong><br/>
 The screenshots are taken under KDE, a native Qt desktop environment. With GTK based desktops, the Qt theme can 
 behave differently. I have not mastered yet these subtle differences. Your help is welcome.
