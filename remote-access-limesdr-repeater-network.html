@@ -60,7 +60,7 @@
         <div class="row">
               <div class="col-lg-12">
                   <div class="header-content">
-                      <h1 class="header-title">Remotely monitoring and accessing the amateur repeater network with the LimeNET Micro SDR</h1>
+                      <h1 class="header-title">Remotely monitoring and accessing the amateur repeater network with the LimeNET Micro SDR and GNU Radio</h1>
                       <p class="header-date">By <a href="/author/adrian.html">Adrian</a>, Sun 13 January 2020, in category <a href="/category/amateur-radio.html">Amateur radio</a></p>
                       <div class="header-underline"></div>
                       <div class="clearfix"></div>
@@ -80,7 +80,7 @@
 
         <!-- Content -->
     <div class="container content">
-        <h2>Remotely monitoring and accessing the amateur repeater network with the LimeNET Micro self-contained SDR</h2>
+        <h2>Remotely monitoring and accessing the amateur repeater network with the LimeNET Micro self-contained SDR and GNU Radio</h2>
 <p>In the past 10 months, I've been working on the VOIP capability of QRadioLink, with a few goals in mind. The first one was to obtain a stable test platform for a field configurable multi-mode SDR repeater that can be interconnected to a wider voice network using the Internet (or HamNet). The second one was to have a stand-alone remotely accessible and remotely configurable SDR transceiver that can be controlled with my mobile phone.<br/>
 While the first application is still in our evaluation phase, the past year brought a number of improvements that made achieving the remote station goal possible.<br/>
 </p>
@@ -110,10 +110,10 @@ This worked fine, and I also invited a few friends to log in and listen to the F
 </p>
 <p>
 Next, I wanted to be able to use the transceiver while mobile, and this is possible with the <strong>Plumble</strong> Android application, which is an open source implementation of Mumble for Android. It has all the useful features needed, including the ability to transmit voice by pressing a PTT button on the screen or a physical button. It also works well with Bluetooth headsets, which comes handy when mobile with the car.<br/><br/>
-<img src="/images/plumble1.png" width="240" alt="Plumble mobile interface"><br/>
+<img src="/images/plumble1.png" style="width:240px;" alt="Plumble mobile interface"><br/>
 <em>Plumble user interface</em><br/><br/>
 Configuring the GNU Radio flowgraph parameters, the LimeNET-Micro hardware frequency and RF gains and other internal settings of QRadioLink was done using text messages sent to the QRadioLink Mumble client (as YO8RZZ-ntAV in the image above). This user processes commands received via private text messages to configure almost everything that is configurable via the graphical user interface. Of course, typing commands on the mobile phone is maybe a bit arcane and cumbersome, but the most important thing is that it's very simple. The user will even give you a list of commands and possible parameters if you type <strong>help</strong> or <strong>?</strong>. 
-<img src="/images/plumble2.png" width="240" alt="Remote control via text messages"><br/>
+<img src="/images/plumble2.png" style="width:240px;" alt="Remote control via text messages"><br/>
 <em>Controlling the LimeNET-Micro remotely using Plumble from the mobile phone</em><br/><br/>
 </p>
 
