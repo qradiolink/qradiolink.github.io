@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="Remotely monitoring and accessing the amateur repeater network with the LimeNET Micro SDR ...">
+        <meta name="keywords" content="FT8, digital mode, amateur radio">
+        <link rel="icon" href="/favicon.ico">
+
+        <title>FT8 with the PlutoSDR on the 2 meters band</title>
+
+        <!-- Stylesheets -->
+        <link href="/theme/css/bootstrap.min.css" rel="stylesheet">
+        <link href="/theme/css/fonts.css" rel="stylesheet">
+        <link href="/theme/css/nest.css" rel="stylesheet">
+        <link href="/theme/css/pygment.css" rel="stylesheet">
+        <!-- /Stylesheets -->
+
+        <!-- RSS Feeds -->
+        <!-- /RSS Feeds -->
+
+        <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+          <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+          <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+
+
+    </head>
+
+    <body>
+
+        <!-- Header -->
+    <div class="header-container" style="background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url('/images/header_red.png'); background-position: center; background-size: cover;">
+
+            <!-- Static navbar -->
+            <div class="container">
+                <div class="header-nav">
+                    <div class="header-logo">
+                        <a class="pull-left" href="/"><img class="mr20" src="/images/logo.png" alt="logo">QRadioLink</a>
+                    </div>
+                    <div class="nav pull-right">
+                                <a href="/articles_index.html">Articles</a>
+                            <a  href="/pages/about.html">About</a>
+                            <a  href="/pages/development.html">Development</a>
+                            <a  href="/pages/credits.html">Credits</a>
+                            <a  href="/pages/downloads.html">Downloads</a>
+                            <a  href="/pages/screenshots.html">Screenshots</a>
+                            <a  href="/pages/support.html">Support</a>
+                    </div>
+                </div>
+            </div>
+            <!-- /Static navbar -->
+
+            <!-- Header -->
+    <!-- Header -->
+    <div class="container header-wrapper">
+        <div class="row">
+              <div class="col-lg-12">
+                  <div class="header-content">
+                      <h1 class="header-title">Remotely monitoring and accessing the amateur repeater network with the LimeNET Micro SDR</h1>
+                      <p class="header-date">By <a href="/author/adrian.html">Adrian</a>, Sun 13 January 2020, in category <a href="/category/amateur-radio.html">Amateur radio</a></p>
+                      <div class="header-underline"></div>
+                      <div class="clearfix"></div>
+                      <p class="pull-right header-tags">
+                          <span class="glyphicon glyphicon-tags mr5" aria-hidden="true"></span>
+<a href="/tag/LimeSDR.html">LimeSDR</a>, <a href="/tag/VOIP.html">VOIP</a>                      </p>
+                  </div>
+              </div>
+        </div>
+    </div>
+    <!-- /Header -->
+            <!-- /Header -->
+
+        </div>
+        <!-- /Header -->
+
+
+        <!-- Content -->
+    <div class="container content">
+        <h2>Remotely monitoring and accessing the amateur repeater network with the LimeNET Micro self-contained SDR</h2>
+<p>In the past 10 months, I've been working on the VOIP capability of QRadioLink, with a few goals in mind. The first one was to obtain a stable test platform for a field configurable multi-mode SDR repeater that can be interconnected to a wider voice network using the Internet (or HamNet). The second one was to have a stand-alone remotely accessible and remotely configurable SDR transceiver that can be controlled with my mobile phone.<br/>
+While the first application is still in our evaluation phase, the past year brought a number of improvements that made achieving the remote station goal possible.<br/>
+Two years ago I was kindly sent one of the new LimeSDR-mini transceivers to test on and write some code. The board was at that stage still in development, so my version was not very stable yet, with the support libraries still in the testing phase. However, the potential of the LimeSDR as a fully open design with the backing of a large community was obvious. This year, I decided to check out the new <a href="https://www.crowdsupply.com/lime-micro/limenet-micro">LimeNET-Micro</a> fully integrated SDR platform which re-uses a lot of the components from the LimeSDR-mini project, but adds new ones, becoming a self-contained SDR-computing platform with the addition of a Raspberry-Pi compute module 3 and connectivity options like USB ports, Ethernet and HDMI. And it's not just that. The clock precision of the <strong>LimeNET-Micro</strong> is much improved compared to the LimeSDR-mini, and it offers an easy option to add a GPS antenna for the included GPSDO.<br/>
+</p>
+
+<p>
+Obviously, the presence of an integrated Raspberry Pi module gives me the possibility to implement my fully standalone remote transceiver with a network connection port (either Ethernet or Wifi). Since QRadioLink uses GNU Radio, a full Linux environment with quite a lot of RAM and CPU speed is needed, something which the Raspberry Pi CM3 can provide. Because the LimeNET-Micro will not be connected to a screen, I would run the application without the graphical user interface as a system process, which should shave off quite a few CPU cycles. The rest of the hardware setup should be familiar to people who read the <a href="/ft8-plutosdr-2meters.html">FT8 with the PlutoSDR</a> article or watched the <a href="https://2020.sdra.io/pages/programme.html">SDRA talk</a>. A relay board controlled via USB, the RF switch, some band filters and an RF power amplifier capable of delivering 5-25 Watts in FM mode.<br/> Since I did not set up multiple RF paths, I would be operating on only one band, the 430 MHz amateur band. Obviously, the upcoming LimeRFE hardware would eliminate some of the complexity involved with band filters / amplifiers and RF paths requiring multiple RF switches, allowing one to roam on all bands remotely at will.
+</p>
+
+<p>The operational setup for the remote controlled SDR transceiver was straight forward. I chose an Ethernet connection from the LimeNET-Micro to my router and a vertical antenna with 2 dB gain. The amateur radio repeters which I planned to monitor and access this way are all FM and are located some 30 km away from my location, on top of a mountain. An output power of 1 Watt would be sufficient to access them.
+<br/>The voice over IP server is a very small free software program called <strong>umurmur</strong> which can run even on a router. However, for simplicity reasons I decided to run the VOIP server (or reflector as it sometimes called by amateur radio operators) on the LimeNET-Micro as well, since it takes very little memory and CPU to run it when only a few users (less than 10) are logged in at the same time. The VOIP protocol is called Mumble, after the original application which is very well known by gamers because of the voice quality and low latency. I've been using this application for the last 15 years to communicate over the Internet, so implementing the protocol in QRadioLink was easy. This protocol supports not only voice, but also text messages, which I used to conveniently provide a control interface to the SDR.
+<br/>The reason why Mumble's audio quality is so good is because it uses the Opus codec. Unless you are working in this field, I doubt you have heard of this voice codec developed by <a href="https://xiph.org">the Xiph foundation</a>, but you are most certainly using it every day without knowing it with various internet applications. This codec supports bitrates from 5 kbit/s to more than 100 kbit/s, so you can even stream music at high quality with it, although in real-life applications it's used for voice communications.<br/>
+</p>
+
+<p><img src="/images/qradiolink64.png" alt="VOIP parameters"><br/>
+<em>The VOIP connection from QRadioLink is done using the settings file and the telnet interface, without using the GUI, but in any case this is how the parameters would look in the GUI if it were used</em><br/>
+The first test was to check that I can receive the repeaters while connecting from my laptop using the standard Mumble desktop application.<br/>
+<ing src="/images/qradiolink65_mumble.png" alt="Mumble desktop"><br/>
+<em>Obviously we need to select the proper server channel to be in, otherwise we wouldn't hear a thing</em><br/>
+This worked fine, and I also invited a few friends to log in and listen to the FM repeater audio, to confirm the perceived quality. The VOIP bitrate towards the server is configurable in QRadioLink with several settings available to be chosen depending how much Internet bandwidth we can use. Obviously, the more clients connected to the server, the more bandwidth needed for all simultaneous streams. Experimentally, I determined that 24 kbit/s is enough to have good quality, even in the presence of FM demodulation noise.<br/>
+Next, I wanted to be able to use the transceiver while mobile, and this is possible with the <strong>Plumble</strong> Android application, which is an open source implementation of Mumble for Android. It has all the usefull features needed, including the ability to transmit voice by pressing a PTT button on the screen or a physical button. It also works well with Bluetooth headsets, which comes handy when mobile with the car.<br/><br/>
+<img src="/images/plumble1.png" alt="Plumble mobile interface"><br/>
+<em>Plumble user interface</em><br/>
+Configuring the GNU Radio flowgraph parameters, the LimeNET-Micro hardware frequency and RF gains and other internal settings of QRadioLink was done using text messages sent to the QRadioLink Mumble client (as YO8RZZ-ntAV in the image above). This user processes commands received via private text messages to configure almost everything that is configurable via the graphical user interface. Of course, typing commands on the mobile phone is maybe a bit arcane and cumbersome, but the most important thing is that it's very simple. The user will even give you a list of commands and possible parameters if you type <strong>help</strong> or <strong>?</strong>. 
+<img src="/images/plumble2.png" alt="Remote control via text messages"><br/>
+<em>Controlling the LimeNET-Micro remotely using Plumble from the mobile phone</em><br/>
+</p>
+
+<p>
+Something to note is that the way Mumble operates is having several logical server channels or "rooms" which can have as many users as you want (or can support on the Internet pipe) connected simultaneously and listening or speaking. Mumble is full duplex, so more than one user can speak at the same time on a channel without issues. The problem was that the QRadioLink audio layer couldn't handle this properly, so when more than one user spoke and the audio was transmitted by the LimeNET over FM, it came out horribly garbled. This lead to some work on the internal audio mixer to be able to allow multiple users to be heard at the same time over radio, which also comes in handy when we want to have a VOIP network connected repeater in full duplex mode.<br/>
+Since we are using a star topology, now we can connect more than one radio to the same server room and be able to support IP-only clients as well that would also be heard over the radio. But this is out of scope here, since I wanted a remote controlled SDR transceiver only at this stage.
+</p>
+
+<p>QRadioLink runs (or is a wrapper of) GNU Radio flowgraphs to be able to transmit and receive FM (and other modes, like SSB or FreeDV). While GNU Radio is very flexible and powerful and you can do almost anything radio-wise that you can think of, it also has a few issues: a very large number of dependencies, some of which are not packaged properly by some Linux distributions, and quite complex to install from source with everything required to set up QRadioLink. For this reason, I gave up on recommending anything other than Debian 10 at the moment. This is what ran on the Raspberry Pi module as well.
+Use other distros only if you are prepared to compile a lot of things from source and fix missing dependencies, headers and such other things.
+</p>
+
+<p>Over the course of several months I tested both monitoring and remotely accessing amateur repeaters via my mobile phone. Since I'm mostly using LTE and rarely Wifi, there is some significant delay here due to my voice being carried over two radio connections (LTE -- Internet towards SDR and from SDR to repeater via FM radio). Sometimes this delay was further increased by introducing a third radio connection, from my Bluetooth headset to my mobile phone. I managed to measure these delays, and got 750 milliseconds in the best case and more than 1.2 seconds in the worst case from phone PTT press to signal reaching another FM radio listening on the repeater. Also something to add is that GNU Radio buffers add some not quite insignificant delay, but it's manageable if non-instant break-in is required.<br/>
+Of course during these months I found a lot of bugs in the software, and with the help of great people like Catalin <strong>YO7GQZ</strong>, Petru <strong>YO3HPC</strong>, Cristi <strong>YO3GWM</strong> and Bogdan <strong>YO3IXW</strong> I managed to get something working to my satisfaction. I am in their debts for their patience while I was doing tests on the air, and for their radio controls which helped me tune the GNU Radio code and eliminate some bugs. Some things don't work yet like I want them, like selecting memory channels remotely, but I could work around them by giving commands to set the frequency and repeater offset instead. Most importantly, I now have a remote transceiver that I can use, tune and configure from my mobile phone, and this is the first step towards fully field-programmable amateur repeaters.<br/>
+As an amusing side comment, one of our repeaters is connected to a nation-wide FM repeater network with more than 100 nodes which all transmit the same audio. I used this remote setup to access it lots of times, and the full path that the audio signal takes involves no less than 5 radio connections all on different radio network types sometimes: the audio is transferred from my headset to the phone via Bluetooth, then it uses the LTE (4G) radio network to reach Internet and the LimeNET-Micro at my home, from there the signal takes an FM path on 430 MHz to the repeater, from the repeater it hits Internet again via a WiFi connection and finally reaches somebody's portable Rolink node via LTE again. If you think about it, there's not only a lot of latency here but a lot of transcoding from one voice codec to another, and it still works well, with latencies from 1 to 1.5 seconds round-trip, all a testament of the resilience of modern radio network protocols.
+</p>
+
+<p>The conclusions, if I'm allowed to draw any after more than half a year spent using this remote system, are: <br>
+<ul>
+<li>The LimeNET-Micro works very well as a self contained trasnceiver. There were some issues two years ago with the support software libraries that are solved now to my relief. I did not have any issues with the hardware or with LimeSuite, the support library.</li>
+<li>GNU radio is tremendously flexible. I can switch almost instantaneously from one TX/RX mode to another and there are very few issues, most of them probably my fault. I even tried to monitor an UHF SSB contest this way, but the rapid tuning required to hit most participants is more suitable to a desktop operation while watching all the signals comfortably on the screen.</li>
+<li>Mumble and Opus are literally the best thing that happened to the free software VOIP world in the last 20 years</li>
+<li>There is still a lot of work to do in QRadioLink, less for features and more for testing/QA and fixing various errors I made when I implemented various modulation types in a rush and did not scientifically test them. Even other users can contribute fixes and suggestions. There is a lot of work for one guy to do in the spare time to maintain it, and I've been too busy to contribute anything significant in the past 6 months.</li>
+</ul>
+
+
+
+<p><img src="/images/plutosdr.png" alt="The PlutoSDR setup"><br/>
+<em>Pictured here is my PlutoSDR temporary setup before adding the big linears and the rest of the gear for 2.4 GHz, 5 GHz and Es'hail 2 sat (QO100). Since then I have also added a LNA, several filters and more relays to activate stuff. All this will be placed eventually inside a mini-ITX box.</em>
+</p>
+
+<p>After about a week of listening around without much success, I decided to fire up the linears in FM mode where the output power goes towards 60 Watts. Sure enough I was able to  open repeaters 100 km away with the Yagi antenna pointed sideways, using just hill reflections. Encouraged by the success, I was listening on 144.300 MHz SSB on the evening of 20th of December, hoping to work FreeDV digital voice modes eventually. All my experiments showed that FreeDV on 2 meters and 70 cm is just as good as on HF, unfortunately not a lot of people are very willing to give it a try. I especially like and recommend 4FSK - 800XA and 2 FSK modes since they can work on cheap and efficient FM power amplifiers with good results.<br/>
+While visually inspecting the 1 MHz spectrum of the low 2 meter band, I saw a cyclic narrow signal appearing and disappearing. I am normally used to all kinds of computer interference so I did not pay too much attention, however I took a look at the local beacon 40 km away and it was coming in strong, about 12 dB above the noise floor although my antenna was on the wrong polarization (vertical). Having the ability to visually scan for signals is what kept me coming to SDR, and this time it looked as if something was indeed going on low down at the edge of the band. I tuned to the frequency, which to my surprise was 144.174 MHz and heard the unmistakeable tone of FT8. Now, I should say that I was never happy with the GNU radio SSB transmitter I put together. I could never get it to work well, either my signal was clipping and distorted or the output level was too low to work. I simply have no idea how to implement the ALC in GNU radio. Even with this limitation, I decided to give the FT8 signals a try, mindful of accidentally driving my linear too high and destroying it.<br/>
+Using Pulseaudio volume control to pipe audio between QRadioLink and WSJTX I could decode signals from Ukrainean and Russian stations from 350 km away up to a little more than 1000 km away, which meant great tropo conditions, so I tried first with 5 W and then with 15-20 W to respond to their CQs. TX activation was done using the VOX mode of QRadioLink which worked without a hitch. The GNU radio flowgraph has a noticeable delay when compared to a real transceiver open on the same frequency, so I wasn't sure if this would work, since both TX and RX would be delayed by about half a second and the FT8 timeslots are not very long (but twice as long as FT4).<br/>
+There were so many signals that it got confusing most of the time, especially since I only used WSJTX very ocasionally. I'm pretty sure I bungled up a couple of responses to the calls, and I never managed to work RC6AL, the farthest station south of Rostov on Don, even though he was coming in with a -10 dB signal at times. All the contacts were towards East and South East, about 90 degrees from where my antenna was pointing, so they were all hill reflections not direct signals. The maximum power used was 20 W and I'm not sure how many of the people I heard were on the other polarization but I was using vertical all the time. Longest distance completed QSO was 880 km to Donetsk area<br/>
+Log of people I managed a complete exchange with (there were others but without complete exchanges, or just heard):
+<pre>
+2019-12-20,18:03:00,2019-12-20,18:04:00,UT7EW,KN78,144.174930,FT8,-10,-22,20 W
+2019-12-20,18:13:45,2019-12-20,18:15:30,UT3HG,KN79,144.175282,FT8,-09,-05,20 W
+2019-12-20,18:25:06,2019-12-20,18:30:00,US4IEK,KN87,144.174926,FT8,-09,-08,20 W
+2019-12-20,18:41:30,2019-12-20,18:42:30,UT7EW,KN78,144.174924,FT8,-04,-16,20 W
+2019-12-20,18:43:30,2019-12-20,18:45:30,UY5YA,KN77,144.174924,FT8,-13,-13,20 W
+2019-12-20,19:47:15,2019-12-20,19:49:45,UR5ESC,KN88,144.175562,FT8,-14,-22,20 W
+</pre>
+</p>
+
+<p><img src="/images/ft8.png" alt="FT8 distant stations on 2 meters"><br/>
+<em>The unusually warm weather for that December week, pushed away by a cold atmospheric front, created very good tropo conditions on the 2 meters band towards East. RC6AL was 1020 km away betwen Rostov on Don and Krasnodar but was coming in at -10 dB.</em>
+</p>
+
+<p>After most of these stations ceased to work FT8, I took a break for about an hour and then returned to look for local contacts on the 145.500 Mhz calling frequency. There were no locals but I could hear Ukrainean FM stations with signal levels of up to S2 (keeping in mind this was the indication of the QRadioLink s-meter which may or may not be accurate). I could not understand a word, except for the name of the city, Donetsk, which put them about 800 km away. I don't know what sort of power they were running but it must have been high. Since they were talking among them, I did not attempt to call, quite sure of the fact that I would not be heard so far with only 20 Watts. Very unusual conditions for December, that's for sure. In fact, just a week later the distance record for VHF and UHF would be broken by Scotland to Cape Verde FT8 QSOs.<br/>
+I've since discovered that with just hill reflections I can hear 2 meter FT8 stations at 250-350 km distance on good weather conditions (no special tropo going on), but only if the other station is a big gun pointing his antenna in my direction. If I could also rotate my antenna, that would increase my success rate, but at the moment that is not possible. Transmitting will have to wait until I can improve the SSB flowgraph since I don't feel comfortable risking to overdrive the linear amplifier in SSB mode.
+</p>
+
+<h3>Questions arising</h3>
+<ul>
+<li><strong>Did I work the FT8 stations with the side of the antenna instead of with the reflections from the front?</strong><br/>
+It is possible, but not extremely likely. The image below shows the local topography and the general direction of the contacts. Most of them were within a cone 20 degrees ENE. Towards East there is a mountain rising 230 meters above the city in the direction of RC6AL. The mountain does provide conditions for knife-edge diffraction, with a sharp slope towards West and a gentle slope towards East. The 90 degree null of the antenna is not deep when used in vertical polarization. So the possibility exists of direct signals.<br/>
+However, further receptions of FT8 stations with the antenna placed in horizontal polarization could not have been possible with anything else but reflections from the mountain North of the city: in good weather conditions but without special tropo, I could receive YO4FYQ with -16 dB 350 km towards SSE, so towards the back of my antenna, nevermind the building in the way, and YO5BAK with -10 dB 330 km towards W, so in the deeper 270 degree null of the antenna.
+</li>
+<li><strong>Why did UT7EW and UR5ESC send a signal report 12 dB below that sent by me?</strong><br/>
+This is most likely related to the fact that I was adjusting the audio gain and RF gain settings during the QSOs in an attempt to avoid distorsion of the signal, however it is possible they were also rotating their antennas meanwhile. I have observed this kind of peaking and decreasing of the signal as the transmitter rotates the antenna during a CQ call in an attempt to maximize signal. This is possibly also the reason why I never managed to work RC6AL despite of his initial strong signal. My antenna was fixed. The propagation conditions lasted for about three hours, possibly more. In the confusion and the rush to contact as many stations as possible I forgot to take screenshots of the slider settings during each contact. As an interesting note, there were two other YO stations around 90-100 km North of me, with 600-800 meter tall mountains in between, working the same tropo, but I could not receive them during this time, even though they were directly on my beam direction. I assume they had their antennas oriented towards East and on horizontal polarization.
+</li>
+<li><strong>How critical is the delay of the software processing chain for fast digi modes?</strong>
+The delay does matter, but it seems FT8 has enough of a guard period and decodes fast enough to make it possible to work this way. I could not test FT4 but that was mainly because of a lack of close enough to be received signals. This is not much of an issue for voice QSOs, but for timeslot communication it has to be considered. A possible solution in case it does not work would be to software adjust the TX time to skip one slot and begin transmission early before the next slot. However this would waste one slot and probably create confusion with other operators.
+</li>
+</ul>
+
+<p><img src="/images/qth_topo1.png" alt="Direction of contacts"><br/>
+<em>The blue line is the direction of the antenna beam. The red lines are the directions of Ukrainean and Russian stations heard on 20th December. The green lines are directions of distant YO stations heard. Image taken from aprs.fi</em>
+</p>
+
+<h3>Conclusions</h3>
+<p>So what's next? After a disappointing foray into QO100, where I could not mount the big dish at the correct angle and was forced to use a 35 cm indoor antenna, unable to hear my own signals and coming very faint even on the WebSDR only when using FreeDV 800XA mode, I think I will repurpose the big dish for local 2.4 and 5 Ghz work. I figure that with the 80 cm antenna and a couple of Watts I may be able to hear and be heard 50-100 km away by making use of reflections off of structures on hill tops. That might be a good trial ground for Codec 2 digital voice on 2.4 and 5 Ghz if the other guys have a similar setup. I could also try FT8 and other digi modes on 70 cm, but there are very few stations on this band in my area. The upside is I have some experience constructing 8-10 element beams for 430 MHz with fair results.<br/>
+I guess the conclusion is you can work distant stations on 2 meters with very modest equipment, antennas and software if the weather conditions are right. The total cost for this VHF setup was around 600 Euro, not counting the power supply and the laptop. The most expensive thing was the linear amplifier at around 350 Euro, which I got for the OFDM waveform of FreeDV. Since FT8 is FSK, I'm pretty sure any cheap 50 W FM amplifier might also have done the work. Genuine Mitsubishi and Motorola high power modules are 5-15 Euro, so there is no need for an expensive linear amplifier if not using PSK, QAM, SSB or OFDM with the SDR transceiver.</p>
+
+<p><img src="/images/qradiolink59.png" alt="QO100"><br/>
+<em>Quite disappointing results on QO100 with the indoor small dish. Glass and wood really attenuate signals a lot at 10 GHz.</em>
+</p>
+
+
+
+
+
+        
+    </div>
+        <!-- /Content --> 
+
+        <!-- Footer -->
+        <div class="footer gradient-2">
+            <div class="container footer-container ">
+                <div class="row">
+                    <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
+                        <div class="footer-title"></div>
+                        <ul class="list-unstyled">
+                        </ul>
+                    </div>
+                    <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
+                        <div class="footer-title"></div>
+                        <ul class="list-unstyled">
+                            <li><a href="https://freedv.org/" target="_blank">FreeDV</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
+                        <div class="footer-title">Links</div>
+                        <ul class="list-unstyled">
+                            <li><a href="https://github.com/qradiolink/qradiolink" target="_blank">Code</a></li>
+                            <li><a href="https://github.com/qradiolink/qradiolink/issues" target="_blank">Issues</a></li>
+                        </ul>
+                    </div> 
+                    <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
+                        <p class="pull-right text-right">
+                            <small><em>Theme and code by <a href="https://github.com/molivier" target="_blank">molivier</a></em></small><br/>
+                            <small>&copy; Adrian Musceac 2017<br>Content on this site is licensed under a Creative Commons Attribution 4.0 International license. They are not for commercial use and must be shared under same conditions.</small>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /Footer -->
+    </body>
+</html>
