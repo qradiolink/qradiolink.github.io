@@ -86,9 +86,6 @@ It can also be used as an amateur radio SDR transceiver for experimentation.</p>
 <li>ISM band communications</li>
 <li>Raspberry Pi hobby RF communications</li>
 <li>Radio over IP, Internet linking of semi-duplex or full duplex remote radio nodes</li>
-<li>point to point IP radio network links</li>
-<li>amateur radio field configurable repeater with remote management</li>
-<li>sattelite amateur radio communications</li>
 <li>homebrew radio hotspot for digital voice modes in amateur radio bands</li>
 </ul>
 
@@ -155,10 +152,6 @@ No, the packet radio modem is not compatible with FM radios and 1200 / 9600 baud
 The receiver needs to be able to demodulate in a bandwidth of at least 1 MHz to receive this radio packet mode.<br/>
 Furthermore, the Internet packet modes in QRadioLink do not even use the same data link layer. Instead of AX.25 frames, QRadioLink sends Ethernet frames over the air. 
 This means that you do not need AX.25 Linux kernel support to create an IP link with QRadioLink. Also, both the 4FSK and DQPSK packet radio modes require a full duplex transceiver, or at least two devices (a semi-duplex transceiver and an RTL-SDR receiver for example).
-</p>
-<p><strong>Why does the user interface appear different from the screenshots on my computer?</strong><br/>
-The screenshots are taken under KDE, a native Qt desktop environment. With GTK based desktops, the Qt theme can 
-behave differently. I have not mastered yet these subtle differences. Your help is welcome.
 </p>
 <p><strong>I am trying to use the official Mumble server package, but it does not seem to work with QRadioLink
 </strong><br/>

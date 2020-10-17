@@ -84,31 +84,31 @@
 <li>High definition video</li>
 </ul>
 <h2>Requirements</h2>
-<p><strong>A port to GNU radio version 3.8 is available in the gr_3.8_port branch of the Git repository. There no binary releases yet for GNU radio 3.8, they will onyl happen when GNU radio 3.8 is included in Debian stable.</strong></p>
+<p><strong>Starting with version 0.8.5, the program requires GNU radio 3.8 and Qt 5.14.</strong></p>
 <ul>
 <li>
-<p>Build dependencies (Debian Buster): 
+<p>Build dependencies on Debian Bullseye with Qt5 and GNU radio 3.8: 
 <pre>
-$ sudo apt-get install gnuradio-dev protobuf-compiler gr-osmosdr gnuradio libvolk1-dev libvolk1-bin libprotobuf17 libprotobuf-dev libopus0 libopus-dev libspeexdsp1 libspeexdsp-dev libpulse0 libpulse-dev libcodec2-0.8.1 libcodec2-dev libasound2 libasound2-dev libjpeg62-turbo libjpeg62-turbo-dev libconfig++9v5 libconfig++-dev qt5-qmake qt5-default qtbase5-dev libqt5core5a libqt5gui5 libqt5network5 libqt5sql5 qtmultimedia5-dev libqt5multimediawidgets5 libqt5multimedia5-plugins libqt5multimedia5 libftdi-dev libftdi1 libsndfile1-dev libsndfile1
+$ sudo apt-get install gnuradio-dev protobuf-compiler gr-osmosdr gnuradio libvolk2-dev libvolk2-bin libprotobuf23 libprotobuf-dev libopus0 libopus-dev libspeexdsp1 libspeexdsp-dev libpulse0 libpulse-dev liblog4cpp5v5 libcodec2-0.9 libcodec2-dev libasound2 libasound2-dev libjpeg62-turbo libjpeg62-turbo-dev libconfig++9v5 libconfig++-dev qt5-qmake qt5-default qtbase5-dev libqt5core5a libqt5gui5 libqt5network5 libqt5sql5 qtmultimedia5-dev libqt5multimediawidgets5 libqt5multimedia5-plugins libqt5multimedia5 libftdi-dev libftdi1 libsndfile1-dev libsndfile1
 </pre></p>
 </li>
 <li>
 <p>Please make sure you have the development packages installed before building QRadioLink</p>
 </li>
 <li>
-<p><strong>QT &gt;= 5.11</strong></p>
+<p><strong>QT &gt;= 5.14</strong></p>
 </li>
 <li>qmake</li>
 <li><strong>Pulseaudio or Alsa or Jack</strong></li>
-<li><strong>Gnuradio &gt;= 3.7.13</strong> built with UHD, SoapySDR support and FreeDV/Codec2 support. Gnuradio 3.8 is not supported.</li>
+<li><strong>Gnuradio &gt;= 3.8</strong> built with UHD, SoapySDR support and FreeDV/Codec2 support. Gnuradio 3.7 support requires the use of the <strong>gr3.7_maint</strong> branch.</li>
 <li><strong>Boost</strong> </li>
 <li><strong>libgnuradio-osmosdr</strong> built with UHD, HackRF, BladeRF or SoapySDR support</li>
 <li>libprotobuf, libopus, libspeexdsp, libpulse-simple, libpulse, libasound, libcodec2, libsqlite3, libjpeg, libconfig++, libvolk, libftdi1, qtmultimedia5-dev, libqt5multimediawidgets5, libqt5multimedia5, libqt5multimedia5, libsndfile1</li>
-<li>optional protoc compiler for development work only (libprotoc 2.6.1)</li>
+<li>protoc compiler (libprotoc 2.6.1 or greater)</li>
 </ul>
 <hr />
 <h2>Building the software</h2>
-<p>The guide assumes you are using Debian Buster, but the commands should work on most Linux distributions. The newest changes are found on the <strong>next</strong> Git branch, but this can also bring some unstable code. The user is advised to use the <strong>master</strong> branch or a release tag unless they want to test the newest changes.</p>
+<p>The guide assumes you are using Debian Bullseye, but the commands should work on most Linux distributions. The newest changes are found on the <strong>next</strong> Git branch, but this can also bring some unstable code. The user is advised to use the <strong>master</strong> branch or a release tag unless they want to test the newest changes.</p>
 <ul>
 <li>Clone the <a href="https://github.com/qradiolink/qradiolink">Github repository</a> into a directory of your choice</li>
 <li>Check out a release tag (or the master branch)</li>
