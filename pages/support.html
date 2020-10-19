@@ -75,6 +75,8 @@
     <div class="container content">
         <h2>Configuration and running</h2>
 <p>
+<h3>Notice for GNU radio 3.8 users</h3><br/>
+Due to an issue present in GNU radio 3.8, it is necessary to perform a workaround step to re-enable digital modes. You need to run the <strong>volk_profile</strong> command, and after it completes, inspect the file <strong>~/.volk/volk_config</strong> in the /home directory. Locate the line starting with <strong>volk_8u_x4_conv_k7_r2_8u</strong> and ensure it ends with  <strong>spiral spiral</strong>: <strong>volk_8u_x4_conv_k7_r2_8u spiral spiral</strong>. If it does not not, change it so it looks like this. After performing this step, digital modes should work again.<br/>
 <ul>
 <li>It is recommended to start the application using the command line when running the first few times and look for any error messages output to the console. Some of them can be ignored safely, others are critical. Logging to console is by default enabled.</li>
 <li><strong>It is not recommended to run qradiolink as root</strong></li>
