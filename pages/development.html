@@ -133,11 +133,10 @@ $ sh ./build_debian.sh
 </ul>
 <div class="highlight"><pre><span class="nb">cd </span>qradiolink
 mkdir build
-<span class="nb">cd </span>ext/
+<span class="nb">cd </span>src/ext/
 protoc --cpp_out<span class="o">=</span>. Mumble.proto
 protoc --cpp_out<span class="o">=</span>. QRadioLink.proto
-<span class="nb">cd</span> ..
-<span class="nb">cd </span>build/
+<span class="nb">cd</span> ../../build/
 qmake ..
 make
 ./qradiolink
