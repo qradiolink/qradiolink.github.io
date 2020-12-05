@@ -110,6 +110,7 @@ It can also be used as an amateur radio SDR transceiver for experimentation.</p>
 <hr />
 <h2>Features</h2>
 <ul>
+<li>Transmit at all supported sample rates</li>
 <li>VOIP (Radio-over-IP) connection between two or more stations operating in simplex or semi-duplex mode</li>
 <li>Direct VOIP talk-around (only requires connection to a VOIP server and no radio)</li>
 <li>Radio forwarding over VOIP - forward analog or digital radio voice to VOIP connection and viceversa</li>
@@ -135,14 +136,14 @@ It can also be used as an amateur radio SDR transceiver for experimentation.</p>
 <li>Wideband digital voice streaming over the Internet with the <a href="https://xiph.org">Opus</a> audio codec</li>
 <li>Digital modulation:  <strong>FreeDV 1600</strong>, <strong>FreeDV 700C</strong>, <strong>FreeDV 800XA</strong>, <strong>BPSK</strong>, <strong>DQPSK</strong>, <strong>2FSK</strong>, <strong>4FSK</strong></li>
 <li>Analog modulations: FM (12.5 kHz), narrow FM (6.25 kHz), SSB, AM, Wide FM (broadcast, receive-only)</li>
-<li>Sinple, low resolution video mode (JPEG encoded) operating at 10 frames per second in 300 kHz bandwidth</li>
-<li>Configurable filter widths for analog modes</li>
+<li>Simple, low resolution video mode (JPEG encoded) operating at 10 frames per second in 300 kHz bandwidth, now with sound using the Opus codec at 9400 kbit/s</li>
+<li>Configurable filter widths for analog modes (AM, FM, SSB)</li>
 <li>CTCSS encoder and decoder for analog FM</li>
 <li>VOX mode with configurable VOX level</li>
-<li>USB FTDI (FT232) relay control support (for RF switches, power amplifier and filter control)</li>
+<li>USB FTDI (FT232) relay control support (for RF switches, power amplifier and filter control). Boards with up to 8 relays are supported.</li>
 <li>Automatic carrier tracking and Doppler effect correction. The system can track Doppler shifts of up to 5-10 kHz, depending on mode. It requires a CNR of at least 10-12 dB, more for FSK modes than for PSK modes.</li>
 <li>Supported hardware: <a href="https://ettus.com"><strong>Ettus USRP bus devices</strong></a>, <a href="https://osmocom.org/projects/sdr/wiki/rtl-sdr"><strong>RTL-SDR</strong></a>, <a href="https://www.analog.com/en/design-center/evaluation-hardware-and-software/evaluation-boards-kits/adalm-pluto.html"><strong>ADALM-Pluto (PlutoSDR)</strong></a>, <a href ="https://www.crowdsupply.com/lime-micro/limesdr-mini"><strong>LimeSDR-mini</strong></a>, <a href="https://wiki.myriadrf.org/LimeNET_Micro"><strong>LimeNET-Micro</strong></a>, <a href="https://www.nuand.com/"><strong>BladeRF</strong></a>, other devices 
-supported by <a href="https://osmocom.org/projects/sdr/wiki/GrOsmoSDR"><strong>gr-osmosdr</strong></a> (HackRF, RedPitaya, others)</li>
+supported by <a href="https://osmocom.org/projects/sdr/wiki/GrOsmoSDR"><strong>gr-osmosdr</strong></a> (HackRF, RedPitaya, others not tested)</li>
 </ul>
 <p><em>Note: QRadioLink currently uses only the default Gnuradio blocks, but that could change in the future.</em></p>
 <hr />
