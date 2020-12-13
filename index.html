@@ -145,7 +145,7 @@ It can also be used as an amateur radio SDR transceiver for experimentation.</p>
 <li>Supported hardware: <a href="https://ettus.com"><strong>Ettus USRP bus devices</strong></a>, <a href="https://osmocom.org/projects/sdr/wiki/rtl-sdr"><strong>RTL-SDR</strong></a>, <a href="https://www.analog.com/en/design-center/evaluation-hardware-and-software/evaluation-boards-kits/adalm-pluto.html"><strong>ADALM-Pluto (PlutoSDR)</strong></a>, <a href ="https://www.crowdsupply.com/lime-micro/limesdr-mini"><strong>LimeSDR-mini</strong></a>, <a href="https://wiki.myriadrf.org/LimeNET_Micro"><strong>LimeNET-Micro</strong></a>, <a href="https://www.nuand.com/"><strong>BladeRF</strong></a>, other devices 
 supported by <a href="https://osmocom.org/projects/sdr/wiki/GrOsmoSDR"><strong>gr-osmosdr</strong></a> (HackRF, RedPitaya, others not tested)</li>
 </ul>
-<p><em>Note: QRadioLink currently uses only the default Gnuradio blocks, but that could change in the future.</em></p>
+<p><em>Note: QRadioLink uses code from the <a href="https://github.com/drmpeg/gr-cessb"><strong>gr-cessb</strong></a> GNU radio out of tree module. Since this module is not packaged by some distributions, the code is included in the application.</em></p>
 <hr />
 <h2>FAQ</h2>
 <p><strong>Is the packet radio system within QRadioLink compatible with other existing amateur packet radio modes and / or FM radios?</strong><br/>
