@@ -8,7 +8,7 @@
         <meta name="keywords" content="">
         <link rel="icon" href="/favicon.ico">
 
-        <title>QRadioLink - SDR transceiver software for Linux</title>
+        <title>QRadioLink - About</title>
 
         <!-- Stylesheets -->
         <link href="/theme/css/bootstrap.min.css" rel="stylesheet">
@@ -146,46 +146,8 @@ It can also be used as an amateur radio SDR transceiver for experimentation.</p>
 supported by <a href="https://osmocom.org/projects/sdr/wiki/GrOsmoSDR"><strong>gr-osmosdr</strong></a> (HackRF, RedPitaya, others not tested)</li>
 </ul>
 <p><em>Note: QRadioLink uses code from the <a href="https://github.com/drmpeg/gr-cessb"><strong>gr-cessb</strong></a> GNU radio out of tree module. Since this module is not packaged by some distributions, the code is included in the application.</em></p>
-<hr />
-<h2>FAQ</h2>
-<p><strong>Is the packet radio system within QRadioLink compatible with other existing amateur packet radio modes and / or FM radios?</strong><br/>
-No, the packet radio modem is not compatible with FM radios and 1200 / 9600 baud amateur radio packet.<br/>
-The receiver needs to be able to demodulate in a bandwidth of at least 1 MHz to receive this radio packet mode.<br/>
-Furthermore, the Internet packet modes in QRadioLink do not even use the same data link layer. Instead of AX.25 frames, QRadioLink sends Ethernet frames over the air. 
-This means that you do not need AX.25 Linux kernel support to create an IP link with QRadioLink. Also, both the 4FSK and DQPSK packet radio modes require a full duplex transceiver, or at least two devices (a semi-duplex transceiver and an RTL-SDR receiver for example).
-</p>
-<p><strong>I am trying to use the official Mumble server package, but it does not seem to work with QRadioLink
-</strong><br/>
-The best response I can come up with is that the official Mumble protocol reference possibly ommits some steps required 
-to connect to the latest version of the official server. My Mumble client is written according to this document, but 
-it uses the umurmur server package for this reason. Your help in resolving this issue is also welcome.
-</p>
-<p><strong>Why is there no Android APK for QRadioLink?</strong><br/>
-Because QRadioLink is not a native Android application and needs a GNU/Linux Android container and userspace. For this reason 
-the user interface is rather clunky for a mobile device and needs a rewrite. You can expect that to happen once KDE Plasma 
-mobile becomes stable. While the application is not native, the performance is similar to a native application, but 
-there is some overhead from the visualisation layers, especially if you use a VNC display instead of an X server. 
-For most modes, expect at least 50% CPU usage on 3-4 cores running at 1.2 GHz.
-</p>
-<p><strong>I am running QRadioLink on a very limited CPU power platform, what can I do?</strong><br/>
-The FFT and waterfall widgets are not active if you disable the FFT checkbox. No FFT is performed on the data by GNU radio and 
-no UI painting is happening. When you switch FFT on, that code becomes active and the application 
-takes a performance hit which is proportional to the sample rate, FFT size and the FPS. Reduce them to the minimum for lowest CPU demand. You should run <strong>volk_profile</strong> before running the application for optimization.
-</p>
-<p><strong>I have issues forwarding the VoIP digital audio to the radio and viceversa</strong><br/>
-If your SDR receives an FM or other analog signal there is no transcoding involved and the voice packets encoded with Opus are sent 
-directly to connected clients. If your SDR receives a digital voice signal like Codec2, the audio is transcoded first 
-before being sent to the VoIP network. Audio artefacts and delays may be present in this case.
-</p>
-<p><strong>Can QRadioLink be used headless (with no graphical user interface on the Raspberry Pi?</strong><br/>
-Yes, starting with version <strong>0.8.2</strong>, QRadioLink can be used as a terminal application (possibly daemonized) without X11 or any screens.
-Remote operation in this case is possible either via commands sent through Mumble as private messages, or via the embedded telnet server, for which you will need
-a telnet client or similar application to connect with. No authentication or security features are implemented at the moment, so you should not expose the configured 
-remote port to the Internet and instead use SSH to connect to the system and telnet from there. If you are not using local audio, you will need to also enable VOIP forwarding.
-</p>
-<p><strong>Is there a Windows version?</strong><br/>
-No. QRadioLink only works on <strong>Linux</strong> systems at the moment. However, it is not impossible to port to the Windows operating system if someone is interested to do the work, with only a few parts that are very Linux specific (including some calls into Linux kernel API). However, Windows users should keep in mind that QRadioLink is a very simple educational tool for hobbyist and learning users and cannot achieve or even wants to achieve what professional SDR applications can perform on Windows. To avoid disappointment, I am recommending some professional products with first grade suppport for the Windows OS: <a href="https://www.flexradio.com/ssdr-for-windows/">FlexRadio SmartSDR</a> and <a href="https://www.sdr-radio.com/Console">SDRConsole</a>.
-</p>
+
+
 
 <hr />
     </div>
