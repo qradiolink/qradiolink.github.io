@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="description" content="About QRadioLink QRadioLink is a Linux SDR transceiver application with VOIP support built on top of Gnuradio, made for hobbyists, tinkerers and radio enthusiasts, which allows experimenting with ...">
+        <meta name="description" content="GNU/Linux multimode (analog and digital) SDR (software defined radio) transceiver application using the Internet for radio to VOIP bridging (radio over IP) ...">
         <meta name="keywords" content="">
         <link rel="icon" href="/favicon.ico">
 
@@ -74,18 +74,16 @@
         <!-- Content -->
     <div class="container content">
         <h2>About QRadioLink</h2>
-<p><em>QRadioLink</em> is a GNU/Linux multimode SDR (software defined radio) transceiver application using the Internet for VOIP communication (radio over IP), built on top of <a href="https://www.gnuradio.org/">GNU radio</a>, 
+<p><em>QRadioLink</em> is a GNU/Linux multimode (analog and digital) SDR (software defined radio) transceiver application using the Internet for radio to VOIP bridging (radio over IP), built on top of <a href="https://www.gnuradio.org/">GNU radio</a>, 
 which allows experimenting with software defined radio hardware using different digital and analog radio signals and a Qt5 user interface.</p>
-<p>Its primary purpose is educational (demonstrating radio communications to children at schools), but it can also be customized for low power data communications on various ISM frequency bands.
-It can also be used as an amateur radio SDR transceiver for experimentation.</p>
 
 
-<p>Possible applications:</p>
+
+<p>Possible usages:</p>
 <ul>
-<li>ISM band communications</li>
-<li>Raspberry Pi hobby RF communications</li>
-<li>Radio over IP, Internet linking of semi-duplex or full duplex remote radio nodes</li>
-<li>homebrew radio hotspot for digital voice modes in amateur radio bands</li>
+<li>Experimentation, hobby and amateur radio applications</li>
+<li>Educational (low cost, low complexity, low reliability research platform into: radio communications, digital voice and data radio applications, voice call routing)</li>
+<li>It should <b>NOT</b> be used in mission critical communications, industrial applications, other applications where data integrity is important.</li>
 </ul>
 
 <h2>Alternatives to QRadioLink</h2>
@@ -110,9 +108,9 @@ It can also be used as an amateur radio SDR transceiver for experimentation.</p>
 <h2>Features</h2>
 <ul>
 <li>Transmit at all supported sample rates</li>
-<li>VOIP (Radio-over-IP) connection between two or more stations operating in simplex or semi-duplex mode</li>
+<li>Multicast radio to VOIP bridge (Radio-over-IP) connection between two or more end points operating in simplex or semi-duplex mode</li>
 <li>Direct VOIP talk-around (only requires connection to a VOIP server and no radio)</li>
-<li>Radio forwarding over VOIP - forward analog or digital radio to VOIP connection and viceversa</li>
+<li>Radio forwarding over VOIP - forward analog or digital radio voice to VOIP connection and viceversa</li>
 <li>Wideband audio streaming over the Internet using the <strong>Opus</strong> audio codec</li>
 <li>Configurable VOIP bitrate</li>
 <li>Audio recording for local audio output in FLAC (free lossless audio compression) format</li>
@@ -123,7 +121,7 @@ It can also be used as an amateur radio SDR transceiver for experimentation.</p>
 <li>Transmit and receive analog FM, SSB, AM, digital voice, text messages, digital video, IP protocol.</li>
 <li>Full duplex DQPSK 250 kbit/s and 4FSK 100 kbit/s IP radio modems with configurable TX/RX offsets</li>
 <li>Analog and digital mode repeater - in full duplex mode only, same mode or mixed mode repeater (e.g. FM to Codec2 and viceversa, or FM to Opus and viceversa)</li>
-<li>Repeater linking via VOIP and Mumble - a group of repeaters can be linked by sharing the same Mumble channel. This feature is still experimental and WIP.</li>
+<li>Radio node linking via VOIP and Mumble protocol - a group of radio nodes can be linked by sharing the same logical Mumble channel. Advantages of using the Mumble VOIP protocol include: multicast full-duplex voice transmission, no call setup overhead after initial network connection, simplicity of implementation, user defined logical channels, free software and open standard. This feature is still undergoing development.</li>
 <li>Full duplex and simplex operation</li>
 <li>Fast tune reverse repeater shift using dedicated button</li>
 <li>Split operation (transmit on other frequency than the receive frequency with no shift limitation, used mostly for repeater operation)</li>
@@ -133,7 +131,7 @@ It can also be used as an amateur radio SDR transceiver for experimentation.</p>
 <li>Digital voice modem bitrates over the air from 1 kbit/s to 10 kbit/s</li>
 <li>FreeDV digital voice modulator and demodulator (currently supports only 1600, 700C, 700D and 800XA modes)</li>
 <li>Wideband digital voice streaming over the Internet with the <a href="https://xiph.org">Opus</a> audio codec</li>
-<li>Digital modulation:  <strong>FreeDV 1600</strong>, <strong>FreeDV 700C</strong>, <str    ong>FreeDV 700D</strong>, <strong>FreeDV 800XA</strong>, <strong>BPSK</strong>, <strong>DQPSK</strong>, <strong>2FSK</strong>, <strong>4FSK</strong></li>
+<li>Digital modulation:  <strong>FreeDV 1600</strong>, <strong>FreeDV 700C</strong>, <strong>FreeDV 700D</strong>, <strong>FreeDV 800XA</strong>, <strong>BPSK</strong>, <strong>DQPSK</strong>, <strong>2FSK</strong>, <strong>4FSK</strong></li>
 <li>Analog modulations: FM (12.5 kHz), narrow FM (6.25 kHz), SSB, AM, Wide FM (broadcast, receive-only)</li>
 <li>Simple, low resolution video mode (JPEG encoded) operating at 10 frames per second in 300 kHz bandwidth, now with sound using the Opus codec at 9400 kbit/s</li>
 <li>Configurable filter widths for analog modes (AM, FM, SSB)</li>
@@ -141,7 +139,7 @@ It can also be used as an amateur radio SDR transceiver for experimentation.</p>
 <li>VOX mode with configurable VOX level</li>
 <li>USB FTDI (FT232) relay control support (for RF switches, power amplifier and filter control). Boards with up to 8 relays are supported.</li>
 <li>Automatic carrier tracking and Doppler effect correction. The system can track Doppler shifts of up to 5-10 kHz, depending on mode. It requires a CNR of at least 10-12 dB, more for FSK modes than for PSK modes.</li>
-<li>Supported hardware: <a href="https://ettus.com"><strong>Ettus USRP bus devices</strong></a>, <a href="https://osmocom.org/projects/sdr/wiki/rtl-sdr"><strong>RTL-SDR</strong></a>, <a href="https://www.analog.com/en/design-center/evaluation-hardware-and-software/evaluation-boards-kits/adalm-pluto.html"><strong>ADALM-Pluto (PlutoSDR)</strong></a>, <a href ="https://www.crowdsupply.com/lime-micro/limesdr-mini"><strong>LimeSDR-mini</strong></a>, <a href="https://wiki    .myriadrf.org/LimeNET_Micro"><strong>LimeNET-Micro</strong></a>, <a href="https://www.nuand.com/"><strong>BladeRF</strong></a>, other devices 
+<li>Supported hardware: <a href="https://ettus.com"><strong>Ettus USRP bus devices</strong></a>, <a href="https://osmocom.org/projects/sdr/wiki/rtl-sdr"><strong>RTL-SDR</strong></a>, <a href="https://www.analog.com/en/design-center/evaluation-hardware-and-software/evaluation-boards-kits/adalm-pluto.html"><strong>ADALM-Pluto (PlutoSDR)</strong></a>, <a href ="https://www.crowdsupply.com/lime-micro/limesdr-mini"><strong>LimeSDR-mini</strong></a>, <a href="https://wiki.myriadrf.org/LimeNET_Micro"><strong>LimeNET-Micro</strong></a>, <a href="https://www.nuand.com/"><strong>BladeRF</strong></a>, other devices 
 supported by <a href="https://osmocom.org/projects/sdr/wiki/GrOsmoSDR"><strong>gr-osmosdr</strong></a> (HackRF, RedPitaya, others not tested)</li>
 </ul>
 <p><em>Note: QRadioLink uses code from the <a href="https://github.com/drmpeg/gr-cessb"><strong>gr-cessb</strong></a> GNU radio out of tree module. Since this module is not packaged by some distributions, the code is included in the application.</em></p>
