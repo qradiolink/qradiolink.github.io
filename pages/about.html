@@ -86,7 +86,7 @@ which allows experimenting with software defined radio hardware using different 
 <li>It should <b>NOT</b> be used in mission critical communications, industrial applications, other applications where data integrity is important.</li>
 </ul>
 
-<h2>Alternatives to QRadioLink</h2>
+<h2>Similar to QRadioLink</h2>
 
 <p>Free software projects that work on Linux and have similar features to QRadioLink are listed below.</p>
 <p>
@@ -100,6 +100,8 @@ which allows experimenting with software defined radio hardware using different 
 <li><a href="http://osmocom.org/projects/op25/wiki">OP25</a> is a free software implementation of D-Star, DMR and C4FM (Yaesu digital voice standard). It works with FM radios capable of 9600 baud packet as well as SDRs.</li>
 <li><a href="https://github.com/tvelliott/charon">Charon</a> is a stand-alone OFDM transceiver with batman-adv mesh networking capabilities. The IP modem in Charon is very advanced and can be embedded on the PlutoSDR. It is the base for several amateur radio mesh networks. Only works with SDR hardware.</li>
 <li><a href="https://github.com/g4klx/MMDVM">MMDVM</a> extremely robust free software implementation of D-Star, DMR and C4FM (Yaesu digital voice standard). Works with RaspberryPi, Arduino and any radios capable of 9600 baud packet.</li>
+<li><a href="https://hnap.de/about/">HAMNET Access protocol</a> HAMNET access protocol implementation for SDR devices, initial implementation focused on the ADALM-Pluto device</li>
+<li><a href="https://m17-protocol-specification.readthedocs.io/en/latest/"> M17 digital voice/data open protocol</a></li>
 </ul>
 </p>
 
@@ -108,7 +110,7 @@ which allows experimenting with software defined radio hardware using different 
 <h2>Features</h2>
 <ul>
 <li>Transmit at all supported sample rates</li>
-<li>Multicast radio to VOIP bridge (Radio-over-IP) connection between two or more end points operating in simplex or semi-duplex mode</li>
+<li>Multicast radio to VOIP bridge (Radio-over-IP) connection between two or more endpoints operating in simplex or semi-duplex mode. The VOIP bridge uses a star topology with a central application (umurmur) acting as voice packet router and providing logical channel separation.</li>
 <li>Direct VOIP talk-around (only requires connection to a VOIP server and no radio)</li>
 <li>Radio forwarding over VOIP - forward analog or digital radio voice to VOIP connection and viceversa</li>
 <li>Wideband audio streaming over the Internet using the <strong>Opus</strong> audio codec</li>
