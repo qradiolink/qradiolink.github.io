@@ -142,6 +142,10 @@ However, the large delays in the sample processing chain mean that the SDR hotsp
 Instead, you can set some static talkgroups on timeslot 1, and then transmit and dynamically activate some talkgroups on timeslot 2 which is received by the SDR hotspot.<br/>
 While not actually compliant to DMR base station specifications, since you can't transmit to it on both timeslots, this enables two simultaneous transmissions on the BS downlink, while the user can use timeslot 2 on the uplink to access any talk groups which can be either static or dynamically activated.<br/>
 In my case, I used both an ADALM-Pluto (PlutoSDR) and a LimeSDR-mini device to test this DMR hotspot mode. Since this works for DMR, I see not reason why it cannot also be used for D-Star and System Fusion, which are less complex than DMR since they don't use a TDMA access scheme.<br/>
+Something which is also worthy of noting is that SDR devices can drift in frequency as they warm up, some of them less and some of them more. This means that you might have to adjust the transmit and receive frequency as the devices warm.<br/>
+Also, the frame sync correlator implemented in MMDVM is quite sensitive to being off-frequency even as little as 200 Hz. If you notice your radio transmissions are not picked up by the SDR hotspot and logged by MMDVM-SDR, carefully adjust the receive frequency while transmitting and zoomed in on the FFT display until you are very close to the actual receive frequency as displayed by the green filter box in QRadioLink.<br/>
+</p>
+<p>This article was made possible by Jonathan Naylor G4KLX (the author of MMDVM and MMDVMHost), Peter Rakesh (the author of the Linux port, MMDVM-SDR) and thanks also to Johan D. who encouraged me at SDRA 2021 to look into this matter.
 </p>
 
 
