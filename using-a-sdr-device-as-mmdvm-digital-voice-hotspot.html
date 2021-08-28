@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="Using GNU Radio and a SDR device as a digital voice hotspot with MMDVM ...">
+        <meta name="keywords" content="Digital voice, amateur radio, DMR">
+        <link rel="icon" href="/favicon.ico">
+
+        <title>Using GNU Radio and a SDR device as a digital voice hotspot with MMDVM supported modes like DMR</title>
+
+        <!-- Stylesheets -->
+        <link href="/theme/css/bootstrap.min.css" rel="stylesheet">
+        <link href="/theme/css/fonts.css" rel="stylesheet">
+        <link href="/theme/css/nest.css" rel="stylesheet">
+        <link href="/theme/css/pygment.css" rel="stylesheet">
+        <!-- /Stylesheets -->
+
+        <!-- RSS Feeds -->
+        <!-- /RSS Feeds -->
+
+        <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+          <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+          <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+
+
+    </head>
+
+    <body>
+
+        <!-- Header -->
+    <div class="header-container" style="background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url('/images/header_red.png'); background-position: center; background-size: cover;">
+
+            <!-- Static navbar -->
+            <div class="container">
+                <div class="header-nav">
+                    <div class="header-logo">
+                        <a class="pull-left" href="/"><img class="mr20" src="/images/logo.png" alt="logo">QRadioLink</a>
+                    </div>
+                    <div class="nav pull-right">
+                                <a href="/articles_index.html">Articles</a>
+                            <a  href="/pages/about.html">About</a>
+                            <a  href="/pages/development.html">Development</a>
+                            <a  href="/pages/credits.html">Credits</a>
+                            <a  href="/pages/downloads.html">Downloads</a>
+                            <a  href="/pages/screenshots.html">Screenshots</a>
+                            <a  href="/pages/support.html">Support</a>
+                    </div>
+                </div>
+            </div>
+            <!-- /Static navbar -->
+
+            <!-- Header -->
+    <!-- Header -->
+    <div class="container header-wrapper">
+        <div class="row">
+              <div class="col-lg-12">
+                  <div class="header-content">
+                      <h1 class="header-title">Using a SDR device as a digital voice hotspot with MMDVM supported modes like DMR</h1>
+                      <p class="header-date">By <a href="/author/adrian.html">Adrian</a>, Sat 28 August 2021, in category <a href="/category/amateur-radio.html">Amateur radio</a></p>
+                      <div class="header-underline"></div>
+                      <div class="clearfix"></div>
+                      <p class="pull-right header-tags">
+                          <span class="glyphicon glyphicon-tags mr5" aria-hidden="true"></span>
+<a href="/tag/LimeSDR.html">LimeSDR</a>, <a href="/tag/PlutoSDR.html">PlutoSDR</a>, <a href="/tag/amateur-radio.html">amateur radio</a>                      </p>
+                  </div>
+              </div>
+        </div>
+    </div>
+    <!-- /Header -->
+            <!-- /Header -->
+
+        </div>
+        <!-- /Header -->
+
+
+        <!-- Content -->
+    <div class="container content">
+        <h2>Using GNU Radio and a SDR device as a digital voice hotspot with MMDVM supported modes like DMR, D-Star, YSG</h2>
+<p><a href="https://github.com/g4klx/MMDVM">MMDVM</a> is a popular software created by Jonathan Naylor G4KLX which powers the multitude of digital voice hotspots or digital voice repeaters so common today. Using it and some custom hardware you can access DMR, D-Star, YSF and other voice networks worldwide. There are two main software components involved: MMDVM, which runs on a microcontroller board and <a href="https://github.com/g4klx/MMDVMHost">MMDVMHost</a> which runs on a GNU/Linux host computer, usually something like a Raspberry Pi board and handles connectivity to the network and the main scheduling logic.<br/>
+</p>
+<p>
+Some of us, including me, use a SDR device for most of their amateur radio activities, and want to adapt their SDR to a multitude of tasks, to avoid using multiple hardware device types for the same job. This is why I began to think some time ago if it would not be possible to adapt such an SDR as a digital voice hotspot (with DMR as a target mode, since I already have DMR radios). Luckily, I wasn't the only one targetting this functionality, and there was at least one port of MMDVM to GNU/Linux. This fork of MMDVM (<a href="https://github.com/r4d10n/mmdvm-sdr">MMDVM-SDR</a>) by Peter Rakesh had already solved the issue of serial port communication with MMDVMHost by using a virtual serial port, enabling it to run on a regular Linux computer instead of a microcontroller and use different audio sample input/out rather then the microcontroller ADC/DAC. With these hard problems already solved, there remained the issue of transmitting the modulated samples through a SDR device.<br/>
+</p>
+<p>
+Some technical details about the <a href="https://www.etsi.org/standards-search#page=1&search=digital&title=1&etsiNumber=0&content=0&version=1&onApproval=1&published=1&historical=1&startDate=1988-01-15&endDate=2021-08-28&harmonized=0&keyword=dPMR,,PMR&TB=&stdType=&frequency=&mandate=&collection=&sort=1">ETSI DMR</a> standards and the MMDVM implementation of these standards will follow.<br/>
+DMR is a radio standard which implements a double timeslot time division multiple access scheme (TDMA). This means that each base station (BS) can carry two radio conversations simultaneously in a single 12.5 kHz channnel, effectively offering double the capacity compared to a single FM 12.5 kHz repeater. More than that, the DMR protocol offers call routing between logical channels called talk groups, as well as direct calls between two DMR radios identified by a unique ID. Besides these advantages, the TDMA access scheme requires very strict timing for base station access, and the mobile station (MS) needs to be time synchronized to the BS and transmit within a specific window of time in order to be received in its own timeslot and avoid interfering with the other timeslot where a different radio transmission can occur independently.<br/>
+One MMDVM DMR hotspot can operate either in simplex mode, where a single time slot is used for BS downlink and uplink, or in full duplex mode, where both time slots are used and can carry voice transmissions. To ensure the hard timing demands are met, MMDVM runs on a microcontroller and has direct access to the ADC and DAC of the microntroller.<br/>
+If we run MMDVM on a Linux host instead of a microcontroller and we use a SDR devices as our radio hardware, we will face the following challenges:
+<ul>
+<li>We no longer have direct access to the ADC/DAC, instead we have to use hardware specific middleware layers which ultimately communicate over a USB bus with the SDR device. This introduces a lot of latency, because there are multiple sample buffers involved.</li>
+<li>We are no longer running on a real-time microcontroller platform</li>
+</ul>
+</p>
+<h3>GNU Radio implementation</h3>
+<p>MMDVM provides four level symbols to the ADC/DAC of the microcontroller at a rate of 24000 samples/second. These symbols are already filtered with a root-raised cosine filter and the only thing left to do is to frequency modulate (or demodulate for the receive case) these symbols to obtain a 4FSK DMR signal. GNU Radio can handle this frequency modulation and demodulation as well as any resampling needed, and gr-osmosdr can communicate with most SDR devices. The only thing left to do in MMDVM is to communicate with a GNU Radio process and set up a continuous flow of samples. There are several ways of achieving this: using UDP sinks and sources in GNU Radio and setting up an UDP socket handler in MMDVM, or even better, using ZeroMQ for communication. ZeroMQ is a fairly recent addition to GNU Radio and makes it very easy to communicate and set up a flow of samples between different programs, either on the same machine or even over an IP network.<br/>
+I've chosen to use ZeroMQ in both MMDVM-SDR and in the QRadioLink flowgraph to set up this flow of samples between both programs. The ZeroMQ sinks and sources in GNU Radio use IPC (inter-process communication) as a delivery mechanism instead of TCP, to avoid tying up two TCP ports unnecessarily.</br>
+The GNU Radio flowgraphs are integrated in QRadioLink, which will serve just as a bridge and as an UI frontend to handle SDR tuning and setup of RX/TX offsets necessary for a full duplex hotspot. A full-duplex SDR device is necessary, however you can also use a simplex device like the HackRF for transmitting and a different device like the RTL-SDR for receiving.</br>
+</p>
+<p><img src="/images/qradiolink-mmdvm3.png"></p>
+<h3>Operation of a DMR duplex hotspot</h3>
+<p>The first thing to do is to compile MMDVMHost and setup the configuration for a duplex DMR hotspot. An important thing to note is that baseband audipo symbols output by MMDVM need to be inverted for proper GNU Radio modulation and demodulation. This is an example of the Modem section of the MMDVMHost config file:
+<pre>
+Port=/home/pi/mmdvm-sdr/build/ttyMMDVM0
+TXInvert=1
+RXInvert=1
+PTTInvert=0
+TXDelay=0
+RXOffset=0
+TXOffset=0
+DMRDelay=0
+RXLevel=100
+TXLevel=100
+RXDCOffset=0
+TXDCOffset=0
+RFLevel=100
+RSSIMappingFile=RSSI.dat
+UseCOSAsLockout=0
+Trace=0
+Debug=1
+</pre>
+<br/>
+This path: <b>/home/pi/mmdvm-sdr/build/ttyMMDVM0</b> will point to the location of the virtual serial port set up by MMDVM-SDR, which is usually in the same location where MMDVM-SDR is run from.</br>
+</p>
+<p><img src="/images/mmdvm-sdr1.png"></p>
+After compiling MMDVM-SDR, we will need to start this application first to have the virtual serial port ready, then start MMDVMHost as well. If the configuration is done correctly we should see a network connection towards the DMR master server and even some DMR voice frames logged in the console if some static slots are already set up. After they are started, QRadioLink RX and TX activation can also be done. If you activate SDR RX before starting MMDVM-SDR and MMDVMHost, you will probably see QRadioLink freeze for a while and then some console messages about sample overflow. This is not a fatal error however it means the sample buffers are filled and the flowgraphs are simply stopped leading to some overflows.<br/>
+The deactivation order is also somewhat important. MMDVMHost needs to be stopped before MMDVM-SDR to avoid it hanging because the virtual serial port file descriptor being deleted as MMDVM-SDR shuts down.<br/>
+</p>
+<p><img src="/images/mmdvmhost2.png"></p>
+<p>Since the BS (our SDR hotspot) sets its own time reference, it can transmit both DMR timeslots just fine.
+However, the large delays in the sample processing chain means that the SDR hotspot cannot receive both timeslots in the correct time window. So with a minor change to the MMDVM-SDR code, our duplex hotspot will transmit both timeslots on downlink, but use the DMR direct operation mode (DMO) for MS uplink. All transmissions from the DMR radio will be picked up on timeslot 2 regardless on which timeslot they originate from. This is a hard limitation, meaning you can't use both timeslots to select on which talkgroup you enter the DMR network.<br/>
+Instead, you can set some static talkgroups on timeslot 1, and then transmit and dynamically activate some talkgroups on timeslot 2 which is received by the SDR hotspot.<br/>
+While not actually compliant to DMR base station specifications, since you can't transmit to it on both timeslots, this enables two simultaneous transmissions on the BS downlink, while the user can use timeslot 2 on the uplink to access any talk groups which can be either static or dynamically activated.<br/>
+In my case, I used both an ADALM-Pluto (PlutoSDR) and a LimeSDR-mini device to test this DMR hotspot mode. Since this works for DMR, I see not reason why it cannot also be used for D-Star and System Fusion, which are less complex than DMR since they don't use a TDMA access scheme.<br/>
+</p>
+<p>PlutoSDR in operation as hotspot:<br/>
+<video width="480" height="320" controls="controls">
+<source src="/images/qradiolink-mmdvm.mp4" type="video/mp4">
+</video>
+</p>
+
+
+
+        
+    </div>
+        <!-- /Content --> 
+
+        <!-- Footer -->
+        <div class="footer gradient-2">
+            <div class="container footer-container ">
+                <div class="row">
+                    <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
+                        <div class="footer-title"></div>
+                        <ul class="list-unstyled">
+                        </ul>
+                    </div>
+                    <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
+                        <div class="footer-title"></div>
+                        <ul class="list-unstyled">
+                            <li><a href="https://freedv.org/" target="_blank">FreeDV</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
+                        <div class="footer-title">Links</div>
+                        <ul class="list-unstyled">
+                            <li><a href="https://github.com/qradiolink/qradiolink" target="_blank">Code</a></li>
+                            <li><a href="https://github.com/qradiolink/qradiolink/issues" target="_blank">Issues</a></li>
+                        </ul>
+                    </div> 
+                    <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
+                        <p class="pull-right text-right">
+                            <small><em>Theme and code by <a href="https://github.com/molivier" target="_blank">molivier</a></em></small><br/>
+                            <small>&copy; Adrian Musceac 2017<br>Content on this site is licensed under a Creative Commons Attribution 4.0 International license. They are not for commercial use and must be shared under same conditions.</small>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /Footer -->
+    </body>
+</html>
