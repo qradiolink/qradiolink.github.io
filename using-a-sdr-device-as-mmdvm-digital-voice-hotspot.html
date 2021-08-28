@@ -80,7 +80,13 @@
 
         <!-- Content -->
     <div class="container content">
-        <h2>Using GNU Radio and a SDR device as a digital voice hotspot with MMDVM supported modes like DMR, D-Star, YSG</h2>
+        <h2>Using GNU Radio and a SDR device as a digital voice hotspot with MMDVM supported modes like DMR, D-Star, YSF</h2>
+        
+<p>PlutoSDR in operation as MMDVM DMR hotspot:<br/>
+<video width="640" height="480" controls="controls">
+<source src="/images/qradiolink-mmdvm.mp4" type="video/mp4">
+</video>
+</p>
 <p><a href="https://github.com/g4klx/MMDVM">MMDVM</a> is a popular software created by Jonathan Naylor G4KLX which powers the multitude of digital voice hotspots or digital voice repeaters so common today. Using it and some custom hardware you can access DMR, D-Star, YSF and other voice networks worldwide. There are two main software components involved: MMDVM, which runs on a microcontroller board and <a href="https://github.com/g4klx/MMDVMHost">MMDVMHost</a> which runs on a GNU/Linux host computer, usually something like a Raspberry Pi board and handles connectivity to the network and the main scheduling logic.<br/>
 </p>
 <p>
@@ -103,7 +109,7 @@ The GNU Radio flowgraphs are integrated in QRadioLink, which will serve just as 
 </p>
 <p><img src="/images/qradiolink-mmdvm3.png"></p>
 <h3>Operation of a DMR duplex hotspot</h3>
-<p>The first thing to do is to compile MMDVMHost and setup the configuration for a duplex DMR hotspot. An important thing to note is that baseband audipo symbols output by MMDVM need to be inverted for proper GNU Radio modulation and demodulation. This is an example of the Modem section of the MMDVMHost config file:
+<p>The first thing to do is to compile MMDVMHost and setup the configuration for a duplex DMR hotspot. An important thing to note is that baseband audio symbols output by MMDVM need to be inverted for proper GNU Radio modulation and demodulation. This is an example of the Modem section of the MMDVMHost config file:
 <pre>
 Port=/home/pi/mmdvm-sdr/build/ttyMMDVM0
 TXInvert=1
@@ -132,16 +138,12 @@ The deactivation order is also somewhat important. MMDVMHost needs to be stopped
 </p>
 <p><img src="/images/mmdvmhost2.png"></p>
 <p>Since the BS (our SDR hotspot) sets its own time reference, it can transmit both DMR timeslots just fine.
-However, the large delays in the sample processing chain means that the SDR hotspot cannot receive both timeslots in the correct time window. So with a minor change to the MMDVM-SDR code, our duplex hotspot will transmit both timeslots on downlink, but use the DMR direct operation mode (DMO) for MS uplink. All transmissions from the DMR radio will be picked up on timeslot 2 regardless on which timeslot they originate from. This is a hard limitation, meaning you can't use both timeslots to select on which talkgroup you enter the DMR network.<br/>
+However, the large delays in the sample processing chain mean that the SDR hotspot cannot receive both timeslots in the correct time window. So with a minor change to the MMDVM-SDR code, our duplex hotspot will transmit both timeslots on downlink, but use the DMR direct operation mode (DMO) for MS uplink. All transmissions from the DMR radio will be picked up on timeslot 2 regardless on which timeslot they originate from. This is a hard limitation, meaning you can't use both timeslots to select on which talkgroup you enter the DMR network.<br/>
 Instead, you can set some static talkgroups on timeslot 1, and then transmit and dynamically activate some talkgroups on timeslot 2 which is received by the SDR hotspot.<br/>
 While not actually compliant to DMR base station specifications, since you can't transmit to it on both timeslots, this enables two simultaneous transmissions on the BS downlink, while the user can use timeslot 2 on the uplink to access any talk groups which can be either static or dynamically activated.<br/>
 In my case, I used both an ADALM-Pluto (PlutoSDR) and a LimeSDR-mini device to test this DMR hotspot mode. Since this works for DMR, I see not reason why it cannot also be used for D-Star and System Fusion, which are less complex than DMR since they don't use a TDMA access scheme.<br/>
 </p>
-<p>PlutoSDR in operation as hotspot:<br/>
-<video width="640" height="480" controls="controls">
-<source src="/images/qradiolink-mmdvm.mp4" type="video/mp4">
-</video>
-</p>
+
 
 
 
