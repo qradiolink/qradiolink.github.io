@@ -82,11 +82,7 @@
     <div class="container content">
         <h2>Using GNU Radio and a SDR device as a digital voice hotspot with MMDVM supported modes like DMR, D-Star, YSF</h2>
         
-<p>PlutoSDR in operation as MMDVM DMR hotspot:<br/>
-<video width="640" height="480" controls="controls">
-<source src="/images/qradiolink-mmdvm.mp4" type="video/mp4">
-</video>
-</p>
+
 <p><a href="https://github.com/g4klx/MMDVM">MMDVM</a> is a popular software created by Jonathan Naylor G4KLX which powers the multitude of digital voice hotspots or digital voice repeaters so common today. Using it and some custom hardware you can access DMR, D-Star, YSF and other voice networks worldwide. There are two main software components involved: MMDVM, which runs on a microcontroller board and <a href="https://github.com/g4klx/MMDVMHost">MMDVMHost</a> which runs on a GNU/Linux host computer, usually something like a Raspberry Pi board and handles connectivity to the network and the main scheduling logic.<br/>
 </p>
 <p>
@@ -147,6 +143,12 @@ Also, the frame sync correlator implemented in MMDVM is quite sensitive to being
 The QRadioLink functionality shown here can now be found in the <b>next</b> branch of the source repository, however since this is not released yet, you will have to build it from source until a new release is available. Alternatively, the MMDVM-SDR repository makes available some GNU Radio Companion flowgraphs to achieve the same purpose.<br/>
 </p>
 <p>This article was made possible by Jonathan Naylor G4KLX (the author of MMDVM and MMDVMHost), Peter Rakesh (the author of the Linux port, MMDVM-SDR) and thanks also to Johan D. who encouraged me at SDRA 2021 to look into this matter.
+</p>
+
+<p>PlutoSDR in operation as MMDVM DMR hotspot:<br/>
+<video width="640" height="480" controls="controls">
+<source src="/images/qradiolink-mmdvm.mp4" type="video/mp4">
+</video>
 </p>
 
 
