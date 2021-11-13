@@ -100,6 +100,7 @@ which allows experimenting with software defined radio hardware using different 
 <li><a href="http://osmocom.org/projects/op25/wiki">OP25</a> is a free software implementation of D-Star, DMR and C4FM (Yaesu digital voice standard). It works with FM radios capable of 9600 baud packet as well as SDRs.</li>
 <li><a href="https://github.com/tvelliott/charon">Charon</a> is a stand-alone OFDM transceiver with batman-adv mesh networking capabilities. The IP modem in Charon is very advanced and can be embedded on the PlutoSDR. It is the base for several amateur radio mesh networks. Only works with SDR hardware.</li>
 <li><a href="https://github.com/g4klx/MMDVM">MMDVM</a> extremely robust free software implementation of D-Star, DMR and C4FM (Yaesu digital voice standard). Works with RaspberryPi, Arduino and any radios capable of 9600 baud packet.</li>
+<li><a href="https://github.com/r4d10n/mmdvm-sdr">MMDVM-SDR</a>. Fork of MMDVM for SDR hotspot operation.</li>
 <li><a href="https://hnap.de/about/">HAMNET Access protocol</a> HAMNET access protocol implementation for SDR devices, initial implementation focused on the ADALM-Pluto device</li>
 <li><a href="https://m17-protocol-specification.readthedocs.io/en/latest/"> M17 digital voice/data open protocol</a></li>
 </ul>
@@ -115,6 +116,7 @@ which allows experimenting with software defined radio hardware using different 
 <li>Radio forwarding over VOIP - forward analog or digital radio voice to VOIP connection and viceversa</li>
 <li>Wideband audio streaming over the Internet using the <strong>Opus</strong> audio codec</li>
 <li>Configurable VOIP bitrate</li>
+<li>MMDVM compatibility mode for a full duplex MMDVM SDR hotspot (DMR, D-Star, System Fusion). See <a href="http://qradiolink.org/using-a-sdr-device-as-mmdvm-digital-voice-hotspot.html">this article</a> for more details</li>
 <li>Audio recording for local audio output in FLAC (free lossless audio compression) format</li>
 <li>Compatible with the Mumble client application</li>
 <li>Remote control via network (requires a telnet client or similar program, can be scripted)</li>
@@ -143,7 +145,7 @@ which allows experimenting with software defined radio hardware using different 
 <li>Automatic carrier tracking and Doppler effect correction. The system can track Doppler shifts of up to 5-10 kHz, depending on mode. It requires a CNR of at least 10-12 dB, more for FSK modes than for PSK modes.</li>
 <li>Supported SDR hardware: <a href="https://ettus.com"><strong>Ettus USRP bus devices</strong></a>, <a href="https://osmocom.org/projects/sdr/wiki/rtl-sdr"><strong>RTL-SDR</strong></a>, <a href="https://www.analog.com/en/design-center/evaluation-hardware-and-software/evaluation-boards-kits/adalm-pluto.html"><strong>ADALM-Pluto (PlutoSDR)</strong></a>, <a href ="https://www.crowdsupply.com/lime-micro/limesdr-mini"><strong>LimeSDR-mini</strong></a>, <a href="https://wiki.myriadrf.org/LimeNET_Micro"><strong>LimeNET-Micro</strong></a>, <a href="https://www.nuand.com/"><strong>BladeRF</strong></a>, other devices 
 supported by <a href="https://osmocom.org/projects/sdr/wiki/GrOsmoSDR"><strong>gr-osmosdr</strong></a> (HackRF, RedPitaya, others not tested)</li>
-<li>Support for the <a href="https://www.crowdsupply.com/lime-micro/limerfe">LimeRFE RF frontend</a></li>
+<li>Support for the <a href="https://www.crowdsupply.com/lime-micro/limerfe">LimeRFE RF frontend</a>. Only amateur radio bands are supported. Cellular paths for LimeRFE boards which have them are not supported. Automatic tuning of the frontend works according to IARU region 1 bandplans.</li>
 </ul>
 <p><em>Note: QRadioLink uses code from the <a href="https://github.com/drmpeg/gr-cessb"><strong>gr-cessb</strong></a> GNU radio out of tree module. Since this module is not packaged by some distributions, the code is included in the application.</em></p>
 
