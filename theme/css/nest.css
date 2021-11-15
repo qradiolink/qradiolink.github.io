@@ -179,8 +179,8 @@ table td, table th{
 
 /* Navbar */
 .header-nav{
-    height:100px;
-    line-height:100px;
+    height:30px;
+    line-height:30px;
     color:#fff;
     font-size:14px;
     font-weight:600;
@@ -224,7 +224,7 @@ table td, table th{
 .header-container {
     background: #f5f5f5;
     padding: 0;
-    height: 260px;
+    height: 360px;
 }
 .header-wrapper{
     padding-left: 40px;
