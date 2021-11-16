@@ -132,7 +132,7 @@ Do note that the identifier digits are the most important: <strong>0403:6001</st
 </li>
 <li>QRadioLink can control a maximum of 8 relays, however only 2 are used at the moment. This is work in progress. Other types of relays may be supported in the future.<br/>
 The order in which relays are activated and deactivated during a transmission cycle is as follows: activation starting with relay 1 to relay 8, deactivation in reverse order (relay 8 to relay 1). A Python script ( <strong>ext/ftdi.py</strong> ) is included to help you determine the order of relays on the board.</li>
-<li>The LimeRFE frontend device is supported in simplex and full duplex mode. Control of the LimeRFE is only via the USB connection. The default device is /dev/ttyUSB0, however you can change this device in the Setup -> General Settings page in case your device is asigned a different tty when plugging it in. Automatic tuning based on SDR frequency is available, however only amateur bands in IARU region 1 are currently supported. Be careful not to enable duplex mode in QRadioLink if port labeled TX is not terminated on a 50 Ohm load or connected to an antenna. For simplex operation use only the ports labeled "Tx/Rx" and "70 MHz"</li>
+<li>The LimeRFE frontend device is supported in simplex and full duplex mode. Control of the LimeRFE is only via the USB connection. The default device is /dev/ttyUSB0, however you can change this device in the Setup -> General Settings page in case your device is asigned a different tty when plugging it in. Automatic tuning based on SDR frequency is available, however only amateur bands in IARU region 1 are currently supported. Be careful not to enable duplex mode in QRadioLink if port labeled TX is not terminated on a 50 Ohm load or connected to an antenna. For simplex operation use only the ports labeled "Tx/Rx" and "70 MHz". Do not exceed a transmit gain setting of 80 for the 2300 - 2450 MHz band to avoid amplifier damage. For SDR frequencies outside of IARU region 1 amateur radio bands, the WIDEBAND_1000 and WIDEBAND_4000 RF paths are used for both transmit and receive.</li>
 <li>Video will be displayed in the upper right corner. Currently the system default camera is used for capturing the images.</li>
 <li><strong>New</strong>: starting with version 0.8.5-rc4, the video transmission also has sound, using the Opus audio codec.</li>
 <li>IP over radio operation mode requires net administration priviledges to be granted to the application. See the instructions in the docs/ directory. An error message will be output at startup if these priviledges are not present. You can safely ignore this message if you don't need to use the IP modem facility.</li>
@@ -231,6 +231,8 @@ Connection closed by foreign host.
 <h2>Contact</h2>
 <p>The project has a discussion group at <a href="https://github.com/qradiolink/qradiolink/discussions">Github</a>
  which can be used to discuss issues, request features and contact developers.</p>
+<p>The project also has an email list at <a href="https://groups.io/g/qradiolink">https://groups.io/g/qradiolink</a>
+ which can be used to discuss operation, features and other topics related to software defined radio and amateur radio in an open source software context.</p>
 <hr />
 <h2>FAQ</h2>
 <p><strong>Is the packet radio system within QRadioLink compatible with other existing amateur packet radio modes and / or FM radios?</strong><br/>
