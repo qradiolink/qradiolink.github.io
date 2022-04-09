@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="Implementation of an ETSI compliant DMR base station with the LimeNet Micro SDR working in TDMA mode ...">
+        <meta name="keywords" content="Digital voice, amateur radio, DMR">
+        <link rel="icon" href="/favicon.ico">
+
+        <title>Implementation of an ETSI compliant DMR base station with the LimeNet Micro SDR working in TDMA mode (two inbound timeslots)</title>
+
+        <!-- Stylesheets -->
+        <link href="/theme/css/bootstrap.min.css" rel="stylesheet">
+        <link href="/theme/css/fonts.css" rel="stylesheet">
+        <link href="/theme/css/nest.css" rel="stylesheet">
+        <link href="/theme/css/pygment.css" rel="stylesheet">
+        <!-- /Stylesheets -->
+
+        <!-- RSS Feeds -->
+        <!-- /RSS Feeds -->
+
+        <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+          <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+          <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+
+
+    </head>
+
+    <body>
+
+        <!-- Header -->
+    <div class="header-container" style="background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url('/images/header_red.png'); background-position: center; background-size: cover;">
+
+            <!-- Static navbar -->
+            <div class="container">
+                <div class="header-nav">
+                    <div class="header-logo">
+                        <a class="pull-left" href="/"><img class="mr20" src="/images/logo.png" alt="logo">QRadioLink</a>
+                    </div>
+                    <div class="nav pull-right">
+                                <a href="/articles_index.html">Articles</a>
+                            <a  href="/pages/about.html">About</a>
+                            <a  href="/pages/development.html">Development</a>
+                            <a  href="/pages/credits.html">Credits</a>
+                            <a  href="/pages/downloads.html">Downloads</a>
+                            <a  href="/pages/screenshots.html">Screenshots</a>
+                            <a  href="/pages/support.html">Support</a>
+                    </div>
+                </div>
+            </div>
+            <!-- /Static navbar -->
+
+            <!-- Header -->
+    <!-- Header -->
+    <div class="container header-wrapper">
+        <div class="row">
+              <div class="col-lg-12">
+                  <div class="header-content">
+                      <h1 class="header-title">Implementation of an ETSI compliant DMR base station with the LimeNet Micro SDR working in TDMA mode (two inbound timeslots)</h1>
+                      <p class="header-date">By <a href="/author/adrian.html">Adrian</a>, Sat 28 August 2021, in category <a href="/category/amateur-radio.html">Amateur radio</a></p>
+                      <div class="header-underline"></div>
+                      <div class="clearfix"></div>
+                      <p class="pull-right header-tags">
+                          <span class="glyphicon glyphicon-tags mr5" aria-hidden="true"></span>
+<a href="/tag/LimeSDR.html">LimeSDR</a>, <a href="/tag/amateur-radio.html">amateur radio</a>, <a href="/tag/dmr.html">DMR</a>, <a href="/tag/digital-voice.html">Digital voice</a>                     </p>
+                  </div>
+              </div>
+        </div>
+    </div>
+    <!-- /Header -->
+            <!-- /Header -->
+
+        </div>
+        <!-- /Header -->
+
+
+        <!-- Content -->
+    <div class="container content">
+        <h2>Implementation of an ETSI compliant DMR base station with the LimeNet Micro SDR working in TDMA mode (two inbound timeslots)</h2>
+        
+
+<p>This article is a follow-up to the previous attempt to implement DMR land-mobile radio standard with SDR transceivers which can be read here: <a href="http://qradiolink.org/using-a-sdr-device-as-mmdvm-digital-voice-hotspot.html">DMR hotspot with a PlutoSDR device</a>. If you haven't already, it is suggested to read the previous article first to have an understanding of the software stack used, while this article will expand on the TDMA features required for a full DMR base station implementation. Further on, a DMR base station will be referred to as <b>"BS"</b> and the mobile station as the <b>"MS"</b>.<br/>
+</p>
+<p>While the previous implementation described above allowed the operation of a full duplex DMR BS, real TDMA operation was not possible because the GNU radio flowgraph latency is not deterministic, so some modifications were made to MMDVM in order to only receive timeslot 2 regardless of the timeslot used by MS transmissions, rendering one inbound channel unusable. The previous implementation also used <b>gr-osmosdr</b> as a wrapper to communicated with SDR devices, which made it compatible with most devices currently on the market. This has now changed, since gr-osmosdr does not support passing GNU radio FPGA timestamps.<br/>
+</p>
+<p>
+This time, we leverage MMDVM-SDR (<a href="https://github.com/kantooon/mmdvm-sdr">MMDVM-SDR</a>) operating as designed and receiving both inbound timeslots of a DMR BS. To operate in TDMA mode, we also need to employ SDR hardware which is capable of providing FPGA timestamps of received samples, and also able to transmit sample bursts at specified timestamps. The candidates which were tested were the LimeSDR-mini and LimeNET Micro devices, as they both provide FPGA timestamps. The LimeNET Micro was ultimately chosen for its ability to operate standalone. The LimeRFE device was used as a radio frontend for filtering and power amplification purposes, with the automatic control being provided by QRadioLink.<br/>
+</p>
+<p>
+The ETSI DMR specification relevant to this work can be found here: <a href="https://www.etsi.org/deliver/etsi_ts/102300_102399/10236101/01.04.05_60/ts_10236101v010405p.pdf">ETSI TS 102 361-1 V1.4.5 (2007-12)</a>. Some information below will be familiar:<br/>
+DMR is a radio standard which implements a double timeslot time division multiple access scheme (TDMA). This means that each base station (BS) can carry two radio conversations simultaneously in a single 12.5 kHz channnel, effectively offering double the capacity compared to a single FM 12.5 kHz repeater. More than that, the DMR protocol offers call routing between logical channels called talk groups, as well as direct calls between two DMR radios identified by a unique ID. Besides these advantages, the TDMA access scheme requires very strict timing for MS access to the BS, and the mobile station needs to be time synchronized to the BS and transmit within a specific window of time in order to be received in its own timeslot and avoid interfering with the other timeslot where a different radio transmission by a second MS can occur independently.<br/>
+The structure of the BS-originated TDMA frame transmission is depicted below:<br/>
+<img src="images/DMR_BS_TDMA_frame.png"><br/>
+The structure of the MS-originated TDMA frame transmission is depicted below:<br/>
+<img src="images/DMR_MS_TDMA_frame.png"><br/>
+The DMR BS needs to be able to receive samples in each timeslot aligned in time with samples transmitted in each timeslot. For the purposes of simplifying the concept, the BS is transmitting both timeslots and CACH bursts continuously. The time base for the MS to align to is set by the BS transmission.
+</p>
+
+<h3>QRadioLink / GNU Radio implementation</h3>
+<p>MMDVM implements OSI layers 3, 2 and partly 1, and provides four level FSK symbols at a rate of 24000 samples/second. These symbols are already filtered with a root-raised cosine filter.<br/>
+The GNU radio transmit flowgraph implemented in QRadioLink begins with a signal source which gets these samples from MMDVM-SDR via a ZeroMQ socket, handles frequency modulation, filtering and up-sampling. The flowgraph ends with a LimeSDR sink which sends the samples to a LimeSDR device for transmission.<br/>
+On the opposite side, samples received by the LimeSDR devices enter the GNU radio receive flowgraph of QRadioLink through a LimeSDR source, are downsampled to 24000 samples/second and filtered, and finally frequency demodulated, before being sent via ZeroMQ packets to MMDVM-SDR.
+The ZeroMQ custom sinks and sources implemented in QRadioLink use IPC (inter-process communication) as a delivery mechanism and are now different to the GNU radio ZeroMQ sinks and sources for the purposes of custom processing.</br>
+QRadioLink also serves here as an user interface to handle SDR tuning and setup of RX/TX offsets necessary for a full duplex base station, while also handling automatic control and band operation setup of the LimeRFE radio frontend.</br>
+</p>
+
+<h3>TDMA implementation and burst timing</h3>
+<p>
+The LimeSDR source provides FPGA timstamps for each packet of samples received. The packet size can vary, however these timestamps are converted to <b>"rx_time"</b> GNU radio tags containing a tuple of: <br/>
+<ul>
+<li>integer number of seconds since source initialization</li>
+<li>fractional number of seconds since source initialization</li>
+</ul>
+<br/>
+For our BS application to work, we need to initialize the RX stream before intializing the TX stream. This will allow the GNU radio time tags to configure the burst timing code with a known time base of the SDR device. Since the time tags are not applied to each sample received, we will need to keep a count of the number of received samples downstream, and calculate the exact time of each sample by multiplying the sample counter with the estimated time spent per sample. All time records will be converted and kept internally as nanoseconds.<br/>
+The burst time allocator for transmitted samples will use this internal time reference to create <b>"tx_time"</b> time tags containing the same integer and fractional seconds described above.<br/>
+MMDVM-SDR provides a buffer of control elements marking the start of each slot along side the actual sample buffer. These control elements are sent via ZeroMQ to QRadioLink along with 16 bit samples. Once a control element has been encountered in the incoming buffer, the code will allocate a time in the future for a DMR timeslot, and store this time in an internal queue. In order to be able to transmit the samples, the time has to be far enough in the future so that any latency in the GNU radio flowgraph does not lead to dropped samples. Experimentally the burst delay for the time tags was chosen between 50 - 100 milliseconds in the future, which allows enough time for the non-deterministic nature of GNU radio block calls.<br/>
+Received samples continuously increment the internal sample counter used to determine the exact time of a sample, and each sample is then checked against the queue of transmitted time slots. If a sample is deemed to fit inside the next possible timeslot, another counter is started until the timeslot stored in the queue has received all possible samples (a DMR timeslot is 30 milliseconds long, so at the sample rate of 24000, there are 720 samples inside a timeslot).<br/>
+ZeroMQ messages passed between QRadioLink and MMDVM-SDR contain three data structures: a 32 bit integer reprezenting the number of available samples in the message, a buffer of 8 bit integers which contain control data (slot start marks) for each sample, and a buffer of signed 16 bit samples to be modulated / demodulated.<br/>
+The code for the LimeSDR sinks and sources is the same code used in the <b>gr-limesdr</b> package, however it has been altered slightly to provide some debug information and also provide time tags for each data packet received, so this code is currently included in the QRadioLink repository.
+</p>
+
+<h3>Operation</h3>
+<p>For operation instructions, refer to the previous article on this topic: <a href="http://qradiolink.org/using-a-sdr-device-as-mmdvm-digital-voice-hotspot.html">DMR hotspot with a PlutoSDR device</a> as the instructions apply here as well.
+</p>
+
+<p>
+The TDMA functionality described here can now be found in the <b>mmdvm_tdma</b> branch of the QRadioLink source repository and will be included in a release in the near future. The matching code for MMDVM-SDR can be found in the <b>zmq_double_slot</b> branch here: <a href="https://github.com/kantooon/mmdvm-sdr">MMDVM-SDR</a> but it is not currently compatible with regular GNU radio flowgraphs designed with GNU radio companion, due to the custom code required for TDMA operation.<br/>
+</p>
+
+<h3>Credits</h3>
+<p>This article was made possible by Jonathan Naylor G4KLX (the author of MMDVM and MMDVMHost), Peter Rakesh (the author of the Linux port, MMDVM-SDR) and <a href="https://limemicro.com/">Lime Microsystems</a> who supplied the SDR transceiver used for this purpose.
+</p>
+
+<p>Video of the LimeNET Micro as a SDR DMR BS receiving TDMA trasnmissions from the DMR MS:<br/>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/Ladkb7xG6A0" frameborder="0" allowfullscreen></iframe>
+</p>
+
+
+
+
+        
+    </div>
+        <!-- /Content --> 
+
+        <!-- Footer -->
+        <div class="footer gradient-2">
+            <div class="container footer-container ">
+                <div class="row">
+                    <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
+                        <div class="footer-title"></div>
+                        <ul class="list-unstyled">
+                        </ul>
+                    </div>
+                    <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
+                        <div class="footer-title"></div>
+                        <ul class="list-unstyled">
+                            <li><a href="https://freedv.org/" target="_blank">FreeDV</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
+                        <div class="footer-title">Links</div>
+                        <ul class="list-unstyled">
+                            <li><a href="https://github.com/qradiolink/qradiolink" target="_blank">Code</a></li>
+                            <li><a href="https://github.com/qradiolink/qradiolink/issues" target="_blank">Issues</a></li>
+                        </ul>
+                    </div> 
+                    <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
+                        <p class="pull-right text-right">
+                            <small><em>Theme and code by <a href="https://github.com/molivier" target="_blank">molivier</a></em></small><br/>
+                            <small>&copy; Adrian Musceac 2017<br>Content on this site is licensed under a Creative Commons Attribution 4.0 International license. They are not for commercial use and must be shared under same conditions.</small>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /Footer -->
+    </body>
+</html>
