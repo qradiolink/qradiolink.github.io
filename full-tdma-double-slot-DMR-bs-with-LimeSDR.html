@@ -94,7 +94,9 @@ This time, we leverage MMDVM-SDR (<a href="https://github.com/kantooon/mmdvm-sdr
 </p>
 <br/><br/>
 <p>
-The ETSI DMR specification relevant to this work (air interface and burst characterization) can be found at this link: <a href="https://www.etsi.org/deliver/etsi_ts/102300_102399/10236101/01.04.05_60/ts_10236101v010405p.pdf">ETSI TS 102 361-1 V1.4.5 (2007-12)</a>. A short summary as some information below will already be familiar:<br/>
+The ETSI DMR specification relevant to this work (air interface and burst characterization) can be found at this link: <a href="https://www.etsi.org/deliver/etsi_ts/102300_102399/10236101/01.04.05_60/ts_10236101v010405p.pdf">ETSI TS 102 361-1 V1.4.5 (2007-12)</a>. <br/>
+Since our aim is to be relatively ETSI compliant, here is a short summary as some information below will already be familiar:
+<br/>
 DMR is a land-mobile voice and data communications radio standard which implements a double timeslot time division multiple access scheme (TDMA). Each DMR base station can carry two radio conversations simultaneously in a single 12.5 kHz channnel, effectively offering double the call  capacity compared to a single FM 12.5 kHz repeater channel. More than that, the DMR protocol offers call routing via IP transport between logical channels called talk groups, as well as direct calls between two DMR radios identified by a unique ID. Besides these advantages, the TDMA access scheme requires very strict timing for MS access to the BS, and the mobile station needs to be time synchronized to the BS and transmit within a specific window of time in order to be received in its own timeslot and avoid interfering with the other timeslot where a different radio transmission by a second MS can occur independently.
 </p>
 <br/>
@@ -106,6 +108,7 @@ The structure of the MS-originated TDMA frame transmission is depicted below:<br
 The DMR BS needs to be able to receive samples in each timeslot aligned in time with samples transmitted in each timeslot. For the purposes of simplifying the concept, the BS is transmitting both timeslots and CACH bursts continuously. The time base for the MS to align to is set by the BS transmission and does not require an external time reference.
 </p>
 </br></br>
+
 <h3>QRadioLink / GNU Radio implementation of lower PHY and communication with MMDVM</h3>
 <p>MMDVM implements OSI layers 3, 2 and partly 1, and provides four level FSK symbols at a rate of 24000 samples/second. These symbols are filtered with a root-raised cosine filter.
 </p>
@@ -186,7 +189,7 @@ Due to the latency involved both on the receive chain and the transmit chain, th
 </p>
 <br/>
 <p>
-The TDMA functionality described here can now be found in the <b>mmdvm_tdma</b> branch of the QRadioLink source repository and will be included in a release in the near future. The matching code for MMDVM-SDR can be found in the <b>zmq_double_slot</b> branch here: <a href="https://github.com/kantooon/mmdvm-sdr">MMDVM-SDR</a> but it is not currently compatible with regular GNU radio flowgraphs designed with GNU radio companion, due to the custom code required for TDMA operation.
+The TDMA functionality described here can now be found in the <b>mmdvm_tdma</b> branch of the QRadioLink source repository and will be included in a release in the near future. The matching code for MMDVM-SDR can be found in the <b>zmq_double_slot</b> branch here: <a href="https://github.com/kantooon/mmdvm-sdr/tree/zmq_double_slot">MMDVM-SDR</a> but it is not currently compatible with regular GNU radio flowgraphs designed with GNU radio companion, due to the custom code required for TDMA operation. Of course, the code is still work in progress, with some bugs still present and issues still left unresolved, but feel free to contribute via the usual channels.
 </p>
 <br/><br/>
 
