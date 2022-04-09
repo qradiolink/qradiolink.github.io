@@ -124,6 +124,18 @@ ZeroMQ messages passed between QRadioLink and MMDVM-SDR contain three data struc
 The code for the LimeSDR sinks and sources is the same code used in the <b>gr-limesdr</b> package, however it has been altered slightly to provide some debug information and also provide time tags for each data packet received, so this code is currently included in the QRadioLink repository.
 </p>
 
+<h3>Issues</h3>
+<p>During implementation and testing, a couple of issues became apparent with the SDR implementation of the DMR BS.<br/>
+</p>
+<p>
+<ul>
+<li>Latency of the transmitting / receiving chain. Besides the inherent latency of the GNU radio scheduler, ZeroMQ message passing also introduces latency in the system. Also, due to TX bursts being scheduled for transmit in the future, an additional mandatory fixed latency is added. With long transmissions, the latency can add up to large values.</li>
+<li>BS downlink activation from an idle, non-transmitting state to an idle, transmitting state can take more time than the internal MS timers allow for. The DMR MS operates an internal state machine, and the BS activation procedure consists of: MS sends a single burst containing CSBK and sync, then switches to receive mode for a number of milliseconds in order to receive the BS transmission and acquire the time base. After the time base has been acquired, the MS continues sending bursts containing voice / data headers and actual payload bursts in the desired timeslot.
+Due to the latency involved both on the receive chain and the transmit chain, the time required for the BS first downlink activation bursts to be transmitted can exceed the internal MS timer, leading to a missed activation (the MS will display an error message stating the DMR repeater is not available). However, the MMDVMHost program can be configured for a higher value of TXHang or CallHang as desired, and when the first MS sourced burst fails due to the internal timer expiring, a subsequent MS transmission will succeed due to the BS being active and still transmitting for a number of seconds after activation.</li>
+<li>MMDVM burst synchronization is very sensitive to the frequency being offset more than 100 - 200 Hz from optimal. Due to thermal drift, the actual SDR frequency can change after long periods of time, leading tp failures of acquiring synchronization lock for BS received bursts.</li>
+</ul>
+</p>
+
 <h3>Operation</h3>
 <p>For operation instructions, refer to the previous article on this topic: <a href="http://qradiolink.org/using-a-sdr-device-as-mmdvm-digital-voice-hotspot.html">DMR hotspot with a PlutoSDR device</a> as the instructions apply here as well.
 </p>
